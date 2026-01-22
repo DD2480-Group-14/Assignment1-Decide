@@ -1,0 +1,94 @@
+public class CMV {
+
+    private int numpoints;
+    private double[][] points;
+    private Parameters parameters;
+
+
+    public CMV(int numpoints, double[][] points, Parameters parameters) {
+        this.numpoints = numpoints;
+        this.points = points;
+        this.parameters = parameters;
+    }
+
+    public boolean[] calcCmv() {
+        boolean[] output = new boolean[15];
+        output[0] = lic0();
+        output[1] = lic1();
+        output[2] = lic2();
+        output[3] = lic3();
+        output[4] = lic4();
+        output[5] = lic5();
+        output[6] = lic6();
+        output[7] = lic7();
+        output[8] = lic8();
+        output[9] = lic9();
+        output[10] = lic10();
+        output[11] = lic11();
+        output[12] = lic12();
+        output[13] = lic13();
+        output[14] = lic14();
+        return output;
+    }
+
+    public boolean lic0() {
+        return false;
+    }
+
+    public boolean lic1() {
+        return false;
+    }
+
+    public boolean lic2() {
+        return false;
+    }
+
+    public boolean lic3() {
+        return false;
+    }
+
+    public boolean lic4() {
+        return false;
+    }
+
+    public boolean lic5() {
+        return false;
+    }
+
+    public boolean lic6() {
+        return false;
+    }
+
+    public boolean lic7() {
+        return false;
+    }
+
+    public boolean lic8() {
+        return false;
+    }
+
+    public boolean lic9() {
+        return false;
+    }
+
+    public boolean lic10() {
+        return false;
+    }
+
+    public boolean lic11() {
+        return false;
+    }
+
+    public boolean lic12() {
+        return false;
+    }
+
+    public boolean lic13() {
+        return false;
+    }
+
+    public boolean lic14() {
+        return false;
+    }
+
+}
