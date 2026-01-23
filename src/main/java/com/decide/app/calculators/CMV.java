@@ -36,7 +36,27 @@ public class CMV {
         return output;
     }
 
+    // If we find ourselves using this outside of this file then it should be moved into some sort of helper folder/file
+    private int calculateDistanceBetweenTwoPoints(Point pointA, Point pointB) {
+	int distanceX = pointA.x - pointB.x;
+	int distanceY = pointA.y - pointB.y;
+	int totalDistance = Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2));
+	return totalDistance;
+    }
+
     public boolean lic0() {
+	// Not optimal choice of algorithm but performance is not top priority
+	for (int i = 0; i < points.length; i++) {
+		for (int j = 0; j < points.length; j++) {
+			if (i == j) {
+				continue;
+			}
+			int distanceBetweenPoints = calculateDistanceBetweenTwoPoints(points[i], points[j]);
+			if (distanceBetweenPoints >= parameters.LENGTH1) {
+				return true;
+			}
+		}
+	}
         return false;
     }
 
