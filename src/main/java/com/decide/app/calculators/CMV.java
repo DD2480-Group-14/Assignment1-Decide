@@ -45,12 +45,8 @@ public class CMV {
     }
 
     public boolean lic0() {
-	// Not optimal choice of algorithm but performance is not top priority
 	for (int i = 0; i < points.length; i++) {
-		for (int j = 0; j < points.length; j++) {
-			if (i == j) {
-				continue;
-			}
+		for (int j = i + 1; j < points.length; j++) {
 			int distanceBetweenPoints = calculateDistanceBetweenTwoPoints(points[i], points[j]);
 			if (distanceBetweenPoints >= parameters.LENGTH1) {
 				return true;
