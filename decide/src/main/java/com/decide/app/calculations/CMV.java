@@ -1,11 +1,11 @@
 public class CMV {
 
     private int numpoints;
-    private double[][] points;
+    private Point[] points;
     private Parameters parameters;
 
 
-    public CMV(int numpoints, double[][] points, Parameters parameters) {
+    public CMV(int numpoints, Point[] points, Parameters parameters) {
         this.numpoints = numpoints;
         this.points = points;
         this.parameters = parameters;
