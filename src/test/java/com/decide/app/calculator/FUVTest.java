@@ -1,13 +1,13 @@
-package com.decide.app;
+package com.decide.app.calculator;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit test for CMV computation.
+ * Unit test for FUV computation.
  */
-public class CMVTest {
+public class FUVTest {
 
     /**
      * Rigorous Test :-)

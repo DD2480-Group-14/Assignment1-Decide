@@ -1,13 +1,15 @@
-package com.decide.app;
+package com.decide.app.calculator;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import com.decide.app.model.Point;
+
 /**
- * Unit test for FUV computation.
+ * Unit test for CMV computation.
  */
-public class FUVTest {
+public class CMVTest {
 
     /**
      * Rigorous Test :-)
@@ -16,4 +18,5 @@ public class FUVTest {
     public void shouldAnswerWithTrue() {
         assertTrue(true);
     }
+
 }
