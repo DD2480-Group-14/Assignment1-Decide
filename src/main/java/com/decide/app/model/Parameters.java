@@ -1,3 +1,5 @@
+package com.decide.app.model;
+
 public class Parameters {
     double LENGTH1;
     double RADIUS1;
