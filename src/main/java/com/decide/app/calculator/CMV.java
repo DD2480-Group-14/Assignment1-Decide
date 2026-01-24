@@ -1,4 +1,4 @@
-package com.decide.app.calculations;
+package com.decide.app.calculator;
 
 import com.decide.app.model.Point;
 import com.decide.app.model.Parameters;
