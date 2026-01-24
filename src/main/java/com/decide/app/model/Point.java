@@ -1,4 +1,4 @@
-
+package com.decide.app.model;
 /**
  * Custom datastructure that contain the coordiate information of a planar point.
  */

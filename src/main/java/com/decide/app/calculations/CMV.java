@@ -1,3 +1,6 @@
+import com.decide.app.model.Point;
+import com.decide.app.model.Parameters;
+
 public class CMV {
 
     private int numpoints;
