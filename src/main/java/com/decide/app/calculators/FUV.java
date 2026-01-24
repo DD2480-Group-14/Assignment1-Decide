@@ -1,4 +1,4 @@
-package com.decide.app.calculations;
+package com.decide.app.calculators;
 
 public class FUV {
 

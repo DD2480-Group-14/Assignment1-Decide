@@ -6,8 +6,8 @@ package com.decide.app.model;
 public class Point {
     
 
-    double x;
-    double y;
+    public double x;
+    public double y;
 
     /**
      * Creates a point with the given x and y coordinates.

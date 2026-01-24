@@ -1,3 +1,5 @@
+package com.decide.app.calculators;
+
 import com.decide.app.model.Point;
 import com.decide.app.model.Parameters;
 
@@ -54,7 +56,15 @@ public class CMV {
         return false;
     }
 
+    /**
+     * Is true if there esists at leat one set of two consecutive points such that points[j].x - points[i].x < 0, where i = j-1.
+     */
     public boolean lic5() {
+        for (int i = 0, j = 1; j < numpoints; i++, j++) {
+            if (points[j].x - points[i].x < 0.0) {
+                return true;
+            }
+        }
         return false;
     }
 
