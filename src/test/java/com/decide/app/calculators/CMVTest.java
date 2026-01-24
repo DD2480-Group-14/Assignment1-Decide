@@ -24,7 +24,7 @@ public class CMVTest {
     void lic5Positive() {
         int numpoints = 2;
         Point[] points = new Point[] {new Point(1.0, 0.0), new Point(0.0, 0.0)};
-	Parameters parameters = new Parameters();
+        Parameters parameters = new Parameters();
         CMV cmv = new CMV(numpoints, points, parameters);
 
         assertTrue(cmv.lic5());
@@ -35,7 +35,7 @@ public class CMVTest {
         // lic5 should be false if two concecutive points have the same x value.
         int numpoints = 2;
         Point[] points = new Point[] {new Point(0.0, 0.0), new Point(0.0, 0.0)};
-	Parameters parameters = new Parameters();
+        Parameters parameters = new Parameters();
         CMV cmv = new CMV(numpoints, points, parameters);
 
         assertFalse(cmv.lic5());
@@ -45,7 +45,7 @@ public class CMVTest {
     void lic5FewerThanTwoPoints() {
         int numpoints = 1;
         Point[] points = new Point[] {new Point(0.0, 0.0)};
-	Parameters parameters = new Parameters();
+        Parameters parameters = new Parameters();
         CMV cmv = new CMV(numpoints, points, parameters);
 
         assertFalse(cmv.lic5());
