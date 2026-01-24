@@ -1,13 +1,13 @@
-package com.decide.app.calculator;
+package com.decide.app.calculators;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit test for FUV computation.
+ * Unit test for PUM computation.
  */
-public class FUVTest {
+public class PUMTest {
 
     /**
      * Rigorous Test :-)

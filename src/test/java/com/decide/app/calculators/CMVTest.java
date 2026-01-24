@@ -1,4 +1,4 @@
-package com.decide.app.calculator;
+package com.decide.app.calculators;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;

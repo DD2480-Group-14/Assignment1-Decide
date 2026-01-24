@@ -1,4 +1,4 @@
-package com.decide.app.calculator;
+package com.decide.app.calculators;
 
 public class PUM {
 
