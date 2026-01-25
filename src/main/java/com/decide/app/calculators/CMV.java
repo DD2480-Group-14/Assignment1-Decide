@@ -57,6 +57,9 @@ public class CMV {
      * from side lengths.
      */
     public boolean lic3() {
+        if (points.length < 3) {
+            return false;
+        }
         for (int i = 0; i < points.length - 2; ++i) {
             double length_a = distancematrix.dist(i, i + 1);
             double length_b = distancematrix.dist(i + 1, i + 2);
