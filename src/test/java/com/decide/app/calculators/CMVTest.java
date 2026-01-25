@@ -24,9 +24,9 @@ public class CMVTest {
     void lic0False() {
         Point[] points = new Point[] {new Point(0.0, 0.0), new Point(1.0, 1.0)};
         Parameters parameters = new Parameters();
-	parameters.LENGTH1 = 2.0;
+        parameters.LENGTH1 = 2.0;
         CMV cmv = new CMV(points, parameters);
-	boolean result = cmv.lic0();
+        boolean result = cmv.lic0();
 
         assertFalse(result);
     }
@@ -35,9 +35,9 @@ public class CMVTest {
     void lic0True() {
         Point[] points = new Point[] {new Point(0.0, 0.0), new Point(1.0, 1.0), new Point(1.0, 1.0)};
         Parameters parameters = new Parameters();
-	parameters.LENGTH1 = 1.0;
+        parameters.LENGTH1 = 1.0;
         CMV cmv = new CMV(points, parameters);
-	boolean result = cmv.lic0();
+        boolean result = cmv.lic0();
 
         assertTrue(result);
     }
@@ -46,9 +46,9 @@ public class CMVTest {
     void lic0BoundaryCase() {
         Point[] points = new Point[] {new Point(0.0, 0.0), new Point(0.0, 1.0)};
         Parameters parameters = new Parameters();
-	parameters.LENGTH1 = 1.0;
+        parameters.LENGTH1 = 1.0;
         CMV cmv = new CMV(points, parameters);
-	boolean result = cmv.lic0();
+        boolean result = cmv.lic0();
 
         assertTrue(result);
     }
@@ -59,9 +59,9 @@ public class CMVTest {
         Point[] points = new Point[] {new Point(0.0, 0.0)};
         Parameters parameters = new Parameters();
         CMV cmv = new CMV(points, parameters);
-	boolean result = cmv.lic0();
+        boolean result = cmv.lic0();
         
-	assertFalse(result);
+        assertFalse(result);
     }
 
     @Test
