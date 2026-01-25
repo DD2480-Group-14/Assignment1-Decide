@@ -2,18 +2,20 @@ package com.decide.app.calculators;
 
 import com.decide.app.model.Point;
 import com.decide.app.model.Parameters;
+import com.decide.app.model.DistanceMatrix;
 
 public class CMV {
 
     private int numpoints;
     private Point[] points;
     private Parameters parameters;
-
+    private DistanceMatrix distancematrix;
 
     public CMV(int numpoints, Point[] points, Parameters parameters) {
         this.numpoints = numpoints;
         this.points = points;
         this.parameters = parameters;
+        this.distancematrix = new DistanceMatrix(points);
     }
 
     public boolean[] calcCmv() {
@@ -48,7 +50,25 @@ public class CMV {
         return false;
     }
 
+    /**
+     * Returns true of there exist a triangle with area greater than AREA1,
+     * consisting
+     * of three consecutive points. It uses Heron's formula to calculate the area
+     * from side lengths.
+     */
     public boolean lic3() {
+        for (int i = 0; i < points.length - 2; ++i) {
+            double length_a = distancematrix.dist(i, i + 1);
+            double length_b = distancematrix.dist(i + 1, i + 2);
+            double length_c = distancematrix.dist(i, i + 2);
+
+            double semiperimeter = (length_a + length_b + length_c) / 2;
+            double area = Math.sqrt(semiperimeter * (semiperimeter - length_a) * (semiperimeter - length_b)
+                    * (semiperimeter - length_c));
+            if (area > parameters.AREA1) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -57,7 +77,8 @@ public class CMV {
     }
 
     /**
-     * Is true if there esists at leat one set of two consecutive points such that points[j].x - points[i].x < 0, where i = j-1.
+     * Is true if there esists at leat one set of two consecutive points such that
+     * points[j].x - points[i].x < 0, where i = j-1.
      */
     public boolean lic5() {
         for (int i = 0, j = 1; j < numpoints; i++, j++) {
