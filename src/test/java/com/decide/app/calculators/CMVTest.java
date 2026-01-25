@@ -30,6 +30,15 @@ public class CMVTest {
     }
 
     @Test
+    void lic5Negative() {
+        Point[] points = new Point[] {new Point(0.0, 0.0), new Point(1.0, 0.0), new Point(2.0, 0.0)};
+        Parameters parameters = new Parameters();
+        CMV cmv = new CMV(points, parameters);
+
+        assertFalse(cmv.lic5());
+    }
+
+    @Test
     void lic5FalseBoundryCase() {
         // lic5 should be false if two concecutive points have the same x value.
         Point[] points = new Point[] {new Point(0.0, 0.0), new Point(0.0, 0.0)};
