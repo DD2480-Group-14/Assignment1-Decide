@@ -16,7 +16,7 @@ public class CMV {
         this.parameters = parameters;
     }
 
-    public boolean[] calcCmv() {
+    public boolean[] calculateCMV() {
         boolean[] output = new boolean[15];
         output[0] = lic0();
         output[1] = lic1();
