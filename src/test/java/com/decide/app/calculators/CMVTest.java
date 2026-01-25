@@ -20,6 +20,50 @@ public class CMVTest {
         assertTrue(true);
     }
 
+    @Test 
+    void lic0False() {
+        Point[] points = new Point[] {new Point(0.0, 0.0), new Point(1.0, 1.0), new Point(2.0, 2.0), new Point(1.0, 2.0)};
+        Parameters parameters = new Parameters();
+        parameters.LENGTH1 = 2.0;
+        CMV cmv = new CMV(points, parameters);
+        boolean result = cmv.lic0();
+
+        assertFalse(result);
+    }
+
+    @Test 
+    void lic0True() {
+        Point[] points = new Point[] {new Point(0.0, 0.0), new Point(1.0, 1.0), new Point(2.0, 2.0), new Point(1.0, 2.0)};
+        Parameters parameters = new Parameters();
+        parameters.LENGTH1 = 1.0;
+        CMV cmv = new CMV(points, parameters);
+        boolean result = cmv.lic0();
+
+        assertTrue(result);
+    }
+
+    @Test 
+    void lic0BoundaryCase() {
+        Point[] points = new Point[] {new Point(0.0, 0.0), new Point(0.0, 1.0)};
+        Parameters parameters = new Parameters();
+        parameters.LENGTH1 = 1.0;
+        CMV cmv = new CMV(points, parameters);
+        boolean result = cmv.lic0();
+
+        assertFalse(result);
+    }
+
+
+    @Test
+    void lic0FewerThanTwoPoints() {
+        Point[] points = new Point[] {new Point(0.0, 0.0)};
+        Parameters parameters = new Parameters();
+        CMV cmv = new CMV(points, parameters);
+        boolean result = cmv.lic0();
+        
+        assertFalse(result);
+    }
+
     @Test
     void lic5Positive() {
         Point[] points = new Point[] {new Point(1.0, 0.0), new Point(0.0, 0.0)};
