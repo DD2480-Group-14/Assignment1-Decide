@@ -2,18 +2,21 @@ package com.decide.app.calculators;
 
 import com.decide.app.model.Point;
 import com.decide.app.model.Parameters;
+import com.decide.app.model.DistanceMatrix;
 
 public class CMV {
 
     private int numpoints;
     private Point[] points;
     private Parameters parameters;
+    private DistanceMatrix distanceMatrix;
 
 
     public CMV(Point[] points, Parameters parameters) {
         this.numpoints = points.length;
         this.points = points;
         this.parameters = parameters;
+	this.distanceMatrix = new DistanceMatrix(points);
     }
 
     public boolean[] calculateCMV() {
@@ -36,18 +39,10 @@ public class CMV {
         return output;
     }
 
-    // If we find ourselves using this outside of this file then it should be moved into some sort of helper folder/file
-    private int calculateDistanceBetweenTwoPoints(Point pointA, Point pointB) {
-	int distanceX = pointA.x - pointB.x;
-	int distanceY = pointA.y - pointB.y;
-	int totalDistance = Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2));
-	return totalDistance;
-    }
-
     public boolean lic0() {
 	for (int i = 0; i < points.length; i++) {
 		for (int j = i + 1; j < points.length; j++) {
-			int distanceBetweenPoints = calculateDistanceBetweenTwoPoints(points[i], points[j]);
+			double distanceBetweenPoints = distanceMatrix.distances[i][j];
 			if (distanceBetweenPoints >= parameters.LENGTH1) {
 				return true;
 			}
