@@ -22,7 +22,7 @@ public class CMVTest {
 
     @Test 
     void lic0False() {
-        Point[] points = new Point[] {new Point(0.0, 0.0), new Point(1.0, 1.0)};
+        Point[] points = new Point[] {new Point(0.0, 0.0), new Point(1.0, 1.0), new Point(2.0, 2.0), new Point(1.0, 2.0)};
         Parameters parameters = new Parameters();
         parameters.LENGTH1 = 2.0;
         CMV cmv = new CMV(points, parameters);
@@ -33,7 +33,7 @@ public class CMVTest {
 
     @Test 
     void lic0True() {
-        Point[] points = new Point[] {new Point(0.0, 0.0), new Point(1.0, 1.0), new Point(1.0, 1.0)};
+        Point[] points = new Point[] {new Point(0.0, 0.0), new Point(1.0, 1.0), new Point(2.0, 2.0), new Point(1.0, 2.0)};
         Parameters parameters = new Parameters();
         parameters.LENGTH1 = 1.0;
         CMV cmv = new CMV(points, parameters);
@@ -50,7 +50,7 @@ public class CMVTest {
         CMV cmv = new CMV(points, parameters);
         boolean result = cmv.lic0();
 
-        assertTrue(result);
+        assertFalse(result);
     }
 
 

@@ -40,12 +40,10 @@ public class CMV {
     }
 
     public boolean lic0() {
-		for (int i = 0; i < points.length; i++) {
-			for (int j = i + 1; j < points.length; j++) {
-				double distanceBetweenPoints = distanceMatrix.distances[i][j];
-				if (distanceBetweenPoints >= parameters.LENGTH1) {
-					return true;
-				}
+		for (int i = 0; i < points.length - 1; i++) {
+			double distanceBetweenPoints = distanceMatrix.distances[i][i+1];
+			if (distanceBetweenPoints > parameters.LENGTH1) {
+				return true;
 			}
 		}
 		return false;
