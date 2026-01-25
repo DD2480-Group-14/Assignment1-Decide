@@ -10,8 +10,8 @@ public class CMV {
     private Parameters parameters;
 
 
-    public CMV(int numpoints, Point[] points, Parameters parameters) {
-        this.numpoints = numpoints;
+    public CMV(Point[] points, Parameters parameters) {
+        this.numpoints = points.length;
         this.points = points;
         this.parameters = parameters;
     }
