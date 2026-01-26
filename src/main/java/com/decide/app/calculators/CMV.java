@@ -39,6 +39,20 @@ public class CMV {
         return output;
     }
 
+    /**
+     * Return the area of a triangle with side lengths specified by
+     * the parameters. The area is calculated using Heron's formula.
+     */
+    public double calculateTriangleArea(double sideLengthA, double sideLengthB, double sideLengthC) {
+        double semiperimeter = (sideLengthA + sideLengthB + sideLengthC) / 2;
+        double area = Math.sqrt(semiperimeter
+                * (semiperimeter - sideLengthA)
+                * (semiperimeter - sideLengthB)
+                * (semiperimeter - sideLengthC));
+
+        return area;
+    }
+
     public boolean lic0() {
 		for (int i = 0; i < points.length - 1; i++) {
 			double distanceBetweenPoints = distanceMatrix.distances[i][i+1];
@@ -57,7 +71,26 @@ public class CMV {
         return false;
     }
 
+    /**
+     * Returns true of there exist a triangle with area greater than AREA1,
+     * consisting
+     * of three consecutive points. It uses Heron's formula to calculate the area
+     * from side lengths.
+     */
     public boolean lic3() {
+        if (points.length < 3) {
+            return false;
+        }
+        for (int i = 0; i < points.length - 2; ++i) {
+            double sideLengthA = distanceMatrix.dist(i, i + 1);
+            double sideLengthB = distanceMatrix.dist(i + 1, i + 2);
+            double sideLengthC = distanceMatrix.dist(i, i + 2);
+
+            double area = calculateTriangleArea(sideLengthA, sideLengthB, sideLengthC);
+            if (area > parameters.AREA1) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -66,7 +99,8 @@ public class CMV {
     }
 
     /**
-     * Is true if there esists at leat one set of two consecutive points such that points[j].x - points[i].x < 0, where i = j-1.
+     * Is true if there esists at leat one set of two consecutive points such that
+     * points[j].x - points[i].x < 0, where i = j-1.
      */
     public boolean lic5() {
         for (int i = 0, j = 1; j < numpoints; i++, j++) {
