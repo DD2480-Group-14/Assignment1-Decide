@@ -9,13 +9,13 @@ public class CMV {
     private int numpoints;
     private Point[] points;
     private Parameters parameters;
-    private DistanceMatrix distancematrix;
+    private DistanceMatrix distanceMatrix;
 
-    public CMV(int numpoints, Point[] points, Parameters parameters) {
-        this.numpoints = numpoints;
+    public CMV(Point[] points, Parameters parameters) {
+        this.numpoints = points.length;
         this.points = points;
         this.parameters = parameters;
-        this.distancematrix = new DistanceMatrix(points);
+        this.distanceMatrix = new DistanceMatrix(points);
     }
 
     public boolean[] calcCmv() {
@@ -36,6 +36,20 @@ public class CMV {
         output[13] = lic13();
         output[14] = lic14();
         return output;
+    }
+
+    /**
+     * Return the area of a triangle with side lengths specified by
+     * the parameters. The area is calculated using Heron's formula.
+     */
+    public double calculateTriangleArea(double sideLengthA, double sideLengthB, double sideLengthC) {
+        double semiperimeter = (sideLengthA + sideLengthB + sideLengthC) / 2;
+        double area = Math.sqrt(semiperimeter
+                * (semiperimeter - sideLengthA)
+                * (semiperimeter - sideLengthB)
+                * (semiperimeter - sideLengthC));
+
+        return area;
     }
 
     public boolean lic0() {
@@ -61,13 +75,11 @@ public class CMV {
             return false;
         }
         for (int i = 0; i < points.length - 2; ++i) {
-            double length_a = distancematrix.dist(i, i + 1);
-            double length_b = distancematrix.dist(i + 1, i + 2);
-            double length_c = distancematrix.dist(i, i + 2);
+            double sideLengthA = distanceMatrix.dist(i, i + 1);
+            double sideLengthB = distanceMatrix.dist(i + 1, i + 2);
+            double sideLengthC = distanceMatrix.dist(i, i + 2);
 
-            double semiperimeter = (length_a + length_b + length_c) / 2;
-            double area = Math.sqrt(semiperimeter * (semiperimeter - length_a) * (semiperimeter - length_b)
-                    * (semiperimeter - length_c));
+            double area = calculateTriangleArea(sideLengthA, sideLengthB, sideLengthC);
             if (area > parameters.AREA1) {
                 return true;
             }

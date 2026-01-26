@@ -23,32 +23,29 @@ public class CMVTest {
 
     @Test
     void lic3ObtuseAngledTriangle() {
-        int numpoints = 3;
         Point[] points = new Point[] { new Point(0.0, 0.0), new Point(1.0, 0.0), new Point(0.5, 0.1) };
         Parameters parameters = new Parameters();
         parameters.AREA1 = 1;
-        CMV cmv = new CMV(numpoints, points, parameters);
+        CMV cmv = new CMV(points, parameters);
 
         assertFalse(cmv.lic3());
     }
 
     @Test
     void lic3TooFewPoints() {
-        int numpoints = 2;
         Point[] points = new Point[] { new Point(0.0, 0.0), new Point(1.0, 1.0) };
         Parameters parameters = new Parameters();
-        CMV cmv = new CMV(numpoints, points, parameters);
+        CMV cmv = new CMV(points, parameters);
 
         assertFalse(cmv.lic3());
     }
 
     @Test
     void lic3ValidTriangle() {
-        int numpoints = 3;
         Point[] points = new Point[] { new Point(0.0, 0.0), new Point(0.0, 1.0), new Point(1.0, 0.0) };
         Parameters parameters = new Parameters();
         parameters.AREA1 = 0.1;
-        CMV cmv = new CMV(numpoints, points, parameters);
+        CMV cmv = new CMV(points, parameters);
 
         assertTrue(cmv.lic3());
     }
@@ -62,7 +59,7 @@ public class CMVTest {
         }
         Parameters parameters = new Parameters();
         parameters.AREA1 = 1.0;
-        CMV cmv = new CMV(numpoints, points, parameters);
+        CMV cmv = new CMV(points, parameters);
 
         assertFalse(cmv.lic3());
     }
@@ -79,17 +76,16 @@ public class CMVTest {
         }
         Parameters parameters = new Parameters();
         parameters.AREA1 = 1.0;
-        CMV cmv = new CMV(numpoints, points, parameters);
+        CMV cmv = new CMV(points, parameters);
 
         assertTrue(cmv.lic3());
     }
 
     @Test
     void lic5Positive() {
-        int numpoints = 2;
         Point[] points = new Point[] { new Point(1.0, 0.0), new Point(0.0, 0.0) };
         Parameters parameters = new Parameters();
-        CMV cmv = new CMV(numpoints, points, parameters);
+        CMV cmv = new CMV(points, parameters);
 
         assertTrue(cmv.lic5());
     }
@@ -97,20 +93,18 @@ public class CMVTest {
     @Test
     void lic5FalseBoundryCase() {
         // lic5 should be false if two concecutive points have the same x value.
-        int numpoints = 2;
         Point[] points = new Point[] { new Point(0.0, 0.0), new Point(0.0, 0.0) };
         Parameters parameters = new Parameters();
-        CMV cmv = new CMV(numpoints, points, parameters);
+        CMV cmv = new CMV(points, parameters);
 
         assertFalse(cmv.lic5());
     }
 
     @Test
     void lic5FewerThanTwoPoints() {
-        int numpoints = 1;
         Point[] points = new Point[] { new Point(0.0, 0.0) };
         Parameters parameters = new Parameters();
-        CMV cmv = new CMV(numpoints, points, parameters);
+        CMV cmv = new CMV(points, parameters);
 
         assertFalse(cmv.lic5());
     }
