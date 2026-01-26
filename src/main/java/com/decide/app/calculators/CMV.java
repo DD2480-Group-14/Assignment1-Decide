@@ -11,7 +11,6 @@ public class CMV {
     private Parameters parameters;
     private DistanceMatrix distanceMatrix;
 
-
     public CMV(Point[] points, Parameters parameters) {
         this.numpoints = points.length;
         this.points = points;
@@ -53,21 +52,52 @@ public class CMV {
         return area;
     }
 
+    public double calculateAngle(double sideLengthA, double sideLengthB, double sideLengthC) {
+        double cos_angle = (sideLengthA * sideLengthA
+                + sideLengthB * sideLengthB
+                - sideLengthC * sideLengthC)
+                / (2 * sideLengthA * sideLengthB);
+
+        return Math.acos(cos_angle);
+    }
+
     public boolean lic0() {
-		for (int i = 0; i < points.length - 1; i++) {
-			double distanceBetweenPoints = distanceMatrix.distances[i][i+1];
-			if (distanceBetweenPoints > parameters.LENGTH1) {
-				return true;
-			}
-		}
-		return false;
+        for (int i = 0; i < points.length - 1; i++) {
+            double distanceBetweenPoints = distanceMatrix.distances[i][i + 1];
+            if (distanceBetweenPoints > parameters.LENGTH1) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean lic1() {
         return false;
     }
 
+    /**
+     * Use the Law of Cosines to calculate the angle
+     * between three points.
+     */
     public boolean lic2() {
+        if (points.length < 3) {
+            return false;
+        }
+
+        for (int i = 0; i < points.length - 2; ++i) {
+            double sideLengthA = distanceMatrix.dist(i, i + 1);
+            double sideLengthB = distanceMatrix.dist(i + 1, i + 2);
+            double sideLengthC = distanceMatrix.dist(i, i + 2);
+
+            if (sideLengthA == 0 || sideLengthB == 0) {
+                continue;
+            }
+
+            double angle = calculateAngle(sideLengthA, sideLengthB, sideLengthC);
+            if (angle < Math.PI - parameters.EPSILON || angle > Math.PI + parameters.EPSILON) {
+                return true;
+            }
+        }
         return false;
     }
 
