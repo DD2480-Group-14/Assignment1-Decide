@@ -39,6 +39,10 @@ public class CMV {
         return output;
     }
 
+    java.util.function.BiFunction<Integer, Integer, Double> dist =
+                (i, j) -> Math.hypot(X[j] - X[i], Y[j] - Y[i]);
+
+
     public boolean lic0() {
 		for (int i = 0; i < points.length - 1; i++) {
 			double distanceBetweenPoints = distanceMatrix.distances[i][i+1];
@@ -82,6 +86,10 @@ public class CMV {
     }
 
     public boolean lic7() {
+        if (numpoints >= 3)
+            for (int i = 0; i + p.K_PTS + 1 < numpoints; i++)
+                if (dist.apply[i][i + parameters.K_PTS + 1] > parameters.LENGTH1)
+                    return true;
         return false;
     }
 
