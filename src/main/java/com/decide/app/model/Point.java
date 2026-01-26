@@ -17,4 +17,22 @@ public class Point {
         this.x = x;
         this.y = y;
     }
+
+    /**
+     * Creates an array of points from arrays of coordinates.
+     * @param xCoords x-coordinates
+     * @param yCoords y-coordinates
+     * @throws IllegalArgumentException if {@code xCoords.length != yCoords.length}
+     */
+    public static Point[] fromArrays(double[] xCoords, double[] yCoords) {
+        if (xCoords.length != yCoords.length) {
+            throw new IllegalArgumentException("Arrays must be of the same length");
+        }
+
+        Point[] points = new Point[xCoords.length];
+        for (int i = 0; i < xCoords.length; i++) {
+            points[i] = new Point(xCoords[i], yCoords[i]);
+        }
+        return points;
+    }
 }
