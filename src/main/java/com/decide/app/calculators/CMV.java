@@ -11,6 +11,7 @@ public class CMV {
     private Parameters parameters;
     private DistanceMatrix distanceMatrix;
 
+
     public CMV(Point[] points, Parameters parameters) {
         this.numpoints = points.length;
         this.points = points;
@@ -18,7 +19,7 @@ public class CMV {
         this.distanceMatrix = new DistanceMatrix(points);
     }
 
-    public boolean[] calcCmv() {
+    public boolean[] calculateCMV() {
         boolean[] output = new boolean[15];
         output[0] = lic0();
         output[1] = lic1();
@@ -53,7 +54,13 @@ public class CMV {
     }
 
     public boolean lic0() {
-        return false;
+		for (int i = 0; i < points.length - 1; i++) {
+			double distanceBetweenPoints = distanceMatrix.distances[i][i+1];
+			if (distanceBetweenPoints > parameters.LENGTH1) {
+				return true;
+			}
+		}
+		return false;
     }
 
     public boolean lic1() {
