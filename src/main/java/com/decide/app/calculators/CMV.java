@@ -52,6 +52,15 @@ public class CMV {
         return area;
     }
 
+    /**
+     * Use the Law of Cosines to calculate the angle
+     * between three points using only distances
+     * between them.
+     * @param sideLengthA First side adjacent to vertex
+     * @param sideLengthB Second side adjacent to vertex
+     * @param sideLengthC Side between first and second point (opposite to vertex)
+     * @return Angle between first and second side
+     */ 
     public double calculateAngle(double sideLengthA, double sideLengthB, double sideLengthC) {
         double cos_angle = (sideLengthA * sideLengthA
                 + sideLengthB * sideLengthB
@@ -75,10 +84,6 @@ public class CMV {
         return false;
     }
 
-    /**
-     * Use the Law of Cosines to calculate the angle
-     * between three points.
-     */
     public boolean lic2() {
         if (points.length < 3) {
             return false;
