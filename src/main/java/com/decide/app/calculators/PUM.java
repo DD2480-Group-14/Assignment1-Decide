@@ -4,11 +4,19 @@ import com.decide.app.model.Connectors;
 
 public class PUM {
 
+
+    boolean[] cmv;
+    Connectors[][] lcm;
+
+    public PUM(boolean[] cmv, Connectors[][] lcm) {
+        this.cmv = cmv;
+        this.lcm = lcm;
+    }
+
     /*
      * Function that compares the CMV with the LCM to generate PUM.
      */
-
-    public boolean[][] calculatePUM(boolean[] cmv, Connectors[][] lcm) {
+    public boolean[][] calculatePUM() {
         boolean[][] pum = new boolean[15][15];
 
         for (int i = 0; i < 15; ++i) {

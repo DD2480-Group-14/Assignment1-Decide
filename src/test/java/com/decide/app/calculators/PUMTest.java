@@ -20,79 +20,112 @@ public class PUMTest {
         assertTrue(true);
     }
 
+    /**
+     * Test the PUM calculation by giving only false LICs.
+     * The resulting PUM should contain only false elements.
+     */
     @Test
     public void pumAllLICFalse() {
         boolean[] cmv = new boolean[15]; // All default to false
         Connectors[][] lcm = new Connectors[15][15];
-        for(int i = 0; i < 15; ++i) {
-            for(int j = 0; j < 15; ++j) {
+        for (int i = 0; i < 15; ++i) {
+            for (int j = 0; j < 15; ++j) {
                 lcm[i][j] = Connectors.ORR;
             }
         }
 
-        PUM pum = new PUM();
-        boolean[][] pumResult = pum.calculatePUM(cmv, lcm);
-        for(int i = 0; i < 15; ++i) {
-            for(int j = 0; j < 15; ++j) {
-                assertFalse(pumResult[i][j]);
+        PUM pumCalculator = new PUM(cmv, lcm);
+        boolean[][] pum = pumCalculator.calculatePUM();
+        for (int i = 0; i < 15; ++i) {
+            for (int j = 0; j < 15; ++j) {
+                assertFalse(pum[i][j]);
             }
         }
     }
 
+    /*
+     * Test the PUM calculation by giving only true LICs.
+     * The resulting PUM should contain only true elements.
+     */
     @Test
     public void pumAllLICTrue() {
         boolean[] cmv = new boolean[15];
-        for(int i = 0; i < 15; ++i) {
+        for (int i = 0; i < 15; ++i) {
             cmv[i] = true;
         }
 
         Connectors[][] lcm = new Connectors[15][15];
-        for(int i = 0; i < 15; ++i) {
-            for(int j = 0; j < 15; ++j) {
+        for (int i = 0; i < 15; ++i) {
+            for (int j = 0; j < 15; ++j) {
                 lcm[i][j] = Connectors.ORR;
             }
         }
 
-        PUM pum = new PUM();
-        boolean[][] pumResult = pum.calculatePUM(cmv, lcm);
-        for(int i = 0; i < 15; ++i) {
-            for(int j = 0; j < 15; ++j) {
-                assertTrue(pumResult[i][j]);
+        PUM pumCalculator = new PUM(cmv, lcm);
+        boolean[][] pum = pumCalculator.calculatePUM();
+        for (int i = 0; i < 15; ++i) {
+            for (int j = 0; j < 15; ++j) {
+                assertTrue(pum[i][j]);
             }
         }
     }
 
+    /**
+     * Test the PUM calculation with the ORR connector.
+     * Only the first LIC is set to true, which should
+     * result in the first row and column of the PUM
+     * being true, while the rest being false.
+     */
     @Test
-    public void pumMixed() {
+    public void pumORRConnetor() {
         boolean[] cmv = new boolean[15];
         cmv[0] = true;
 
         Connectors[][] lcm = new Connectors[15][15];
-        for(int i = 0; i < 15; ++i) {
-            for(int j = 0; j < 15; ++j) {
-                lcm[i][j] = Connectors.AND;
+        for (int i = 0; i < 15; ++i) {
+            for (int j = 0; j < 15; ++j) {
+                lcm[i][j] = Connectors.ORR;
             }
         }
-        lcm[0][0] = Connectors.AND;
-        lcm[1][0] = Connectors.ORR;
-        lcm[0][1] = Connectors.ORR;
-        lcm[14][14] = Connectors.NOTUSED;
 
-        PUM pum = new PUM();
-        boolean[][] pumResult = pum.calculatePUM(cmv, lcm);
+        PUM pumCalculator = new PUM(cmv, lcm);
+        boolean[][] pum = pumCalculator.calculatePUM();
 
-        assertTrue(pumResult[0][0]);
-        assertTrue(pumResult[1][0]);
-        assertTrue(pumResult[0][1]);
-        assertTrue(pumResult[14][14]);
-
-        for(int i = 0; i < 15; ++i) {
-            for(int j = 0; j < 15; ++j) {
-                if((i == 0 && j == 0) || (i == 1 && j == 0) || (i == 14 && j == 14) || (i == 0 && j == 1)) {
-                    continue;
+        for (int i = 0; i < 15; ++i) {
+            for (int j = 0; j < 15; ++j) {
+                if (i == 0 || j == 0) {
+                    assertTrue(pum[i][j]);
+                } else {
+                    assertFalse(pum[i][j]);
                 }
-                assertFalse(pumResult[i][j]);
             }
         }
+    }
+
+    /**
+     * Test the PUM calculation with the NOTUSED Connector.
+     * All elements in the PUM should be set to true, since
+     * the NOTUSED Connector should set to true.
+     */
+    @Test
+    public void pumNOTUSEDConnector() {
+        boolean[] cmv = new boolean[15];
+
+        Connectors[][] lcm = new Connectors[15][15];
+        for (int i = 0; i < 15; ++i) {
+            for (int j = 0; j < 15; ++j) {
+                lcm[i][j] = Connectors.NOTUSED;
+            }
+        }
+
+        PUM pumCalculator = new PUM(cmv, lcm);
+        boolean[][] pum = pumCalculator.calculatePUM();
+
+        for (int i = 0; i < 15; ++i) {
+            for (int j = 0; j < 15; ++j) {
+                assertTrue(pum[i][j]);
+            }
+        }
+
     }
 }
