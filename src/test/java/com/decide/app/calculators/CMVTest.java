@@ -208,4 +208,49 @@ public class CMVTest {
         assertFalse(cmv.lic5());
     }
 
+    @Test 
+    void lic9Positive() {
+        Point[] points = new Point[] {new Point(0.0, 0.0), new Point(1.0, 0.0), new Point(1.0, -5.0), new Point(1.0, 1.0), new Point(2.0, 0.0)};
+        Parameters parameters = new Parameters();
+        parameters.C_PTS = 1;
+        parameters.D_PTS = 1;
+        parameters.EPSILON = Math.PI / 2;
+        CMV cmv = new CMV(points, parameters);
+
+        assertTrue(cmv.lic9());
+    }
+
+    @Test
+    void lic9BadAngle() {
+        Point[] points = new Point[] {new Point(0.0, 0.0), new Point(1.0, 0.0), new Point(1.0, -1.0), new Point(1.0, 1.0), new Point(2.0, 0.0)};
+        Parameters parameters = new Parameters();
+        parameters.C_PTS = 1;
+        parameters.D_PTS = 1;
+        parameters.EPSILON = 2;
+        CMV cmv = new CMV(points, parameters);
+
+        assertFalse(cmv.lic9());
+    }
+
+    @Test
+    void lic9TooFewPoints() {
+        Point[] points = new Point[] {new Point(0.0, 0.0)};
+        Parameters parameters = new Parameters();
+        CMV cmv = new CMV(points, parameters);
+
+        assertFalse(cmv.lic9());
+    }
+
+     @Test
+    void lic9Coinciding() {
+        Point[] points = new Point[] {new Point(0.0, 0.0), new Point(1.0, 0.0), new Point(2.0, 0.0), new Point(1.0, 1.0), new Point(2.0, 0.0)};
+        Parameters parameters = new Parameters();
+        parameters.C_PTS = 1;
+        parameters.D_PTS = 1;
+        parameters.EPSILON = 0;
+        CMV cmv = new CMV(points, parameters);
+
+        assertFalse(cmv.lic9());
+    }
+
 }
