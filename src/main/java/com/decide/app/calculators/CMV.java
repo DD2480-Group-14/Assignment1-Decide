@@ -11,7 +11,6 @@ public class CMV {
     private Parameters parameters;
     private DistanceMatrix distanceMatrix;
 
-
     public CMV(Point[] points, Parameters parameters) {
         this.numpoints = points.length;
         this.points = points;
@@ -65,15 +64,33 @@ public class CMV {
         }
         return 3; // Quadrant IV
     }
+    
+    /**
+     * Use the Law of Cosines to calculate the angle
+     * between three points using only distances
+     * between them.
+     * @param sideLengthA First side adjacent to vertex
+     * @param sideLengthB Second side adjacent to vertex
+     * @param sideLengthC Side between first and second point (opposite to vertex)
+     * @return Angle between first and second side
+     */ 
+    public double calculateAngle(double sideLengthA, double sideLengthB, double sideLengthC) {
+        double cos_angle = (sideLengthA * sideLengthA
+                + sideLengthB * sideLengthB
+                - sideLengthC * sideLengthC)
+                / (2 * sideLengthA * sideLengthB);
+
+        return Math.acos(cos_angle);
+    }
 
     public boolean lic0() {
-		for (int i = 0; i < points.length - 1; i++) {
-			double distanceBetweenPoints = distanceMatrix.distances[i][i+1];
-			if (distanceBetweenPoints > parameters.LENGTH1) {
-				return true;
-			}
-		}
-		return false;
+        for (int i = 0; i < points.length - 1; i++) {
+            double distanceBetweenPoints = distanceMatrix.distances[i][i + 1];
+            if (distanceBetweenPoints > parameters.LENGTH1) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean lic1() {
@@ -81,6 +98,24 @@ public class CMV {
     }
 
     public boolean lic2() {
+        if (points.length < 3) {
+            return false;
+        }
+
+        for (int i = 0; i < points.length - 2; ++i) {
+            double sideLengthA = distanceMatrix.dist(i, i + 1);
+            double sideLengthB = distanceMatrix.dist(i + 1, i + 2);
+            double sideLengthC = distanceMatrix.dist(i, i + 2);
+
+            if (sideLengthA == 0 || sideLengthB == 0) {
+                continue;
+            }
+
+            double angle = calculateAngle(sideLengthA, sideLengthB, sideLengthC);
+            if (angle < Math.PI - parameters.EPSILON || angle > Math.PI + parameters.EPSILON) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -158,6 +193,24 @@ public class CMV {
     }
 
     public boolean lic9() {
+        if(numpoints < 5) {
+            return false;
+        }
+        int C = parameters.C_PTS;
+        int D = parameters.D_PTS;
+        for(int i = 0; (i + C + D + 2) < numpoints; ++i) {
+            double sideLengthA = distanceMatrix.dist(i, i + C + 1);
+            double sideLengthB = distanceMatrix.dist(i + C + 1, i + C + D + 2);
+            double sideLengthC = distanceMatrix.dist(i, i + C + D + 2);
+            if(sideLengthA == 0 || sideLengthB == 0) {
+                continue;
+            }
+            double angle = calculateAngle(sideLengthA, sideLengthB, sideLengthC);
+
+            if(angle < Math.PI - parameters.EPSILON || angle > Math.PI + parameters.EPSILON) {
+                return true;
+            }
+        }
         return false;
     }
 
