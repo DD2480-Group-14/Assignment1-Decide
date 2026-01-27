@@ -212,10 +212,10 @@ public class CMV {
             int j = i + E_PTS + 1;
             int k = j + F_PTS + 1;
 
-            double a = distanceMatrix.dist(i, j);
-            double b = distanceMatrix.dist(j, k);
-            double c = distanceMatrix.dist(k, i);
-            double area = calculateTriangleArea(a, b, c);
+            double sideLengthA = distanceMatrix.dist(i, j);
+            double sideLengthB = distanceMatrix.dist(j, k);
+            double sideLengthC = distanceMatrix.dist(k, i);
+            double area = calculateTriangleArea(sideLengthA, sideLengthB, sideLengthC);
 
             if (area > AREA1) {
                 condition1 = true;
@@ -223,9 +223,13 @@ public class CMV {
             if (area < AREA2) {
                 condition2 = true;
             }
+
+            if (condition1 && condition2) {
+                return true;
+            }
         }
 
-        return (condition1 && condition2);
+        return false;
     }
 
 }
