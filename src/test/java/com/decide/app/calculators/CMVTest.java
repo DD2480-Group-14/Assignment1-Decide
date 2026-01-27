@@ -1,12 +1,11 @@
 package com.decide.app.calculators;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
-
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
-import com.decide.app.model.*;
+import com.decide.app.model.Parameters;
+import com.decide.app.model.Point;
 
 /**
  * Unit test for CMV computation.
@@ -222,6 +221,67 @@ public class CMVTest {
         CMV cmv = new CMV(points, parameters);
 
         assertTrue(cmv.lic3());
+    }
+
+    /**
+     * Three consecutive points lie in more than QUADS quadrants.
+     * Should return true.
+     */
+    @Test
+    void lic4MoreThanQUADS() {
+        Point[] points = new Point[] {
+            new Point(1.0, 0.0),    // Quadrant I 
+            new Point(-1.0, 0.0),   // Quadrant II
+            new Point(0.0, -1.0),   // Quadrant III
+        };  
+
+        Parameters parameters = new Parameters();
+        parameters.Q_PTS = 3;
+        parameters.QUADS = 2;
+        CMV cmv = new CMV(points, parameters);
+
+        assertTrue(cmv.lic4());
+    }
+
+    /**
+     * Three consecutive points lie in less than QUADS quadrants.
+     * Should return false.
+     */
+    @Test
+    void lic4QLessThanQUADS() {
+        Point[] points = new Point[] {
+            new Point(1.0, 0.0),    // Quadrant I 
+            new Point(1.0, 2.0),    // Quadrant I
+            new Point(2.0, 3.0),    // Quadrant I
+        };  
+
+        Parameters parameters = new Parameters();
+        parameters.Q_PTS = 3;
+        parameters.QUADS = 2;
+        CMV cmv = new CMV(points, parameters);
+
+        assertFalse(cmv.lic4());
+    }
+
+    /**
+     * Two consecutive points lie in more than QUADS quadrants.
+     * Should return true.
+     */
+    @Test
+    void lic4CheckIfConsecutive() {
+        Point[] points = new Point[] {
+            new Point(1.0, 0.0),    // Quadrant I 
+            new Point(1.0, 2.0),    // Quadrant I
+            new Point(2.0, 3.0),    // Quadrant I
+            new Point(1.0, -3.0),    // Quadrant III
+        };  
+
+        Parameters parameters = new Parameters();
+        parameters.Q_PTS = 2;
+        parameters.QUADS = 1;
+        CMV cmv = new CMV(points, parameters);
+
+        assertTrue(cmv.lic4());
     }
 
     @Test
