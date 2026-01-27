@@ -18,6 +18,27 @@ public class Point {
         this.y = y;
     }
 
+    @Override
+    public boolean equals(Object object) {
+        if (object == this) {
+			return true;
+		}
+		if (!(object instanceof Point)) {
+			return false;
+		}
+        Point otherPoint = (Point) object;
+        if (this.x == otherPoint.x && this.y == otherPoint.y) {
+                return true;
+        } else {
+                return false;
+        }
+    }
+
+    @Override 
+    public int hashCode() {
+	    return java.util.Objects.hash(x ,y);
+    }
+
     /**
      * Creates an array of points from arrays of coordinates.
      * @param xCoords x-coordinates
