@@ -259,9 +259,25 @@ public class CMV {
         return false;
     }
 
-    public boolean lic11() {
-        return false;
-    }
+	/**
+	 * Returns true if it exists at least one set of two data points, (X[i],Y[i]) 
+	 * and (X[j],Y[j]), separated by exactly G PTS consecutive intervening
+	 * points, such that X[j] - X[i] < 0. (where i < j ) The condition is
+	 * not met when NUMPOINTS < 3.
+	 */
+	public boolean lic11() {
+		int G_PTS = parameters.G_PTS;
+		if (numpoints < 3 || G_PTS > numpoints - 2) {
+			return false;
+		}
+		for (int i = 0; i + G_PTS + 1 < numpoints; i++) {
+			int j = i + G_PTS + 1;
+			if (points[j].x - points[i].x < 0) {
+				return true;
+			}
+		}
+		return false;
+	}
 
     public boolean lic12() {
         return false;
