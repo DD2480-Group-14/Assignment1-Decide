@@ -241,7 +241,7 @@ public class CMVTest {
         assertFalse(cmv.lic9());
     }
 
-     @Test
+    @Test
     void lic9Coinciding() {
         Point[] points = new Point[] {new Point(0.0, 0.0), new Point(1.0, 0.0), new Point(2.0, 0.0), new Point(1.0, 1.0), new Point(2.0, 0.0)};
         Parameters parameters = new Parameters();
@@ -251,6 +251,66 @@ public class CMVTest {
         CMV cmv = new CMV(points, parameters);
 
         assertFalse(cmv.lic9());
+    }
+
+    @Test
+    void lic14TooFewPoints() {
+        double[] xs = {0.0, 0.0, 0.0, 0.0};
+        double[] ys = {0.0, 0.0, 0.0, 0.0};
+        Point[] points = Point.fromArrays(xs, ys);
+        Parameters parameters = new Parameters();
+        parameters.E_PTS = 1;
+        parameters.F_PTS = 1;
+        parameters.AREA1 = 0.0;
+        parameters.AREA2 = 0.0;
+        CMV cmv = new CMV(points, parameters);
+
+        assertFalse(cmv.lic14());
+    }
+
+    @Test
+    void lic14Positive() {
+        double[] xs = {0.0, 0.0, 1.0, 0.0, 0.0};
+        double[] ys = {0.0, 0.0, 0.0, 0.0, 1.0};
+        Point[] points = Point.fromArrays(xs, ys);
+        Parameters parameters = new Parameters();
+        parameters.E_PTS = 1;
+        parameters.F_PTS = 1;
+        parameters.AREA1 = 0.4;
+        parameters.AREA2 = 0.6;
+        CMV cmv = new CMV(points, parameters);
+
+        assertTrue(cmv.lic14());
+    }
+
+    @Test
+    void lic14Condition1FalseCondition2True() {
+        double[] xs = {0.0, 0.0, 1.0, 0.0, 0.0};
+        double[] ys = {0.0, 0.0, 0.0, 0.0, 1.0};
+        Point[] points = Point.fromArrays(xs, ys);
+        Parameters parameters = new Parameters();
+        parameters.E_PTS = 1;
+        parameters.F_PTS = 1;
+        parameters.AREA1 = 0.6;
+        parameters.AREA2 = 0.6;
+        CMV cmv = new CMV(points, parameters);
+
+        assertFalse(cmv.lic14());
+    }
+
+    @Test
+    void lic14Condition1TrueCondition1False() {
+        double[] xs = {0.0, 0.0, 1.0, 0.0, 0.0};
+        double[] ys = {0.0, 0.0, 0.0, 0.0, 1.0};
+        Point[] points = Point.fromArrays(xs, ys);
+        Parameters parameters = new Parameters();
+        parameters.E_PTS = 1;
+        parameters.F_PTS = 1;
+        parameters.AREA1 = 0.4;
+        parameters.AREA2 = 0.4;
+        CMV cmv = new CMV(points, parameters);
+
+        assertFalse(cmv.lic14());
     }
 
 }
