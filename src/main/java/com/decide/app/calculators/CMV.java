@@ -4,6 +4,8 @@ import com.decide.app.model.Point;
 import com.decide.app.model.Parameters;
 import com.decide.app.model.DistanceMatrix;
 
+import java.util.Arrays;
+
 public class CMV {
 
     private int numpoints;
@@ -79,10 +81,49 @@ public class CMV {
         }
         return false;
     }
+	
+	private boolean triangleIsObtuse(double sideLengthA, double sideLengthB, double sideLengthC) {
+		double[] sideList = { sideLengthA, sideLengthB, sideLengthC };
+		Arrays.sort(sideList);
+		if (Math.pow(sideList[0], 2) + Math.pow(sideList[1], 2) < Math.pow(sideList[2], 2)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
-    public boolean lic1() {
-        return false;
-    }
+	private double calculateSmallestRadiusThreePoints(int i, int j, int k) {
+		double sideLengthA = distanceMatrix.dist(i, j);
+		double sideLengthB = distanceMatrix.dist(j, k);
+		double sideLengthC = distanceMatrix.dist(i, k);
+		double area = calculateTriangleArea(sideLengthA, sideLengthB, sideLengthC);
+		if (area == 0.0 || triangleIsObtuse(sideLengthA, sideLengthB, sideLengthC)) {
+			double sideLongest = Math.max(sideLengthA, Math.max(sideLengthB, sideLengthC));
+			double radius = sideLongest / 2;
+			return radius;
+		} else {
+			double radius = (sideLengthA * sideLengthB * sideLengthC) / (4 * area);
+			return radius;
+		}
+
+	}
+
+	/**
+	 * Returns true if there exists at least one set of three consecutive data
+	 * points that cannot all be contained within or on a circle of radius RADIUS1.
+	 */
+	public boolean lic1() {
+		if (numpoints < 3) {
+			return false;
+		}
+		for (int i = 0; i < numpoints - 2; ++i) {
+			double smallestRadius = calculateSmallestRadiusThreePoints(i, i + 1, i + 2);
+			if (smallestRadius > parameters.RADIUS1) {
+				return true;
+			}
+		}
+		return false;
+	}
 
     public boolean lic2() {
         if (points.length < 3) {
