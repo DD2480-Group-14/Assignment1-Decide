@@ -142,6 +142,9 @@ public class CMV {
             double sideLengthA = distanceMatrix.dist(i, i + C + 1);
             double sideLengthB = distanceMatrix.dist(i + C + 1, i + C + D + 2);
             double sideLengthC = distanceMatrix.dist(i, i + C + D + 2);
+            if(sideLengthA == 0 || sideLengthB == 0) {
+                continue;
+            }
             double angle = calculateAngle(sideLengthA, sideLengthB, sideLengthC);
 
             if(angle < Math.PI - parameters.EPSILON || angle > Math.PI + parameters.EPSILON) {
