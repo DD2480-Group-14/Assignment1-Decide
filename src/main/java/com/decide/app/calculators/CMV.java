@@ -54,17 +54,17 @@ public class CMV {
 
     private int determineQuadrant(Point p){
         if(p.x >= 0 && p.y >= 0) {
-            return 0; // Quadrant I
+            return 1; // Quadrant I
         }
         if(p.x < 0 && p.y >= 0) {
-            return 1; // Quadrant II
+            return 2; // Quadrant II
         }
-        if(p.x >= 0 && p.y < 0) {
-            return 2; // Quadrant III
+        if(p.x <= 0 && p.y < 0) {
+            return 3; // Quadrant III
         }
-        return 3; // Quadrant IV
+        return 4; // Quadrant IV
     }
-    
+
     /**
      * Use the Law of Cosines to calculate the angle
      * between three points using only distances
@@ -152,7 +152,7 @@ public class CMV {
             int quadrantCounter = 0;
 
             for (int j = i; j < i + parameters.Q_PTS; j++) {
-                int quadrant = determineQuadrant(points[j]);
+                int quadrant = determineQuadrant(points[j]) - 1;
 
                 if (!visited[quadrant]) {
                     visited[quadrant] = true;
