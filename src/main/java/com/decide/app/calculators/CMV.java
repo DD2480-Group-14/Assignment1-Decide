@@ -1,8 +1,8 @@
 package com.decide.app.calculators;
 
-import com.decide.app.model.Point;
-import com.decide.app.model.Parameters;
 import com.decide.app.model.DistanceMatrix;
+import com.decide.app.model.Parameters;
+import com.decide.app.model.Point;
 
 public class CMV {
 
@@ -53,6 +53,19 @@ public class CMV {
         return area;
     }
 
+    private int determineQuadrant(Point p){
+        if(p.x >= 0 && p.y >= 0) {
+            return 0; // Quadrant I
+        }
+        if(p.x < 0 && p.y >= 0) {
+            return 1; // Quadrant II
+        }
+        if(p.x >= 0 && p.y < 0) {
+            return 2; // Quadrant III
+        }
+        return 3; // Quadrant IV
+    }
+
     public boolean lic0() {
 		for (int i = 0; i < points.length - 1; i++) {
 			double distanceBetweenPoints = distanceMatrix.distances[i][i+1];
@@ -94,7 +107,28 @@ public class CMV {
         return false;
     }
 
+    /**
+     * Return true if there exists at least one set of Q_PTS consecutive data points that lie
+     * in more than QUADS quadrants.
+    */
     public boolean lic4() {
+        for (int i = 0; i <= numpoints - parameters.Q_PTS; i++) {
+            boolean[] visited = new boolean[4];
+            int quadrantCounter = 0;
+
+            for (int j = i; j < i + parameters.Q_PTS; j++) {
+                int quadrant = determineQuadrant(points[j]);
+
+                if (!visited[quadrant]) {
+                    visited[quadrant] = true;
+                    quadrantCounter++;
+                }
+            }
+
+            if (quadrantCounter > parameters.QUADS) {
+                return true;
+            }
+        }
         return false;
     }
 
