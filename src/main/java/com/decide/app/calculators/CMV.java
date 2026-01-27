@@ -197,7 +197,35 @@ public class CMV {
     }
 
     public boolean lic14() {
-        return false;
+        if (numpoints < 5) {
+            return false;
+        }
+
+        int E_PTS = parameters.E_PTS;
+        int F_PTS = parameters.F_PTS;
+        double AREA1 = parameters.AREA1;
+        double AREA2 = parameters.AREA2;
+        boolean condition1 = false;
+        boolean condition2 = false;
+
+        for (int i = 0; i + E_PTS + F_PTS + 2 < numpoints; i++) {
+            int j = i + E_PTS + 1;
+            int k = j + F_PTS + 1;
+
+            double a = distanceMatrix.dist(i, j);
+            double b = distanceMatrix.dist(j, k);
+            double c = distanceMatrix.dist(k, i);
+            double area = calculateTriangleArea(a, b, c);
+
+            if (area > AREA1) {
+                condition1 = true;
+            }
+            if (area < AREA2) {
+                condition2 = true;
+            }
+        }
+
+        return (condition1 && condition2);
     }
 
 }
