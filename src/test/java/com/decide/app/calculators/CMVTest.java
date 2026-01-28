@@ -1,5 +1,6 @@
 package com.decide.app.calculators;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -504,4 +505,100 @@ public class CMVTest {
         assertFalse(cmv.lic14());
     }
 
+    /*
+     * Tests for additional public methods in the CMV class.
+     * These include:
+     * calculateTriangleArea
+     * calculateAngle
+     */
+
+    @Test
+    void triangleAreaRightAngle() {
+        double sideLengthA = 1.0;
+        double sideLengthB = 1.0;
+        double sideLengthC = Math.sqrt(2.0);
+        Point[] points = new Point[] {new Point(0.0, 0.0)};
+        Parameters parameters = new Parameters();
+        CMV cmv = new CMV(points, parameters);
+        double area = cmv.calculateTriangleArea(sideLengthA, sideLengthB, sideLengthC);
+        double expectedArea = 0.5;
+
+        // Area should be B * H / 2 = 0.5
+        assertEquals(expectedArea, area, 1e-3);
+    }
+
+    @Test
+    void triangleAreaSameSides() {
+        double sideLengthA = 1.0;
+        double sideLengthB = 1.0;
+        double sideLengthC = 1.0;
+        Point[] points = new Point[] {new Point(0.0, 0.0)};
+        Parameters parameters = new Parameters();
+        CMV cmv = new CMV(points, parameters);
+        double area = cmv.calculateTriangleArea(sideLengthA, sideLengthB, sideLengthC);
+        double expectedArea = Math.sqrt(0.75) * 0.5;
+
+        // Area should be B * H / 2 = 0.5
+        assertEquals(expectedArea, area, 1e-3);
+    }
+
+    @Test
+    void triangleAreaZeroLength() {
+        double sideLengthA = 1.0;
+        double sideLengthB = 1.0;
+        double sideLengthC = 0.0;
+        Point[] points = new Point[] {new Point(0.0, 0.0)};
+        Parameters parameters = new Parameters();
+        CMV cmv = new CMV(points, parameters);
+        double area = cmv.calculateTriangleArea(sideLengthA, sideLengthB, sideLengthC);
+        double expectedArea = 0.0;
+
+        // Area should be B * H / 2 = 0.5
+        assertEquals(expectedArea, area, 1e-3);
+    }
+
+    @Test
+    void calculateAngleRight() {
+        double sideLengthA = 1.0;
+        double sideLengthB = 1.0;
+        double sideLengthC = Math.sqrt(2);
+        Point[] points = new Point[] {new Point(0.0, 0.0)};
+        Parameters parameters = new Parameters();
+        CMV cmv = new CMV(points, parameters);
+        double angle = cmv.calculateAngle(sideLengthA, sideLengthB, sideLengthC);
+        double expectedAngle = Math.PI / 2;
+
+        // Area should be B * H / 2 = 0.5
+        assertEquals(expectedAngle, angle, 1e-3);
+    }
+
+    @Test
+    void calculateAnglePi() {
+        double sideLengthA = 1.0;
+        double sideLengthB = 1.0;
+        double sideLengthC = 2.0;
+        Point[] points = new Point[] {new Point(0.0, 0.0)};
+        Parameters parameters = new Parameters();
+        CMV cmv = new CMV(points, parameters);
+        double angle = cmv.calculateAngle(sideLengthA, sideLengthB, sideLengthC);
+        double expectedAngle = Math.PI;
+
+        // Area should be B * H / 2 = 0.5
+        assertEquals(expectedAngle, angle, 1e-3);
+    }
+
+    @Test
+    void calculateAngleZero() {
+        double sideLengthA = 1.0;
+        double sideLengthB = 1.0;
+        double sideLengthC = 0.0;
+        Point[] points = new Point[] {new Point(0.0, 0.0)};
+        Parameters parameters = new Parameters();
+        CMV cmv = new CMV(points, parameters);
+        double angle = cmv.calculateAngle(sideLengthA, sideLengthB, sideLengthC);
+        double expectedAngle = 0;
+
+        // Area should be B * H / 2 = 0.5
+        assertEquals(expectedAngle, angle, 1e-3);
+    }
 }
