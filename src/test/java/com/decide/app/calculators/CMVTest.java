@@ -1,9 +1,9 @@
 package com.decide.app.calculators;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import com.decide.app.model.Parameters;
@@ -326,6 +326,54 @@ public class CMVTest {
         assertFalse(cmv.lic5());
     }
 
+    @Test
+    void lic6ConsecutiveInLaterWindow() {
+        Point[] points = new Point[] { 
+            new Point(0.0, 0.0),
+            new Point(1.0,0.0),
+            new Point(2.0,0.0), 
+            new Point(3.0,5.0), 
+            new Point(4.0,0.0)};
+
+        Parameters parameters = new Parameters();
+        parameters.N_PTS = 3;
+        parameters.DIST = 3.0; 
+        CMV cmv = new CMV(points, parameters);
+
+        assertTrue(cmv.lic6());
+    }
+
+    @Test
+    void lic6AllPointsCloseToLine() {
+        Point[] points = new Point[] { 
+            new Point(0.0, 0.0),    // First point in line
+            new Point(1.0,1.0),     // False point
+            new Point(1.0,1.5),     // False point
+            new Point(0.0,1.0)};    // Last point in line
+
+        Parameters parameters = new Parameters();
+        parameters.N_PTS = 4;
+        parameters.DIST = 1.0; 
+        CMV cmv = new CMV(points, parameters);
+
+        assertFalse(cmv.lic6());
+    }
+
+    @Test
+    void lic6SameFirstAndLastPoint() {
+        Point[] points = new Point[] { 
+            new Point(0.0, 0.0),
+            new Point(1.0,4.0),
+            new Point(0.0,0.0)};
+
+        Parameters parameters = new Parameters();
+        parameters.N_PTS = 3;
+        parameters.DIST = 2.0; 
+        CMV cmv = new CMV(points, parameters);
+
+        assertTrue(cmv.lic6());
+    }
+
     @Test 
     void lic9Positive() {
         Point[] points = new Point[] {new Point(0.0, 0.0), new Point(1.0, 0.0), new Point(1.0, -5.0), new Point(1.0, 1.0), new Point(2.0, 0.0)};
@@ -424,6 +472,119 @@ public class CMVTest {
 	}
 
     @Test
+    void lic13TooFewPoints() {
+        double[] xs = {0.0, 1.0, 2.0, 3.0};
+        double[] ys = {0.0, 1.0, 2.0, 3.0};
+        Point[] points = Point.fromArrays(xs, ys);
+        Parameters parameters = new Parameters();
+        parameters.A_PTS = 1;
+        parameters.B_PTS = 1;
+        CMV cmv = new CMV(points, parameters);
+
+        assertFalse(cmv.lic13());
+    }
+
+    @Test
+    void lic13OnlyFirstConditionTrue() {
+        double[] xs = {0.0, 10.0, 1.0, 20.0, 2.0};
+        double[] ys = {0.0, 10.0, 1.0, 20.0, 0.0};
+        Point[] points = Point.fromArrays(xs, ys);
+        Parameters parameters = new Parameters();
+        parameters.RADIUS1 = 0.9;
+        parameters.RADIUS2 = 0.0;
+        parameters.A_PTS = 1;
+        parameters.B_PTS = 1;
+        CMV cmv = new CMV(points, parameters);
+        assertFalse(cmv.lic13());
+    }
+
+    @Test
+    void lic13OnlySecondConditionTrue() {
+        double[] xs = {0.0, 10.0, 1.0, 20.0, 2.0};
+        double[] ys = {0.0, 10.0, 1.0, 20.0, 0.0};
+        Point[] points = Point.fromArrays(xs, ys);
+        Parameters parameters = new Parameters();
+        parameters.RADIUS1 = 2.0;
+        parameters.RADIUS2 = 1.1;
+        parameters.A_PTS = 1;
+        parameters.B_PTS = 1;
+        CMV cmv = new CMV(points, parameters);
+        assertFalse(cmv.lic13());
+    }
+
+    @Test
+    void lic13Positive() {
+        double[] xs = {0.0, 10.0, 1.0, 20.0, 2.0};
+        double[] ys = {0.0, 10.0, 1.0, 20.0, 0.0};
+        Point[] points = Point.fromArrays(xs, ys);
+        Parameters parameters = new Parameters();
+        parameters.RADIUS1 = 0.9;
+        parameters.RADIUS2 = 1.1;
+        parameters.A_PTS = 1;
+        parameters.B_PTS = 1;
+        CMV cmv = new CMV(points, parameters);
+        assertTrue(cmv.lic13());
+    }
+
+
+    @Test
+    void lic12TooFewPoints() {
+        double[] xs = {0.0, 0.0};
+        double[] ys = {0.0, 0.0};
+        Point[] points = Point.fromArrays(xs, ys);
+        Parameters parameters = new Parameters();
+        parameters.LENGTH1 = 1.0;
+        parameters.LENGTH2 = 1.0;
+        parameters.K_PTS = 1;
+        CMV cmv = new CMV(points, parameters);
+
+        assertFalse(cmv.lic12());
+    }
+
+    @Test
+    void lic12Positive() {
+        double[] xs = {0.0, 0.0, 1.0};
+        double[] ys = {0.0, 0.0, 0.0};
+        Point[] points = Point.fromArrays(xs, ys);
+        Parameters parameters = new Parameters();
+        parameters.LENGTH1 = 0.9;
+        parameters.LENGTH2 = 1.1;
+        parameters.K_PTS = 1;
+        CMV cmv = new CMV(points, parameters);
+
+        assertTrue(cmv.lic12());
+    }
+
+    @Test
+    void lic12Condition1TrueCondition2False() {
+        double[] xs = {0.0, 0.0, 1.0};
+        double[] ys = {0.0, 0.0, 0.0};
+        Point[] points = Point.fromArrays(xs, ys);
+        Parameters parameters = new Parameters();
+        parameters.LENGTH1 = 0.9;
+        parameters.LENGTH2 = 0.9;
+        parameters.K_PTS = 1;
+        CMV cmv = new CMV(points, parameters);
+
+        assertFalse(cmv.lic12());
+    }
+
+    @Test
+    void lic12Condition1FalseCondition2True() {
+        double[] xs = {0.0, 0.0, 1.0};
+        double[] ys = {0.0, 0.0, 0.0};
+        Point[] points = Point.fromArrays(xs, ys);
+        Parameters parameters = new Parameters();
+        parameters.LENGTH1 = 1.1;
+        parameters.LENGTH2 = 1.1;
+        parameters.K_PTS = 1;
+        CMV cmv = new CMV(points, parameters);
+
+        assertFalse(cmv.lic12());
+    }
+
+
+    @Test
     void lic14TooFewPoints() {
         double[] xs = {0.0, 0.0, 0.0, 0.0};
         double[] ys = {0.0, 0.0, 0.0, 0.0};
@@ -483,4 +644,97 @@ public class CMVTest {
         assertFalse(cmv.lic14());
     }
 
+    /*
+     * Tests for additional public methods in the CMV class.
+     * These include:
+     * calculateTriangleArea
+     * calculateAngle
+     */
+
+    @Test
+    void triangleAreaRightAngle() {
+        double sideLengthA = 1.0;
+        double sideLengthB = 1.0;
+        double sideLengthC = Math.sqrt(2.0);
+        Point[] points = new Point[] {new Point(0.0, 0.0)};
+        Parameters parameters = new Parameters();
+        CMV cmv = new CMV(points, parameters);
+        double area = cmv.calculateTriangleArea(sideLengthA, sideLengthB, sideLengthC);
+        double expectedArea = 0.5;
+
+        // Area should be B * H / 2 = 0.5
+        assertEquals(expectedArea, area, 1e-3);
+    }
+
+    @Test
+    void triangleAreaSameSides() {
+        double sideLengthA = 1.0;
+        double sideLengthB = 1.0;
+        double sideLengthC = 1.0;
+        Point[] points = new Point[] {new Point(0.0, 0.0)};
+        Parameters parameters = new Parameters();
+        CMV cmv = new CMV(points, parameters);
+        double area = cmv.calculateTriangleArea(sideLengthA, sideLengthB, sideLengthC);
+        double expectedArea = Math.sqrt(0.75) * 0.5;
+
+        // Area should be B * H / 2, where
+        // H = sqrt(1 - 0.5^2)
+        assertEquals(expectedArea, area, 1e-3);
+    }
+
+    @Test
+    void triangleAreaZeroLength() {
+        double sideLengthA = 1.0;
+        double sideLengthB = 1.0;
+        double sideLengthC = 0.0;
+        Point[] points = new Point[] {new Point(0.0, 0.0)};
+        Parameters parameters = new Parameters();
+        CMV cmv = new CMV(points, parameters);
+        double area = cmv.calculateTriangleArea(sideLengthA, sideLengthB, sideLengthC);
+        double expectedArea = 0.0;
+
+        assertEquals(expectedArea, area, 1e-3);
+    }
+
+    @Test
+    void calculateAngleRight() {
+        double sideLengthA = 1.0;
+        double sideLengthB = 1.0;
+        double sideLengthC = Math.sqrt(2);
+        Point[] points = new Point[] {new Point(0.0, 0.0)};
+        Parameters parameters = new Parameters();
+        CMV cmv = new CMV(points, parameters);
+        double angle = cmv.calculateAngle(sideLengthA, sideLengthB, sideLengthC);
+        double expectedAngle = Math.PI / 2;
+
+        assertEquals(expectedAngle, angle, 1e-3);
+    }
+
+    @Test
+    void calculateAnglePi() {
+        double sideLengthA = 1.0;
+        double sideLengthB = 1.0;
+        double sideLengthC = 2.0;
+        Point[] points = new Point[] {new Point(0.0, 0.0)};
+        Parameters parameters = new Parameters();
+        CMV cmv = new CMV(points, parameters);
+        double angle = cmv.calculateAngle(sideLengthA, sideLengthB, sideLengthC);
+        double expectedAngle = Math.PI;
+
+        assertEquals(expectedAngle, angle, 1e-3);
+    }
+
+    @Test
+    void calculateAngleZero() {
+        double sideLengthA = 1.0;
+        double sideLengthB = 1.0;
+        double sideLengthC = 0.0;
+        Point[] points = new Point[] {new Point(0.0, 0.0)};
+        Parameters parameters = new Parameters();
+        CMV cmv = new CMV(points, parameters);
+        double angle = cmv.calculateAngle(sideLengthA, sideLengthB, sideLengthC);
+        double expectedAngle = 0;
+
+        assertEquals(expectedAngle, angle, 1e-3);
+    }
 }

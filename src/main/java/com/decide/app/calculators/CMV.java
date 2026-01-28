@@ -1,10 +1,10 @@
 package com.decide.app.calculators;
 
+import java.util.Arrays;
+
 import com.decide.app.model.DistanceMatrix;
 import com.decide.app.model.Parameters;
 import com.decide.app.model.Point;
-
-import java.util.Arrays;
 
 public class CMV {
 
@@ -84,6 +84,31 @@ public class CMV {
                 / (2 * sideLengthA * sideLengthB);
 
         return Math.acos(cos_angle);
+    }
+
+    /**
+     * Calculates the distance from a point to a line.
+     * @param indexA index of first point in line
+     * @param indexB index of last point in line
+     * @param indexP index of point whose distance to line to be calculated 
+     * @return Distance from point p to line ab
+     */ 
+    public double calculateDistanceFromPointToLine(int indexA, int indexB, int indexP) {
+        Point a = points[indexA];
+        Point b = points[indexB];
+        Point p = points[indexP];
+
+        if (a.x == b.x && a.y == b.y) {
+            return distanceMatrix.dist(indexA, indexP);
+        }
+
+        double numerator = Math.abs(
+            (b.y - a.y) * p.x - (b.x - a.x) * p.y + (b.x * a.y) - (b.y * a.x) 
+        );
+
+        double denominator = distanceMatrix.dist(indexA, indexB);
+
+        return numerator / denominator;
     }
 
     public boolean lic0() {
@@ -222,7 +247,31 @@ public class CMV {
         return false;
     }
 
+    /**
+     * Returns true if there exists at least one set of N_PTS consecutive data points such that
+     * at least one of the points lies a distance greater than DIST from the line joining the first and
+     * last of these N_PTS points.
+     */
     public boolean lic6() {
+        int N_PTS = parameters.N_PTS;
+        double DIST = parameters.DIST;
+
+        if(numpoints < 3) {
+            return false;
+        }
+
+        for (int i = 0; i <= numpoints - N_PTS; i++) {
+            int indexA = i;
+            int indexB = i + N_PTS - 1;
+
+            for (int j = i + 1; j < i + N_PTS - 1; j++) {
+                double distance = calculateDistanceFromPointToLine(indexA, indexB, j);
+
+                if (distance > DIST) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -280,10 +329,64 @@ public class CMV {
 	}
 
     public boolean lic12() {
+        if (numpoints < 3) {
+            return false;
+        }
+        double LENGTH1 = parameters.LENGTH1;
+        double LENGTH2 = parameters.LENGTH2;
+        int K_PTS = parameters.K_PTS;
+
+        boolean condition1 = false;
+        boolean condition2 = false;
+
+        for (int i = 0; i + K_PTS + 1 < numpoints; i++) {
+            int j = i + K_PTS + 1;
+            double dist = distanceMatrix.dist(i, j);
+
+            if (dist > LENGTH1) {
+                condition1 = true;
+            }
+            if (dist < LENGTH2) {
+                condition2 = true;
+            }
+
+            if (condition1 && condition2) {
+                return true;
+            }
+        }
+
         return false;
     }
 
     public boolean lic13() {
+        if(numpoints < 5) {
+            return false;
+        }
+
+        boolean condition1 = false;
+        boolean condition2 = false;
+
+        double RADIUS1 = parameters.RADIUS1;
+        double RADIUS2 = parameters.RADIUS2;
+        int A_PTS = parameters.A_PTS;
+        int B_PTS = parameters.B_PTS;
+
+        for(int i = 0; i + A_PTS + B_PTS + 2 < numpoints; ++i) {
+            int j = i + A_PTS + 1;
+            int k = j + B_PTS + 1;
+            double smallestRadius = calculateSmallestRadiusThreePoints(i, j, k);
+            if(smallestRadius > RADIUS1) {
+                condition1 = true;
+            }
+            if(smallestRadius <= RADIUS2) {
+                condition2 = true;
+            }
+
+            if(condition1 && condition2) {
+                return true;
+            }
+        }
+        
         return false;
     }
 
