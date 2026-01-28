@@ -23,6 +23,28 @@ public class CMVTest {
     }
 
     @Test
+    void tooFewPoints() {
+        double[] xs = new double[1];
+		double[] ys = new double[1];
+		Point[] points = Point.fromArrays(xs, ys);
+        Parameters parameters = new Parameters();
+        parameters.LENGTH1 = 2.0;
+        
+        assertThrows(IllegalStateException.class, () -> new CMV(points, parameters));
+    }
+
+    @Test
+    void tooManyPoints() {
+        double[] xs = new double[101];
+		double[] ys = new double[101];
+		Point[] points = Point.fromArrays(xs, ys);
+        Parameters parameters = new Parameters();
+        parameters.LENGTH1 = 2.0;
+        
+        assertThrows(IllegalStateException.class, () -> new CMV(points, parameters));
+    }
+
+    @Test
     void lic0False() {
         Point[] points = new Point[] { new Point(0.0, 0.0), new Point(1.0, 1.0), new Point(2.0, 2.0),
                 new Point(1.0, 2.0) };
