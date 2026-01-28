@@ -86,28 +86,26 @@ public class CMV {
     }
 
     /**
-     * Calculates the distance from a point to a line. If point a and b are equal, the distance is
-     * calculated using the Euclidean distance formula.
-     * @param a First point in line
-     * @param b Last point in line
-     * @param p Point 
+     * Calculates the distance from a point to a line.
+     * @param indexA First point in line
+     * @param indexB Last point in line
+     * @param indexP Point 
      * @return Distance from point p to line ab.
      */ 
-    public double calculateDistance(Point a, Point b, Point p) {
+    public double calculateDistanceFromPointToLine(int indexA, int indexB, int indexP) {
+        Point a = points[indexA];
+        Point b = points[indexB];
+        Point p = points[indexP];
+
         if (a.x == b.x && a.y == b.y) {
-            double distance = Math.sqrt(Math.pow(p.x - a.x, 2) + Math.pow(p.y - a.y, 2));
-
-            System.err.println(distance);
-
-            return distance;
+            return distanceMatrix.dist(indexA, indexP);
         }
-    
 
         double numerator = Math.abs(
             (b.y - a.y) * p.x - (b.x - a.x) * p.y + (b.x * a.y) - (b.y * a.x) 
         );
 
-        double denominator = Math.sqrt(Math.pow(b.y - a.y, 2) + Math.pow(b.x - a.x, 2));
+        double denominator = distanceMatrix.dist(indexA, indexB);
 
         return numerator / denominator;
     }
@@ -262,11 +260,11 @@ public class CMV {
         }
 
         for (int i = 0; i <= numpoints - N_PTS; i++) {
-            Point a = points[i];
-            Point b = points[i + N_PTS - 1];
+            int indexA = i;
+            int indexB = i + N_PTS - 1;
 
             for (int j = i + 1; j < i + N_PTS - 1; j++) {
-                double distance = calculateDistance(a, b, points[j]);
+                double distance = calculateDistanceFromPointToLine(indexA, indexB, j);
 
                 if (distance > DIST) {
                     return true;
