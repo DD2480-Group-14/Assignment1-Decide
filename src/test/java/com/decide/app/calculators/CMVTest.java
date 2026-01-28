@@ -368,7 +368,9 @@ public class CMVTest {
 
     @Test
     void lic13TooFewPoints() {
-        Point[] points = new Point[] {new Point(0.0, 0.0), new Point(1.0, 0.0), new Point(2.0, 0.0), new Point(1.0, 1.0), new Point(2.0, 0.0)};
+        double[] xs = {0.0, 1.0, 2.0, 3.0};
+        double[] ys = {0.0, 1.0, 2.0, 3.0};
+        Point[] points = Point.fromArrays(xs, ys);
         Parameters parameters = new Parameters();
         parameters.A_PTS = 1;
         parameters.B_PTS = 1;
