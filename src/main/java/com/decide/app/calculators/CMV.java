@@ -1,14 +1,16 @@
 package com.decide.app.calculators;
 
+import java.util.Arrays;
+
 import com.decide.app.model.DistanceMatrix;
 import com.decide.app.model.Parameters;
 import com.decide.app.model.Point;
 
-import java.util.Arrays;
-
 public class CMV {
 
     private int numpoints;
+    private double[] X;
+    private double[] Y;
     private Point[] points;
     private Parameters parameters;
     private DistanceMatrix distanceMatrix;
@@ -230,7 +232,37 @@ public class CMV {
     }
 
     public boolean lic8() {
+        if (numpoints < 5)
+            return false;
+
+            for (int i = 0; i + parameters.A_PTS + parameters.B_PTS + 2 < numpoints; i++){
+                int i1 = i;
+                int i2 = i + parameters.A_PTS + 1;
+                int i3 = i + parameters.A_PTS + parameters.B_PTS + 2;
+
+                double x1 = X[i1], y1 = Y[i1];
+                double x2 = X[i2], y2 = Y[i2];
+                double x3 = X[i3], y3 = Y[i3];
+
+                double a = Math.hypot(x2 - x3, y2 - y3);
+                double b = Math.hypot(x1 - x3, y1 - y3);
+                double c = Math.hypot(x1 - x2, y1 - y2);
+
+                double area = Math.abs(
+                    x1*(y2 - y3) + x2*(y3 - y1) + x3*(y1 - y2
+                    ) / 2.0 );
+
+                if (area == 0.0)
+                    continue;
+
+                double radius = (a * b * c) / (4.0 * area);
+
+                if (radius > parameters.RADIUS1)
+                    return true;
+            }
+    
         return false;
+            
     }
 
     public boolean lic9() {
