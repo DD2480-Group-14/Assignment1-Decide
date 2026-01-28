@@ -240,21 +240,7 @@ public class CMV {
                 int i2 = i + parameters.A_PTS + 1;
                 int i3 = i + parameters.A_PTS + parameters.B_PTS + 2;
 
-                double x1 = points[i1].x, y1 = points[i1].y;
-                double x2 = points[i2].x, y2 = points[i2].y;
-                double x3 = points[i3].x, y3 = points[i3].y;
-                double a = distanceMatrix.dist(i2, i3);
-                double b = distanceMatrix.dist(i1, i3);
-                double c = distanceMatrix.dist(i1, i2);
-
-                double area = Math.abs(
-                    x1*(y2 - y3) + x2*(y3 - y1) + x3*(y1 - y2
-                    ) / 2.0 );
-
-                if (area == 0.0)
-                    continue;
-
-                double radius = (a * b * c) / (4.0 * area);
+                double radius = calculateSmallestRadiusThreePoints(i1, i2, i3);
 
                 if (radius > parameters.RADIUS1)
                     return true;
