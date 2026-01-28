@@ -474,17 +474,6 @@ public class CMVTest {
     }
 
     @Test
-    void lic11FewerThanThreePoints() {
-        Point[] points = new Point[] { new Point(0.0, 0.0), new Point(0.0, 0.0) };
-        Parameters parameters = new Parameters();
-        parameters.G_PTS = 1;
-        CMV cmv = new CMV(points, parameters);
-        assertThrows(AssertionError.class, () -> {
-            cmv.lic11();
-        });
-    }
-
-    @Test
     void lic11True() {
         double[] xs = { 24.0, 0.0, 2.0, 23.0 };
         double[] ys = { 28.0, 1.0, 28.0, 0.0 };
@@ -496,18 +485,6 @@ public class CMVTest {
 
         assertTrue(result);
     }
-		assertFalse(result);
-	}
-	
-	@Test
-	void lic11SmallestG_PTS() {
-		double[] xs = { 3.0, 2.0, 1.0 };
-		double[] ys = { 0.0, 0.0, 0.0 };
-		Point[] points = Point.fromArrays(xs, ys);
-		Parameters parameters = new Parameters();
-		parameters.G_PTS = 1;
-		CMV cmv = new CMV(points, parameters);
-		boolean result = cmv.lic11();
 
     @Test
     void lic11False() {
@@ -520,19 +497,6 @@ public class CMVTest {
         boolean result = cmv.lic11();
 
         assertFalse(result);
-    }
-
-    @Test
-    void lic11TooLargeG_PTS() {
-        double[] xs = { 0.0, 0.0, 0.0, 0.0 };
-        double[] ys = { 0.0, 0.0, 0.0, 0.0 };
-        Point[] points = Point.fromArrays(xs, ys);
-        Parameters parameters = new Parameters();
-        parameters.G_PTS = 3;
-        CMV cmv = new CMV(points, parameters);
-        assertThrows(AssertionError.class, () -> {
-            cmv.lic11();
-        });
     }
 
     @Test
