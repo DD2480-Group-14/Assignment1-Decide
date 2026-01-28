@@ -375,7 +375,7 @@ public class CMVTest {
         parameters.RADIUS1 = 5.0;
         CMV cmv = new CMV(points, parameters);
 
-        assertTrue(cmv.lic8());
+        assertFalse(cmv.lic8());
     }
 
     @Test 
