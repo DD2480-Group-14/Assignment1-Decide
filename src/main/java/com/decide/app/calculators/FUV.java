@@ -4,9 +4,35 @@ public class FUV {
 	private boolean[][] pum;
 	private boolean[] puv;
 
+	private void validateInput() {
+		if (puv.length != 15) {
+			throw new IllegalArgumentException("PUV must contain exactly 15 elements.");
+		}
+
+		if (pum.length != 15) {
+			throw new IllegalArgumentException("PUM must have exactly 15 rows.");
+		}
+
+		for (int i = 0; i < pum.length; i++) {
+			if (pum[i].length != 15) {
+				throw new IllegalArgumentException(
+						"Each PUM row must have exactly 15 columns.");
+			}
+		}
+
+		for (int i = 0; i < 15; i++) {
+			for (int j = i; j < 15; j++) {
+				if (pum[i][j] != pum[j][i]) {
+					throw new IllegalArgumentException("PUM must be symmetric.");
+				}
+			}
+		}
+	}
+
 	public FUV(boolean[] puv, boolean[][] pum) {
 		this.puv = puv;
 		this.pum = pum;
+		validateInput();
 	}
 
 	private boolean isPumRowAllTrue(boolean[] pumRow) {

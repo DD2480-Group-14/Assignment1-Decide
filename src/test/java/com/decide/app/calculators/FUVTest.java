@@ -1,6 +1,7 @@
 package com.decide.app.calculators;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
@@ -106,4 +107,18 @@ public class FUVTest {
 			assertFalse(fuv[i]);
 		}
 	}
+
+	/**
+	 * Test the validation of input by FUV by passing in an 
+	 * asymmetrical PUM matrix, should throw an exception
+	 */
+	@Test
+	void nonSymmetricPUM() {
+		boolean[] puv = new boolean[15];
+		boolean[][] pum = new boolean[15][15];
+		pum[10][12] = true;
+
+		assertThrows(IllegalArgumentException.class, () -> new FUV(puv, pum));
+	}
+
 }

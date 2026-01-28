@@ -1,6 +1,7 @@
 package com.decide.app.calculators;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -18,6 +19,21 @@ public class PUMTest {
     @Test
     public void shouldAnswerWithTrue() {
         assertTrue(true);
+    }
+
+
+    @Test
+    void nonSymmetricLCM() {
+        boolean[] cmv = new boolean[15]; // All default to false
+        Connectors[][] lcm = new Connectors[15][15];
+        for (int i = 0; i < 15; ++i) {
+            for (int j = 0; j < 15; ++j) {
+                lcm[i][j] = Connectors.ORR;
+            }
+        }
+        lcm[0][1] = Connectors.AND; // makes it not symmetric
+
+        assertThrows(IllegalArgumentException.class, () -> new PUM(cmv, lcm));
     }
 
     /**
