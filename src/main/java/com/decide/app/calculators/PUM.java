@@ -50,8 +50,14 @@ public class PUM {
             throw new IllegalArgumentException("cmv must contain excactly 15 elements.");
         }
 
-        if (lcm.length != 15 || lcm[0].length != 15) {
+        if (lcm.length != 15) {
             throw new IllegalArgumentException("lcm has the wrong dimensions, must be 15x15.");
+        }
+
+        for (int i = 0; i < 15; i++) {
+            if (lcm[i].length != 15) {
+                throw new IllegalArgumentException("lcm has the wrong dimensions, must be 15x15.");
+            }
         }
 
         for (int i = 0; i < 15; i++) {
