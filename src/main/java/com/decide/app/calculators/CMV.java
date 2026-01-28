@@ -240,10 +240,9 @@ public class CMV {
                 int i2 = i + parameters.A_PTS + 1;
                 int i3 = i + parameters.A_PTS + parameters.B_PTS + 2;
 
-                double x1 = X[i1], y1 = Y[i1];
-                double x2 = X[i2], y2 = Y[i2];
-                double x3 = X[i3], y3 = Y[i3];
-
+                double x1 = points[i1].x, y1 = points[i1].y;
+                double x2 = points[i2].x, y2 = points[i2].y;
+                double x3 = points[i3].x, y3 = points[i3].y;
                 double a = Math.hypot(x2 - x3, y2 - y3);
                 double b = Math.hypot(x1 - x3, y1 - y3);
                 double c = Math.hypot(x1 - x2, y1 - y2);
