@@ -10,8 +10,6 @@ public class Main {
     private Connectors[][] lcm;
     private boolean[] puv;
     
-    public boolean launch;
-
     public Main(int numpoints, Point[] points, Parameters parameters, Connectors[][] lcm, boolean[] puv) {
         this.numpoints = numpoints;
         this.points = points;
