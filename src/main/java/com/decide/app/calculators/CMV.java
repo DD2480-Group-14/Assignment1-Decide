@@ -283,6 +283,34 @@ public class CMV {
     }
 
     public boolean lic13() {
+        if(numpoints < 5) {
+            return false;
+        }
+
+        boolean condition1 = false;
+        boolean condition2 = false;
+
+        double RADIUS1 = parameters.RADIUS1;
+        double RADIUS2 = parameters.RADIUS2;
+        int A_PTS = parameters.A_PTS;
+        int B_PTS = parameters.B_PTS;
+
+        for(int i = 0; i + A_PTS + B_PTS + 2 < numpoints; ++i) {
+            int j = i + A_PTS + 1;
+            int k = j + B_PTS + 1;
+            double smallestRadius = calculateSmallestRadiusThreePoints(i, j, k);
+            if(smallestRadius > RADIUS1) {
+                condition1 = true;
+            }
+            if(smallestRadius <= RADIUS2) {
+                condition2 = true;
+            }
+
+            if(condition1 && condition2) {
+                return true;
+            }
+        }
+        
         return false;
     }
 

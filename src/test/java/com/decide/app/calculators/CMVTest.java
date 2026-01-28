@@ -445,6 +445,62 @@ public class CMVTest {
 	}
 
     @Test
+    void lic13TooFewPoints() {
+        double[] xs = {0.0, 1.0, 2.0, 3.0};
+        double[] ys = {0.0, 1.0, 2.0, 3.0};
+        Point[] points = Point.fromArrays(xs, ys);
+        Parameters parameters = new Parameters();
+        parameters.A_PTS = 1;
+        parameters.B_PTS = 1;
+        CMV cmv = new CMV(points, parameters);
+
+        assertFalse(cmv.lic13());
+    }
+
+    @Test
+    void lic13OnlyFirstConditionTrue() {
+        double[] xs = {0.0, 10.0, 1.0, 20.0, 2.0};
+        double[] ys = {0.0, 10.0, 1.0, 20.0, 0.0};
+        Point[] points = Point.fromArrays(xs, ys);
+        Parameters parameters = new Parameters();
+        parameters.RADIUS1 = 0.9;
+        parameters.RADIUS2 = 0.0;
+        parameters.A_PTS = 1;
+        parameters.B_PTS = 1;
+        CMV cmv = new CMV(points, parameters);
+        assertFalse(cmv.lic13());
+    }
+
+    @Test
+    void lic13OnlySecondConditionTrue() {
+        double[] xs = {0.0, 10.0, 1.0, 20.0, 2.0};
+        double[] ys = {0.0, 10.0, 1.0, 20.0, 0.0};
+        Point[] points = Point.fromArrays(xs, ys);
+        Parameters parameters = new Parameters();
+        parameters.RADIUS1 = 2.0;
+        parameters.RADIUS2 = 1.1;
+        parameters.A_PTS = 1;
+        parameters.B_PTS = 1;
+        CMV cmv = new CMV(points, parameters);
+        assertFalse(cmv.lic13());
+    }
+
+    @Test
+    void lic13Positive() {
+        double[] xs = {0.0, 10.0, 1.0, 20.0, 2.0};
+        double[] ys = {0.0, 10.0, 1.0, 20.0, 0.0};
+        Point[] points = Point.fromArrays(xs, ys);
+        Parameters parameters = new Parameters();
+        parameters.RADIUS1 = 0.9;
+        parameters.RADIUS2 = 1.1;
+        parameters.A_PTS = 1;
+        parameters.B_PTS = 1;
+        CMV cmv = new CMV(points, parameters);
+        assertTrue(cmv.lic13());
+    }
+
+
+    @Test
     void lic14TooFewPoints() {
         double[] xs = {0.0, 0.0, 0.0, 0.0};
         double[] ys = {0.0, 0.0, 0.0, 0.0};
