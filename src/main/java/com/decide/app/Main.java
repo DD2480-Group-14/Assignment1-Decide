@@ -8,12 +8,12 @@ public class Main {
     private Point[] points;
     private Parameters parameters;
     private Connectors[][] lcm;
-    private boolean[] puv;
-<<<<<<< HEAD
-    
-=======
+    private boolean[] puv;<<<<<<<HEAD
 
->>>>>>> 6e0736b (feat: add file containing decide method)
+    =======
+
+    >>>>>>>6e0736b (feat: add file containing decide method)
+
     public Main(int numpoints, Point[] points, Parameters parameters, Connectors[][] lcm, boolean[] puv) {
         this.numpoints = numpoints;
         this.points = points;
@@ -22,7 +22,8 @@ public class Main {
         this.puv = puv;
     }
 
-<<<<<<< HEAD
+    <<<<<<<HEAD
+
     public boolean getDecision() {
 =======
 >>>>>>> 6e0736b (feat: add file containing decide method)
@@ -39,7 +40,8 @@ public class Main {
         return true;
     }
 
-<<<<<<< HEAD
+    <<<<<<<HEAD
+
     public void decide() {
         boolean launch = getDecision();
         if(launch) {
@@ -49,6 +51,5 @@ public class Main {
         }
     }
 
-=======
->>>>>>> 6e0736b (feat: add file containing decide method)
+    =======>>>>>>>6e0736b (feat: add file containing decide method)
 }
