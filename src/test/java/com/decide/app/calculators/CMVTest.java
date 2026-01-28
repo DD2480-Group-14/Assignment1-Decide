@@ -538,7 +538,8 @@ public class CMVTest {
         double area = cmv.calculateTriangleArea(sideLengthA, sideLengthB, sideLengthC);
         double expectedArea = Math.sqrt(0.75) * 0.5;
 
-        // Area should be B * H / 2 = 0.5
+        // Area should be B * H / 2, where
+        // H = sqrt(1 - 0.5^2)
         assertEquals(expectedArea, area, 1e-3);
     }
 
@@ -553,7 +554,6 @@ public class CMVTest {
         double area = cmv.calculateTriangleArea(sideLengthA, sideLengthB, sideLengthC);
         double expectedArea = 0.0;
 
-        // Area should be B * H / 2 = 0.5
         assertEquals(expectedArea, area, 1e-3);
     }
 
@@ -568,7 +568,6 @@ public class CMVTest {
         double angle = cmv.calculateAngle(sideLengthA, sideLengthB, sideLengthC);
         double expectedAngle = Math.PI / 2;
 
-        // Area should be B * H / 2 = 0.5
         assertEquals(expectedAngle, angle, 1e-3);
     }
 
@@ -583,7 +582,6 @@ public class CMVTest {
         double angle = cmv.calculateAngle(sideLengthA, sideLengthB, sideLengthC);
         double expectedAngle = Math.PI;
 
-        // Area should be B * H / 2 = 0.5
         assertEquals(expectedAngle, angle, 1e-3);
     }
 
@@ -598,7 +596,6 @@ public class CMVTest {
         double angle = cmv.calculateAngle(sideLengthA, sideLengthB, sideLengthC);
         double expectedAngle = 0;
 
-        // Area should be B * H / 2 = 0.5
         assertEquals(expectedAngle, angle, 1e-3);
     }
 }
