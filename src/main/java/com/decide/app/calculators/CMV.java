@@ -267,9 +267,8 @@ public class CMV {
 	 */
 	public boolean lic11() {
 		int G_PTS = parameters.G_PTS;
-		if (numpoints < 3 || G_PTS > numpoints - 2) {
-			return false;
-		}
+		boolean parametersConstraints = 1 <= G_PTS && G_PTS <= numpoints - 2;
+		assert parametersConstraints;
 		for (int i = 0; i + G_PTS + 1 < numpoints; i++) {
 			int j = i + G_PTS + 1;
 			if (points[j].x - points[i].x < 0) {

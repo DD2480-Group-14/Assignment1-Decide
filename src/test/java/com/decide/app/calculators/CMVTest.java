@@ -2,6 +2,8 @@ package com.decide.app.calculators;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import org.junit.jupiter.api.Test;
 
 import com.decide.app.model.Parameters;
@@ -368,12 +370,13 @@ public class CMVTest {
 
 	@Test
 	void lic11FewerThanThreePoints() {
-		Point[] points = new Point[] { new Point(0.0, 0.0) };
+		Point[] points = new Point[] { new Point(0.0, 0.0), new Point(0.0, 0.0) };
 		Parameters parameters = new Parameters();
+		parameters.G_PTS = 1;
 		CMV cmv = new CMV(points, parameters);
-		boolean result = cmv.lic11();
-
-		assertFalse(result);
+		assertThrows(AssertionError.class, () -> {
+			cmv.lic11();
+		});
 	}
 
 	@Test
@@ -410,11 +413,24 @@ public class CMVTest {
 		Parameters parameters = new Parameters();
 		parameters.G_PTS = 3;
 		CMV cmv = new CMV(points, parameters);
-		boolean result = cmv.lic11();
-
-		assertFalse(result);
+		assertThrows(AssertionError.class, () -> {
+			cmv.lic11();
+		});
 	}
 
+	@Test
+	void lic11TooSmallG_PTS() {
+		double[] xs = { 0.0, 0.0, 0.0, 0.0 };
+		double[] ys = { 0.0, 0.0, 0.0, 0.0 };
+		Point[] points = Point.fromArrays(xs, ys);
+		Parameters parameters = new Parameters();
+		parameters.G_PTS = 0;
+		CMV cmv = new CMV(points, parameters);
+		assertThrows(AssertionError.class, () -> {
+			cmv.lic11();
+		});
+	}
+	
 	@Test
 	void lic11SmallestG_PTS() {
 		double[] xs = { 3.0, 2.0, 1.0 };
