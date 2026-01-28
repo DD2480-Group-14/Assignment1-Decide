@@ -9,7 +9,11 @@ public class Main {
     private Parameters parameters;
     private Connectors[][] lcm;
     private boolean[] puv;
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> 6e0736b (feat: add file containing decide method)
     public Main(int numpoints, Point[] points, Parameters parameters, Connectors[][] lcm, boolean[] puv) {
         this.numpoints = numpoints;
         this.points = points;
@@ -18,7 +22,10 @@ public class Main {
         this.puv = puv;
     }
 
+<<<<<<< HEAD
     public boolean getDecision() {
+=======
+>>>>>>> 6e0736b (feat: add file containing decide method)
         boolean[] cmv = new CMV(points, parameters).calculateCMV();
         boolean[][] pum = new PUM(cmv, lcm).calculatePUM();
         boolean[] fuv = new FUV(puv, pum).calculateFUV();
@@ -32,6 +39,7 @@ public class Main {
         return true;
     }
 
+<<<<<<< HEAD
     public void decide() {
         boolean launch = getDecision();
         if(launch) {
@@ -41,4 +49,6 @@ public class Main {
         }
     }
 
+=======
+>>>>>>> 6e0736b (feat: add file containing decide method)
 }
