@@ -18,6 +18,7 @@ public class CMV {
         this.points = points;
         this.parameters = parameters;
         this.distanceMatrix = new DistanceMatrix(points);
+        validateParameters();
     }
 
     public boolean[] calculateCMV() {
@@ -340,6 +341,73 @@ public class CMV {
         }
 
         return false;
+    }
+
+    private void validateParameters() {
+        if (numpoints < 2 || numpoints > 100) {
+            throw new IllegalStateException("numpoints must be in the range [2, 100]");
+        }
+
+        if (parameters.LENGTH1 < 0.0 || parameters.LENGTH2 < 0.0) {
+            throw new IllegalStateException("LENGTH1 and LENGTH2 must be non-negative.");
+        }
+
+        if (parameters.AREA1 < 0.0 || parameters.AREA2 < 0.0) {
+            throw new IllegalStateException("AREA1 and AREA2 must be non-negative.");
+        }
+
+        if (parameters.RADIUS1 < 0.0 || parameters.RADIUS2 < 0.0) {
+            throw new IllegalStateException("RADIUS1 and RADIUS2 must be non-negative.");
+        }
+
+        if (parameters.DIST < 0.0) {
+            throw new IllegalStateException("DIST must be non-negative");
+        }
+
+        if (parameters.EPSILON < 0.0 || parameters.EPSILON >= Math.PI) {
+            throw new IllegalStateException("EPSILON must be in the range [0, π).");
+        }
+
+        if (parameters.Q_PTS < 2 || parameters.Q_PTS > numpoints) {
+            throw new IllegalStateException("Q_PTS must be in the range [2, numpoints].");
+        }
+
+        if (parameters.QUADS < 1 || parameters.QUADS > 3) {
+            throw new IllegalStateException("QUADS must be in the range [1, 3].");
+        }
+
+        if ((numpoints >= 3) && (parameters.N_PTS < 3 || parameters.N_PTS > numpoints)) {
+            throw new IllegalStateException("N_PTS must be in the range [3, numpoints] if numpoints >= 3.");
+        }
+
+        if ((numpoints >= 3) && (parameters.K_PTS < 1 || parameters.K_PTS > numpoints - 2)) {
+            throw new IllegalStateException("K_PTS must be in the range [1, numpoints - 2] if numponts >= 3.");
+        }
+
+        if ((numpoints >= 3) && (parameters.G_PTS < 1 || parameters.G_PTS > numpoints - 2)) {
+            throw new IllegalStateException("G_PTS must be in the range [1, numpoints - 2] if numponts >= 3.");
+        }
+
+        if ((parameters.A_PTS < 1
+            || parameters.B_PTS < 1
+            || parameters.C_PTS < 1
+            || parameters.D_PTS < 1
+            || parameters.E_PTS < 1
+            || parameters.F_PTS < 1)) {
+            throw new IllegalStateException("A_PTS, B_PTS, C_PTS, D_PTS, E_PTS, and F_PTS must be positive.");
+        }
+
+        if ((numpoints >= 5) && (parameters.A_PTS + parameters.B_PTS > numpoints - 3)) {
+            throw new IllegalStateException("The sum of A_PTS and B_PTS must be <= numpoints - 3 if numpoints >= 5.");
+        }
+
+        if ((numpoints >= 5) && (parameters.C_PTS + parameters.D_PTS > numpoints - 3)) {
+            throw new IllegalStateException("The sum of C_PTS and D_PTS must be <= numpoints - 3 if numpoints >= 5.");
+        }
+
+        if ((numpoints >= 5) && (parameters.E_PTS + parameters.F_PTS > numpoints - 3)) {
+            throw new IllegalStateException("The sum of E_PTS and F_PTS must be <= numpoints - 3 if numpoints >= 5.");
+        }
     }
 
 }
