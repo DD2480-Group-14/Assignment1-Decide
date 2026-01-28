@@ -1,12 +1,11 @@
 package com.decide.app.calculators;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
-
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
-import com.decide.app.model.*;
+import com.decide.app.model.Parameters;
+import com.decide.app.model.Point;
 
 /**
  * Unit test for CMV computation.
@@ -259,6 +258,54 @@ public class CMVTest {
         CMV cmv = new CMV(points, parameters);
 
         assertFalse(cmv.lic5());
+    }
+
+    @Test
+    void lic6ConsecutiveInLaterWindow() {
+        Point[] points = new Point[] { 
+            new Point(0.0, 0.0),
+            new Point(1.0,0.0),
+            new Point(2.0,0.0), 
+            new Point(3.0,5.0), 
+            new Point(4.0,0.0)};
+
+        Parameters parameters = new Parameters();
+        parameters.N_PTS = 3;
+        parameters.DIST = 3.0; 
+        CMV cmv = new CMV(points, parameters);
+
+        assertTrue(cmv.lic6());
+    }
+
+    @Test
+    void lic6AllPointsCloseToLine() {
+        Point[] points = new Point[] { 
+            new Point(0.0, 0.0),    // First point in line
+            new Point(1.0,1.0),     // False point
+            new Point(1.0,1.5),     // False point
+            new Point(0.0,1.0)};    // Last point in line
+
+        Parameters parameters = new Parameters();
+        parameters.N_PTS = 4;
+        parameters.DIST = 1.0; 
+        CMV cmv = new CMV(points, parameters);
+
+        assertFalse(cmv.lic6());
+    }
+
+    @Test
+    void lic6SameFirstAndLastPoint() {
+        Point[] points = new Point[] { 
+            new Point(0.0, 0.0),
+            new Point(1.0,4.0),
+            new Point(0.0,0.0)};
+
+        Parameters parameters = new Parameters();
+        parameters.N_PTS = 3;
+        parameters.DIST = 2.0; 
+        CMV cmv = new CMV(points, parameters);
+
+        assertTrue(cmv.lic6());
     }
 
     @Test 

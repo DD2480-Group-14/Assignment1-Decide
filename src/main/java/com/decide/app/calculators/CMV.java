@@ -1,10 +1,10 @@
 package com.decide.app.calculators;
 
-import com.decide.app.model.Point;
-import com.decide.app.model.Parameters;
-import com.decide.app.model.DistanceMatrix;
-
 import java.util.Arrays;
+
+import com.decide.app.model.DistanceMatrix;
+import com.decide.app.model.Parameters;
+import com.decide.app.model.Point;
 
 public class CMV {
 
@@ -70,6 +70,33 @@ public class CMV {
                 / (2 * sideLengthA * sideLengthB);
 
         return Math.acos(cos_angle);
+    }
+
+    /**
+     * Calculates the distance from a point to a line. If point a and b are equal, the distance is
+     * calculated using the Euclidean distance formula.
+     * @param a First point in line
+     * @param b Last point in line
+     * @param p Point 
+     * @return Distance from point p to line ab.
+     */ 
+    public double calculateDistance(Point a, Point b, Point p) {
+        if (a.x == b.x && a.y == b.y) {
+            double distance = Math.sqrt(Math.pow(p.x - a.x, 2) + Math.pow(p.y - a.y, 2));
+
+            System.err.println(distance);
+
+            return distance;
+        }
+    
+
+        double numerator = Math.abs(
+            (b.y - a.y) * p.x - (b.x - a.x) * p.y + (b.x * a.y) - (b.y * a.x) 
+        );
+
+        double denominator = Math.sqrt(Math.pow(b.y - a.y, 2) + Math.pow(b.x - a.x, 2));
+
+        return numerator / denominator;
     }
 
     public boolean lic0() {
@@ -187,7 +214,31 @@ public class CMV {
         return false;
     }
 
+    /**
+     * Returns true if there exists at least one set of N_PTS consecutive data points such that
+     * at least one of the points lies a distance greater than DIST from the line joining the first and
+     * last of these N_PTS points.
+     */
     public boolean lic6() {
+        int N_PTS = parameters.N_PTS;
+        double DIST = parameters.DIST;
+
+        if(numpoints < 3) {
+            return false;
+        }
+
+        for (int i = 0; i <= numpoints - N_PTS; i++) {
+            Point a = points[i];
+            Point b = points[i + N_PTS - 1];
+
+            for (int j = i + 1; j < i + N_PTS - 1; j++) {
+                double distance = calculateDistance(a, b, points[j]);
+
+                if (distance > DIST) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
