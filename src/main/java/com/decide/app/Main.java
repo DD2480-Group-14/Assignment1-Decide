@@ -35,9 +35,9 @@ public class Main {
     public void decide() {
         boolean launch = getDecision();
         if(launch) {
-            System.out.println("Yes");
+            System.out.println("YES");
         } else {
-            System.out.println("No");
+            System.out.println("NO");
         }
     }
 
