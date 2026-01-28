@@ -1,10 +1,10 @@
 package com.decide.app.calculators;
 
+import java.util.Arrays;
+
 import com.decide.app.model.DistanceMatrix;
 import com.decide.app.model.Parameters;
 import com.decide.app.model.Point;
-
-import java.util.Arrays;
 
 public class CMV {
 
@@ -83,6 +83,31 @@ public class CMV {
                 / (2 * sideLengthA * sideLengthB);
 
         return Math.acos(cos_angle);
+    }
+
+    /**
+     * Calculates the distance from a point to a line.
+     * @param indexA index of first point in line
+     * @param indexB index of last point in line
+     * @param indexP index of point whose distance to line to be calculated 
+     * @return Distance from point p to line ab
+     */ 
+    public double calculateDistanceFromPointToLine(int indexA, int indexB, int indexP) {
+        Point a = points[indexA];
+        Point b = points[indexB];
+        Point p = points[indexP];
+
+        if (a.x == b.x && a.y == b.y) {
+            return distanceMatrix.dist(indexA, indexP);
+        }
+
+        double numerator = Math.abs(
+            (b.y - a.y) * p.x - (b.x - a.x) * p.y + (b.x * a.y) - (b.y * a.x) 
+        );
+
+        double denominator = distanceMatrix.dist(indexA, indexB);
+
+        return numerator / denominator;
     }
 
     public boolean lic0() {
@@ -221,7 +246,31 @@ public class CMV {
         return false;
     }
 
+    /**
+     * Returns true if there exists at least one set of N_PTS consecutive data points such that
+     * at least one of the points lies a distance greater than DIST from the line joining the first and
+     * last of these N_PTS points.
+     */
     public boolean lic6() {
+        int N_PTS = parameters.N_PTS;
+        double DIST = parameters.DIST;
+
+        if(numpoints < 3) {
+            return false;
+        }
+
+        for (int i = 0; i <= numpoints - N_PTS; i++) {
+            int indexA = i;
+            int indexB = i + N_PTS - 1;
+
+            for (int j = i + 1; j < i + N_PTS - 1; j++) {
+                double distance = calculateDistanceFromPointToLine(indexA, indexB, j);
+
+                if (distance > DIST) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
