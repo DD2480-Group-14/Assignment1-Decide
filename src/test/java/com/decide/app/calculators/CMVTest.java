@@ -1,6 +1,7 @@
 package com.decide.app.calculators;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
@@ -223,6 +224,67 @@ public class CMVTest {
         assertTrue(cmv.lic3());
     }
 
+    /**
+     * Three consecutive points lie in more than QUADS quadrants.
+     * Should return true.
+     */
+    @Test
+    void lic4MoreThanQUADS() {
+        Point[] points = new Point[] {
+            new Point(1.0, 0.0),    // Quadrant I 
+            new Point(-1.0, 0.0),   // Quadrant II
+            new Point(0.0, -1.0),   // Quadrant III
+        };  
+
+        Parameters parameters = new Parameters();
+        parameters.Q_PTS = 3;
+        parameters.QUADS = 2;
+        CMV cmv = new CMV(points, parameters);
+
+        assertTrue(cmv.lic4());
+    }
+
+    /**
+     * Three consecutive points lie in less than QUADS quadrants.
+     * Should return false.
+     */
+    @Test
+    void lic4QLessThanQUADS() {
+        Point[] points = new Point[] {
+            new Point(1.0, 0.0),    // Quadrant I 
+            new Point(1.0, 2.0),    // Quadrant I
+            new Point(2.0, 3.0),    // Quadrant I
+        };  
+
+        Parameters parameters = new Parameters();
+        parameters.Q_PTS = 3;
+        parameters.QUADS = 2;
+        CMV cmv = new CMV(points, parameters);
+
+        assertFalse(cmv.lic4());
+    }
+
+    /**
+     * Two consecutive points lie in more than QUADS quadrants.
+     * Should return true.
+     */
+    @Test
+    void lic4CheckIfConsecutive() {
+        Point[] points = new Point[] {
+            new Point(1.0, 0.0),    // Quadrant I 
+            new Point(1.0, 2.0),    // Quadrant I
+            new Point(2.0, 3.0),    // Quadrant I
+            new Point(1.0, -3.0),    // Quadrant III
+        };  
+
+        Parameters parameters = new Parameters();
+        parameters.Q_PTS = 2;
+        parameters.QUADS = 1;
+        CMV cmv = new CMV(points, parameters);
+
+        assertTrue(cmv.lic4());
+    }
+
     @Test
     void lic5Positive() {
         Point[] points = new Point[] { new Point(1.0, 0.0), new Point(0.0, 0.0) };
@@ -352,6 +414,82 @@ public class CMVTest {
 
         assertFalse(cmv.lic9());
     }
+
+	@Test
+	void lic11FewerThanThreePoints() {
+		Point[] points = new Point[] { new Point(0.0, 0.0), new Point(0.0, 0.0) };
+		Parameters parameters = new Parameters();
+		parameters.G_PTS = 1;
+		CMV cmv = new CMV(points, parameters);
+		assertThrows(AssertionError.class, () -> {
+			cmv.lic11();
+		});
+	}
+
+	@Test
+	void lic11True() {
+		double[] xs = { 24.0, 0.0, 2.0, 23.0 };
+		double[] ys = { 28.0, 1.0, 28.0, 0.0 };
+		Point[] points = Point.fromArrays(xs, ys);
+		Parameters parameters = new Parameters();
+		parameters.G_PTS = 2;
+		CMV cmv = new CMV(points, parameters);
+		boolean result = cmv.lic11();
+
+		assertTrue(result);
+	}
+
+	@Test
+	void lic11False() {
+		double[] xs = { 1.0, 0.0, 2.0, 0.0 };
+		double[] ys = { 1.0, 2.0, 2.0, 100.0 };
+		Point[] points = Point.fromArrays(xs, ys);
+		Parameters parameters = new Parameters();
+		parameters.G_PTS = 1;
+		CMV cmv = new CMV(points, parameters);
+		boolean result = cmv.lic11();
+
+		assertFalse(result);
+	}
+
+	@Test
+	void lic11TooLargeG_PTS() {
+		double[] xs = { 0.0, 0.0, 0.0, 0.0 };
+		double[] ys = { 0.0, 0.0, 0.0, 0.0 };
+		Point[] points = Point.fromArrays(xs, ys);
+		Parameters parameters = new Parameters();
+		parameters.G_PTS = 3;
+		CMV cmv = new CMV(points, parameters);
+		assertThrows(AssertionError.class, () -> {
+			cmv.lic11();
+		});
+	}
+
+	@Test
+	void lic11TooSmallG_PTS() {
+		double[] xs = { 0.0, 0.0, 0.0, 0.0 };
+		double[] ys = { 0.0, 0.0, 0.0, 0.0 };
+		Point[] points = Point.fromArrays(xs, ys);
+		Parameters parameters = new Parameters();
+		parameters.G_PTS = 0;
+		CMV cmv = new CMV(points, parameters);
+		assertThrows(AssertionError.class, () -> {
+			cmv.lic11();
+		});
+	}
+	
+	@Test
+	void lic11SmallestG_PTS() {
+		double[] xs = { 3.0, 2.0, 1.0 };
+		double[] ys = { 0.0, 0.0, 0.0 };
+		Point[] points = Point.fromArrays(xs, ys);
+		Parameters parameters = new Parameters();
+		parameters.G_PTS = 1;
+		CMV cmv = new CMV(points, parameters);
+		boolean result = cmv.lic11();
+
+		assertTrue(result);
+	}
 
     @Test
     void lic14TooFewPoints() {

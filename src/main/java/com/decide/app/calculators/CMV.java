@@ -54,6 +54,19 @@ public class CMV {
         return area;
     }
 
+    private int determineQuadrant(Point p){
+        if(p.x >= 0 && p.y >= 0) {
+            return 1; // Quadrant I
+        }
+        if(p.x < 0 && p.y >= 0) {
+            return 2; // Quadrant II
+        }
+        if(p.x <= 0 && p.y < 0) {
+            return 3; // Quadrant III
+        }
+        return 4; // Quadrant IV
+    }
+
     /**
      * Use the Law of Cosines to calculate the angle
      * between three points using only distances
@@ -197,7 +210,28 @@ public class CMV {
         return false;
     }
 
+    /**
+     * Return true if there exists at least one set of Q_PTS consecutive data points that lie
+     * in more than QUADS quadrants.
+    */
     public boolean lic4() {
+        for (int i = 0; i <= numpoints - parameters.Q_PTS; i++) {
+            boolean[] visited = new boolean[4];
+            int quadrantCounter = 0;
+
+            for (int j = i; j < i + parameters.Q_PTS; j++) {
+                int quadrant = determineQuadrant(points[j]) - 1;
+
+                if (!visited[quadrant]) {
+                    visited[quadrant] = true;
+                    quadrantCounter++;
+                }
+            }
+
+            if (quadrantCounter > parameters.QUADS) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -276,9 +310,24 @@ public class CMV {
         return false;
     }
 
-    public boolean lic11() {
-        return false;
-    }
+	/**
+	 * Returns true if it exists at least one set of two data points, (X[i],Y[i]) 
+	 * and (X[j],Y[j]), separated by exactly G PTS consecutive intervening
+	 * points, such that X[j] - X[i] < 0. (where i < j ) The condition is
+	 * not met when NUMPOINTS < 3.
+	 */
+	public boolean lic11() {
+		int G_PTS = parameters.G_PTS;
+		boolean parametersConstraints = 1 <= G_PTS && G_PTS <= numpoints - 2;
+		assert parametersConstraints;
+		for (int i = 0; i + G_PTS + 1 < numpoints; i++) {
+			int j = i + G_PTS + 1;
+			if (points[j].x - points[i].x < 0) {
+				return true;
+			}
+		}
+		return false;
+	}
 
     public boolean lic12() {
         return false;

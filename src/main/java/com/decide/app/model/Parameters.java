@@ -5,7 +5,7 @@ public class Parameters {
     public double RADIUS1;
     public double EPSILON;
     public double AREA1;
-    public int PTS;
+    public int Q_PTS;
     public int QUADS;
     public double DIST;
     public int N_PTS;
