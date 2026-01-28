@@ -264,21 +264,12 @@ public class CMV {
     }
 
     public boolean lic12() {
-        double LENGTH1 = parameters.LENGTH1;
-        double LENGTH2 = parameters.LENGTH2;
-        int K_PTS = parameters.K_PTS;
-
         if (numpoints < 3) {
             return false;
         }
-
-        if (LENGTH1 < 0.0 || LENGTH2 < 0.0) {
-            throw new IllegalStateException("LENGTH1 and LENGTH2 must be non-negative");
-        }
-
-        if (K_PTS < 1 || K_PTS > numpoints - 2) {
-            throw new IllegalStateException("K_PTS must be between 1 and numpoints - 2");
-        }
+        double LENGTH1 = parameters.LENGTH1;
+        double LENGTH2 = parameters.LENGTH2;
+        int K_PTS = parameters.K_PTS;
 
         boolean condition1 = false;
         boolean condition2 = false;
