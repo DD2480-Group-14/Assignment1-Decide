@@ -243,9 +243,9 @@ public class CMV {
                 double x1 = points[i1].x, y1 = points[i1].y;
                 double x2 = points[i2].x, y2 = points[i2].y;
                 double x3 = points[i3].x, y3 = points[i3].y;
-                double a = Math.hypot(x2 - x3, y2 - y3);
-                double b = Math.hypot(x1 - x3, y1 - y3);
-                double c = Math.hypot(x1 - x2, y1 - y2);
+                double a = distanceMatrix.dist(i2, i3);
+                double b = distanceMatrix.dist(i1, i3);
+                double c = distanceMatrix.dist(i1, i2);
 
                 double area = Math.abs(
                     x1*(y2 - y3) + x2*(y3 - y1) + x3*(y1 - y2
