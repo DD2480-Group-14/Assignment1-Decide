@@ -656,7 +656,7 @@ public class CMVTest {
         double sideLengthA = 1.0;
         double sideLengthB = 1.0;
         double sideLengthC = Math.sqrt(2.0);
-        Point[] points = new Point[] {new Point(0.0, 0.0)};
+        Point[] points = new Point[] {new Point(0.0, 0.0), new Point(0.0, 0.0)};
         Parameters parameters = new Parameters();
         CMV cmv = new CMV(points, parameters);
         double area = cmv.calculateTriangleArea(sideLengthA, sideLengthB, sideLengthC);
@@ -671,7 +671,7 @@ public class CMVTest {
         double sideLengthA = 1.0;
         double sideLengthB = 1.0;
         double sideLengthC = 1.0;
-        Point[] points = new Point[] {new Point(0.0, 0.0)};
+        Point[] points = new Point[] {new Point(0.0, 0.0), new Point(0.0, 0.0)};
         Parameters parameters = new Parameters();
         CMV cmv = new CMV(points, parameters);
         double area = cmv.calculateTriangleArea(sideLengthA, sideLengthB, sideLengthC);
@@ -687,7 +687,7 @@ public class CMVTest {
         double sideLengthA = 1.0;
         double sideLengthB = 1.0;
         double sideLengthC = 0.0;
-        Point[] points = new Point[] {new Point(0.0, 0.0)};
+        Point[] points = new Point[] {new Point(0.0, 0.0), new Point(0.0, 0.0)};
         Parameters parameters = new Parameters();
         CMV cmv = new CMV(points, parameters);
         double area = cmv.calculateTriangleArea(sideLengthA, sideLengthB, sideLengthC);
@@ -701,7 +701,7 @@ public class CMVTest {
         double sideLengthA = 1.0;
         double sideLengthB = 1.0;
         double sideLengthC = Math.sqrt(2);
-        Point[] points = new Point[] {new Point(0.0, 0.0)};
+        Point[] points = new Point[] {new Point(0.0, 0.0), new Point(0.0, 0.0)};
         Parameters parameters = new Parameters();
         CMV cmv = new CMV(points, parameters);
         double angle = cmv.calculateAngle(sideLengthA, sideLengthB, sideLengthC);
@@ -715,7 +715,7 @@ public class CMVTest {
         double sideLengthA = 1.0;
         double sideLengthB = 1.0;
         double sideLengthC = 2.0;
-        Point[] points = new Point[] {new Point(0.0, 0.0)};
+        Point[] points = new Point[] {new Point(0.0, 0.0), new Point(0.0, 0.0)};
         Parameters parameters = new Parameters();
         CMV cmv = new CMV(points, parameters);
         double angle = cmv.calculateAngle(sideLengthA, sideLengthB, sideLengthC);
@@ -729,7 +729,7 @@ public class CMVTest {
         double sideLengthA = 1.0;
         double sideLengthB = 1.0;
         double sideLengthC = 0.0;
-        Point[] points = new Point[] {new Point(0.0, 0.0)};
+        Point[] points = new Point[] {new Point(0.0, 0.0), new Point(0.0, 0.0)};
         Parameters parameters = new Parameters();
         CMV cmv = new CMV(points, parameters);
         double angle = cmv.calculateAngle(sideLengthA, sideLengthB, sideLengthC);
