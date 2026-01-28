@@ -9,8 +9,6 @@ import com.decide.app.model.Point;
 public class CMV {
 
     private int numpoints;
-    private double[] X;
-    private double[] Y;
     private Point[] points;
     private Parameters parameters;
     private DistanceMatrix distanceMatrix;
