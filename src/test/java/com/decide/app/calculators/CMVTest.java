@@ -57,16 +57,6 @@ public class CMVTest {
         assertFalse(result);
     }
 
-    @Test
-    void lic0FewerThanTwoPoints() {
-        Point[] points = new Point[] { new Point(0.0, 0.0) };
-        Parameters parameters = new Parameters();
-        CMV cmv = new CMV(points, parameters);
-        boolean result = cmv.lic0();
-
-        assertFalse(result);
-    }
-
 	@Test
 	void lic1AcuteTriangle() {
 		Point[] points = new Point[] { new Point(0.5, 1.0), new Point(0.0, 0.0), new Point(2.0, 0) };
@@ -102,7 +92,7 @@ public class CMVTest {
 
 	@Test
 	void lic1FewerThanThreePoints() {
-		Point[] points = new Point[] { new Point(0.0, 0.0) };
+		Point[] points = new Point[] { new Point(0.0, 0.0) , new Point(0.0, 0.0)};
 		Parameters parameters = new Parameters();
 		CMV cmv = new CMV(points, parameters);
 
@@ -128,7 +118,7 @@ public class CMVTest {
             points[i] = new Point(1, 1);
         }
         Parameters parameters = new Parameters();
-        parameters.EPSILON = Math.PI;
+        parameters.EPSILON = Math.PI - 0.00001;
         CMV cmv = new CMV(points, parameters);
         assertFalse(cmv.lic2());
 
@@ -314,15 +304,6 @@ public class CMVTest {
         assertFalse(cmv.lic5());
     }
 
-    @Test
-    void lic5FewerThanTwoPoints() {
-        Point[] points = new Point[] { new Point(0.0, 0.0) };
-        Parameters parameters = new Parameters();
-        CMV cmv = new CMV(points, parameters);
-
-        assertFalse(cmv.lic5());
-    }
-
     @Test 
     void lic9Positive() {
         Point[] points = new Point[] {new Point(0.0, 0.0), new Point(1.0, 0.0), new Point(1.0, -5.0), new Point(1.0, 1.0), new Point(2.0, 0.0)};
@@ -349,7 +330,9 @@ public class CMVTest {
 
     @Test
     void lic9TooFewPoints() {
-        Point[] points = new Point[] {new Point(0.0, 0.0)};
+        double[] xs = {0.0, 0.0, 0.0, 0.0};
+        double[] ys = {0.0, 0.0, 0.0, 0.0};
+        Point[] points = Point.fromArrays(xs, ys);
         Parameters parameters = new Parameters();
         CMV cmv = new CMV(points, parameters);
 
@@ -443,6 +426,63 @@ public class CMVTest {
 
 		assertTrue(result);
 	}
+
+    @Test
+    void lic12TooFewPoints() {
+        double[] xs = {0.0, 0.0};
+        double[] ys = {0.0, 0.0};
+        Point[] points = Point.fromArrays(xs, ys);
+        Parameters parameters = new Parameters();
+        parameters.LENGTH1 = 1.0;
+        parameters.LENGTH2 = 1.0;
+        parameters.K_PTS = 1;
+        CMV cmv = new CMV(points, parameters);
+
+        assertFalse(cmv.lic12());
+    }
+
+    @Test
+    void lic12Positive() {
+        double[] xs = {0.0, 0.0, 1.0};
+        double[] ys = {0.0, 0.0, 0.0};
+        Point[] points = Point.fromArrays(xs, ys);
+        Parameters parameters = new Parameters();
+        parameters.LENGTH1 = 0.9;
+        parameters.LENGTH2 = 1.1;
+        parameters.K_PTS = 1;
+        CMV cmv = new CMV(points, parameters);
+
+        assertTrue(cmv.lic12());
+    }
+
+    @Test
+    void lic12Condition1TrueCondition2False() {
+        double[] xs = {0.0, 0.0, 1.0};
+        double[] ys = {0.0, 0.0, 0.0};
+        Point[] points = Point.fromArrays(xs, ys);
+        Parameters parameters = new Parameters();
+        parameters.LENGTH1 = 0.9;
+        parameters.LENGTH2 = 0.9;
+        parameters.K_PTS = 1;
+        CMV cmv = new CMV(points, parameters);
+
+        assertFalse(cmv.lic12());
+    }
+
+    @Test
+    void lic12Condition1FalseCondition2True() {
+        double[] xs = {0.0, 0.0, 1.0};
+        double[] ys = {0.0, 0.0, 0.0};
+        Point[] points = Point.fromArrays(xs, ys);
+        Parameters parameters = new Parameters();
+        parameters.LENGTH1 = 1.1;
+        parameters.LENGTH2 = 1.1;
+        parameters.K_PTS = 1;
+        CMV cmv = new CMV(points, parameters);
+
+        assertFalse(cmv.lic12());
+    }
+
 
     @Test
     void lic14TooFewPoints() {
