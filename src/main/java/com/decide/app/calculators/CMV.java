@@ -264,6 +264,41 @@ public class CMV {
     }
 
     public boolean lic12() {
+        double LENGTH1 = parameters.LENGTH1;
+        double LENGTH2 = parameters.LENGTH2;
+        int K_PTS = parameters.K_PTS;
+
+        if (numpoints < 3) {
+            return false;
+        }
+
+        if (LENGTH1 < 0.0 || LENGTH2 < 0.0) {
+            throw new IllegalStateException("LENGTH1 and LENGTH2 must be non-negative");
+        }
+
+        if (K_PTS < 1 || K_PTS > numpoints - 2) {
+            throw new IllegalStateException("K_PTS must be between 1 and numpoints - 2");
+        }
+
+        boolean condition1 = false;
+        boolean condition2 = false;
+
+        for (int i = 0; i + K_PTS + 1 < numpoints; i++) {
+            int j = i + K_PTS + 1;
+            double dist = distanceMatrix.dist(i, j);
+
+            if (dist > LENGTH1) {
+                condition1 = true;
+            }
+            if (dist < LENGTH2) {
+                condition2 = true;
+            }
+
+            if (condition1 && condition2) {
+                return true;
+            }
+        }
+
         return false;
     }
 
