@@ -8,12 +8,17 @@ public class Main {
     private Point[] points;
     private Parameters parameters;
     private Connectors[][] lcm;
+<<<<<<< HEAD
     private boolean[] puv;<<<<<<<HEAD
 
     =======
 
     >>>>>>>6e0736b (feat: add file containing decide method)
 
+=======
+    private boolean[] puv;
+    
+>>>>>>> 31ff061 (fix: remove unused launch variable)
     public Main(int numpoints, Point[] points, Parameters parameters, Connectors[][] lcm, boolean[] puv) {
         this.numpoints = numpoints;
         this.points = points;
