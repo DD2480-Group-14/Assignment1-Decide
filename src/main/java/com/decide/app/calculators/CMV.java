@@ -87,8 +87,8 @@ public class CMV {
 
     public boolean lic7() {
         if (numpoints >= 3)
-            for (int i = 0; i + p.K_PTS + 1 < numpoints; i++)
-                if (dist.apply[i][i + parameters.K_PTS + 1] > parameters.LENGTH1)
+            for (int i = 0; i + parameters.K_PTS + 1 < numpoints; i++)
+                if (distanceMatrix.distances[i][i + parameters.K_PTS + 1] > parameters.LENGTH1)
                     return true;
         return false;
     }
