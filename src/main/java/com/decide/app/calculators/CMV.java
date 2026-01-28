@@ -316,6 +316,9 @@ public class CMV {
 	 * not met when NUMPOINTS < 3.
 	 */
 	public boolean lic11() {
+        if(numpoints < 3) {
+            return false;
+        }
 		int G_PTS = parameters.G_PTS;
 		for (int i = 0; i + G_PTS + 1 < numpoints; i++) {
 			int j = i + G_PTS + 1;
