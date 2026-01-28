@@ -79,7 +79,6 @@ public class CMVTest {
         assertFalse(result);
     }
 
-<<<<<<< 12-add-function-that-calculates-cmv10
     @Test
     void lic0FewerThanTwoPoints() {
         Point[] points = new Point[] { new Point(0.0, 0.0) };
@@ -90,59 +89,6 @@ public class CMVTest {
         assertFalse(result);
     }
 
-    @Test
-    void lic1AcuteTriangle() {
-        Point[] points = new Point[] { new Point(0.5, 1.0), new Point(0.0, 0.0), new Point(2.0, 0) };
-        Parameters parameters = new Parameters();
-        parameters.RADIUS1 = 1.0;
-        CMV cmv = new CMV(points, parameters);
-        boolean result = cmv.lic1();
-
-        assertTrue(result);
-    }
-
-    @Test
-    void lic1ObtuseTriangle() {
-        Point[] points = new Point[] { new Point(0.0, 3.0), new Point(4.0, 0.0), new Point(9.0, 0.0) };
-        Parameters parameters = new Parameters();
-        parameters.RADIUS1 = 10.0;
-        CMV cmv = new CMV(points, parameters);
-        boolean result = cmv.lic1();
-
-        assertFalse(result);
-    }
-
-    @Test
-    void lic1EqualPoints() {
-        Point[] points = new Point[] { new Point(1.0, 2.0), new Point(1.0, 2.0), new Point(1.0, 2.0) };
-        Parameters parameters = new Parameters();
-        parameters.RADIUS1 = 0.0;
-        CMV cmv = new CMV(points, parameters);
-        boolean result = cmv.lic1();
-
-        assertFalse(result);
-    }
-
-    @Test
-    void lic1FewerThanThreePoints() {
-        Point[] points = new Point[] { new Point(0.0, 0.0) };
-        Parameters parameters = new Parameters();
-        CMV cmv = new CMV(points, parameters);
-
-        assertFalse(cmv.lic1());
-    }
-
-    @Test
-    void lic1PointsOnTheSameLine() {
-        Point[] points = new Point[] { new Point(1.0, 5.0), new Point(1.0, 42.0), new Point(1.0, 100.0) };
-        Parameters parameters = new Parameters();
-        parameters.RADIUS1 = 15.0;
-        CMV cmv = new CMV(points, parameters);
-        boolean result = cmv.lic1();
-
-        assertTrue(result);
-    }
-=======
 	@Test
 	void lic1AcuteTriangle() {
 		Point[] points = new Point[] { new Point(0.5, 1.0), new Point(0.0, 0.0), new Point(2.0, 0) };
@@ -195,7 +141,6 @@ public class CMVTest {
 
 		assertTrue(result);
 	}
->>>>>>> main
 
     @Test
     void lic2CoincidingPoints() {
@@ -486,7 +431,6 @@ public class CMVTest {
         assertFalse(cmv.lic9());
     }
 
-<<<<<<< 12-add-function-that-calculates-cmv10
     @Test
     void lic10TooFewPoints() {
         double[] xs = {0.0, 0.0, 0.0, 0.0, 0.0};
