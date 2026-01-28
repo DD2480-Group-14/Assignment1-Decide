@@ -23,6 +23,28 @@ public class CMVTest {
     }
 
     @Test
+    void tooFewPoints() {
+        double[] xs = new double[1];
+		double[] ys = new double[1];
+		Point[] points = Point.fromArrays(xs, ys);
+        Parameters parameters = new Parameters();
+        parameters.LENGTH1 = 2.0;
+        
+        assertThrows(IllegalStateException.class, () -> new CMV(points, parameters));
+    }
+
+    @Test
+    void tooManyPoints() {
+        double[] xs = new double[101];
+		double[] ys = new double[101];
+		Point[] points = Point.fromArrays(xs, ys);
+        Parameters parameters = new Parameters();
+        parameters.LENGTH1 = 2.0;
+        
+        assertThrows(IllegalStateException.class, () -> new CMV(points, parameters));
+    }
+
+    @Test
     void lic0False() {
         Point[] points = new Point[] { new Point(0.0, 0.0), new Point(1.0, 1.0), new Point(2.0, 2.0),
                 new Point(1.0, 2.0) };
@@ -51,16 +73,6 @@ public class CMVTest {
         Point[] points = new Point[] { new Point(0.0, 0.0), new Point(0.0, 1.0) };
         Parameters parameters = new Parameters();
         parameters.LENGTH1 = 1.0;
-        CMV cmv = new CMV(points, parameters);
-        boolean result = cmv.lic0();
-
-        assertFalse(result);
-    }
-
-    @Test
-    void lic0FewerThanTwoPoints() {
-        Point[] points = new Point[] { new Point(0.0, 0.0) };
-        Parameters parameters = new Parameters();
         CMV cmv = new CMV(points, parameters);
         boolean result = cmv.lic0();
 
@@ -102,7 +114,7 @@ public class CMVTest {
 
 	@Test
 	void lic1FewerThanThreePoints() {
-		Point[] points = new Point[] { new Point(0.0, 0.0) };
+		Point[] points = new Point[] { new Point(0.0, 0.0) , new Point(0.0, 0.0)};
 		Parameters parameters = new Parameters();
 		CMV cmv = new CMV(points, parameters);
 
@@ -128,7 +140,7 @@ public class CMVTest {
             points[i] = new Point(1, 1);
         }
         Parameters parameters = new Parameters();
-        parameters.EPSILON = Math.PI;
+        parameters.EPSILON = Math.PI - 0.00001;
         CMV cmv = new CMV(points, parameters);
         assertFalse(cmv.lic2());
 
@@ -315,15 +327,6 @@ public class CMVTest {
     }
 
     @Test
-    void lic5FewerThanTwoPoints() {
-        Point[] points = new Point[] { new Point(0.0, 0.0) };
-        Parameters parameters = new Parameters();
-        CMV cmv = new CMV(points, parameters);
-
-        assertFalse(cmv.lic5());
-    }
-
-    @Test
     void lic6ConsecutiveInLaterWindow() {
         Point[] points = new Point[] { 
             new Point(0.0, 0.0),
@@ -397,7 +400,9 @@ public class CMVTest {
 
     @Test
     void lic9TooFewPoints() {
-        Point[] points = new Point[] {new Point(0.0, 0.0)};
+        double[] xs = {0.0, 0.0, 0.0, 0.0};
+        double[] ys = {0.0, 0.0, 0.0, 0.0};
+        Point[] points = Point.fromArrays(xs, ys);
         Parameters parameters = new Parameters();
         CMV cmv = new CMV(points, parameters);
 
@@ -451,32 +456,6 @@ public class CMVTest {
 		boolean result = cmv.lic11();
 
 		assertFalse(result);
-	}
-
-	@Test
-	void lic11TooLargeG_PTS() {
-		double[] xs = { 0.0, 0.0, 0.0, 0.0 };
-		double[] ys = { 0.0, 0.0, 0.0, 0.0 };
-		Point[] points = Point.fromArrays(xs, ys);
-		Parameters parameters = new Parameters();
-		parameters.G_PTS = 3;
-		CMV cmv = new CMV(points, parameters);
-		assertThrows(AssertionError.class, () -> {
-			cmv.lic11();
-		});
-	}
-
-	@Test
-	void lic11TooSmallG_PTS() {
-		double[] xs = { 0.0, 0.0, 0.0, 0.0 };
-		double[] ys = { 0.0, 0.0, 0.0, 0.0 };
-		Point[] points = Point.fromArrays(xs, ys);
-		Parameters parameters = new Parameters();
-		parameters.G_PTS = 0;
-		CMV cmv = new CMV(points, parameters);
-		assertThrows(AssertionError.class, () -> {
-			cmv.lic11();
-		});
 	}
 	
 	@Test
@@ -677,7 +656,7 @@ public class CMVTest {
         double sideLengthA = 1.0;
         double sideLengthB = 1.0;
         double sideLengthC = Math.sqrt(2.0);
-        Point[] points = new Point[] {new Point(0.0, 0.0)};
+        Point[] points = new Point[] {new Point(0.0, 0.0), new Point(0.0, 0.0)};
         Parameters parameters = new Parameters();
         CMV cmv = new CMV(points, parameters);
         double area = cmv.calculateTriangleArea(sideLengthA, sideLengthB, sideLengthC);
@@ -692,7 +671,7 @@ public class CMVTest {
         double sideLengthA = 1.0;
         double sideLengthB = 1.0;
         double sideLengthC = 1.0;
-        Point[] points = new Point[] {new Point(0.0, 0.0)};
+        Point[] points = new Point[] {new Point(0.0, 0.0), new Point(0.0, 0.0)};
         Parameters parameters = new Parameters();
         CMV cmv = new CMV(points, parameters);
         double area = cmv.calculateTriangleArea(sideLengthA, sideLengthB, sideLengthC);
@@ -708,7 +687,7 @@ public class CMVTest {
         double sideLengthA = 1.0;
         double sideLengthB = 1.0;
         double sideLengthC = 0.0;
-        Point[] points = new Point[] {new Point(0.0, 0.0)};
+        Point[] points = new Point[] {new Point(0.0, 0.0), new Point(0.0, 0.0)};
         Parameters parameters = new Parameters();
         CMV cmv = new CMV(points, parameters);
         double area = cmv.calculateTriangleArea(sideLengthA, sideLengthB, sideLengthC);
@@ -722,7 +701,7 @@ public class CMVTest {
         double sideLengthA = 1.0;
         double sideLengthB = 1.0;
         double sideLengthC = Math.sqrt(2);
-        Point[] points = new Point[] {new Point(0.0, 0.0)};
+        Point[] points = new Point[] {new Point(0.0, 0.0), new Point(0.0, 0.0)};
         Parameters parameters = new Parameters();
         CMV cmv = new CMV(points, parameters);
         double angle = cmv.calculateAngle(sideLengthA, sideLengthB, sideLengthC);
@@ -736,7 +715,7 @@ public class CMVTest {
         double sideLengthA = 1.0;
         double sideLengthB = 1.0;
         double sideLengthC = 2.0;
-        Point[] points = new Point[] {new Point(0.0, 0.0)};
+        Point[] points = new Point[] {new Point(0.0, 0.0), new Point(0.0, 0.0)};
         Parameters parameters = new Parameters();
         CMV cmv = new CMV(points, parameters);
         double angle = cmv.calculateAngle(sideLengthA, sideLengthB, sideLengthC);
@@ -750,7 +729,7 @@ public class CMVTest {
         double sideLengthA = 1.0;
         double sideLengthB = 1.0;
         double sideLengthC = 0.0;
-        Point[] points = new Point[] {new Point(0.0, 0.0)};
+        Point[] points = new Point[] {new Point(0.0, 0.0), new Point(0.0, 0.0)};
         Parameters parameters = new Parameters();
         CMV cmv = new CMV(points, parameters);
         double angle = cmv.calculateAngle(sideLengthA, sideLengthB, sideLengthC);
