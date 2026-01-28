@@ -11,6 +11,7 @@ public class PUM {
     public PUM(boolean[] cmv, Connectors[][] lcm) {
         this.cmv = cmv;
         this.lcm = lcm;
+        validateInput();
     }
 
     /*
@@ -42,5 +43,29 @@ public class PUM {
         }
 
         return pum;
+    }
+
+    private void validateInput() {
+        if (cmv.length != 15) {
+            throw new IllegalArgumentException("cmv must contain excactly 15 elements.");
+        }
+
+        if (lcm.length != 15) {
+            throw new IllegalArgumentException("lcm has the wrong dimensions, must be 15x15.");
+        }
+
+        for (int i = 0; i < 15; i++) {
+            if (lcm[i].length != 15) {
+                throw new IllegalArgumentException("lcm has the wrong dimensions, must be 15x15.");
+            }
+        }
+
+        for (int i = 0; i < 15; i++) {
+            for (int j = i; j < 15; j++) {
+                if (lcm[i][j] != lcm[j][i]) {
+                    throw new IllegalArgumentException("lcm is not symmetric.");
+                }
+            }
+        }
     }
 }
