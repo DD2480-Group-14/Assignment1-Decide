@@ -1,8 +1,8 @@
 package com.decide.app.calculators;
 
-import com.decide.app.model.Point;
-import com.decide.app.model.Parameters;
 import com.decide.app.model.DistanceMatrix;
+import com.decide.app.model.Parameters;
+import com.decide.app.model.Point;
 
 public class CMV {
 
@@ -38,10 +38,6 @@ public class CMV {
         output[14] = lic14();
         return output;
     }
-
-    java.util.function.BiFunction<Integer, Integer, Double> dist =
-                (i, j) -> Math.hypot(X[j] - X[i], Y[j] - Y[i]);
-
 
     public boolean lic0() {
 		for (int i = 0; i < points.length - 1; i++) {
