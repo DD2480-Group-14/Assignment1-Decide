@@ -87,10 +87,10 @@ public class CMV {
 
     /**
      * Calculates the distance from a point to a line.
-     * @param indexA First point in line
-     * @param indexB Last point in line
-     * @param indexP Point 
-     * @return Distance from point p to line ab.
+     * @param indexA index of first point in line
+     * @param indexB index of last point in line
+     * @param indexP index of point whose distance to line to be calculated 
+     * @return Distance from point p to line ab
      */ 
     public double calculateDistanceFromPointToLine(int indexA, int indexB, int indexP) {
         Point a = points[indexA];
