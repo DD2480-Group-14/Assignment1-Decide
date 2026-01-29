@@ -322,7 +322,36 @@ public class CMV {
         return false;
     }
 
+    /** Should be true if:
+     * There exists at least one set of three data points separated
+     * by exactly E_PTS and F:PTS consecutive intervening points, respectively,
+     * that are the vertices of a triangle with area greater than AREA1.
+     * The condition is not met when NUMPOINTS < 5.
+     * */
     public boolean lic10() {
+        if (numpoints < 5) {
+            return false;
+        }
+
+        for (int i = 0; i + parameters.E_PTS + parameters.F_PTS + 2 < numpoints; i++){
+            int i1 = i;
+            int i2 = i + parameters.E_PTS + 1;
+            int i3 = i + parameters.E_PTS + parameters.F_PTS + 2;
+
+            double sideLengthA = distanceMatrix.dist(i1, i2);
+            double sideLengthB = distanceMatrix.dist(i2, i3);
+            double sideLengthC = distanceMatrix.dist(i3, i1);
+
+            double area = calculateTriangleArea(sideLengthA, sideLengthB, sideLengthC);
+
+            if (area > parameters.AREA1) {
+                return true;
+            }
+            
+            
+        }
+
+
         return false;
     }
 

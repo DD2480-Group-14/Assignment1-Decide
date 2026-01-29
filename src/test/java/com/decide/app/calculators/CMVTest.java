@@ -459,7 +459,7 @@ public class CMVTest {
         assertFalse(cmv.lic8());
     }
 
-    @Test
+        @Test
     void lic8CollinearPoints() {
         double[] xs = {0.0, 1.0, 2.0, 3.0, 4.0};
         double[] ys = {0.0, 1.0, 2.0, 3.0, 4.0};
@@ -520,44 +520,83 @@ public class CMVTest {
         assertFalse(cmv.lic9());
     }
 
-	@Test
-	void lic11True() {
-		double[] xs = { 24.0, 0.0, 2.0, 23.0 };
-		double[] ys = { 28.0, 1.0, 28.0, 0.0 };
-		Point[] points = Point.fromArrays(xs, ys);
-		Parameters parameters = new Parameters();
-		parameters.G_PTS = 2;
-		CMV cmv = new CMV(points, parameters);
-		boolean result = cmv.lic11();
+    @Test
+    void lic10TooFewPoints() {
+        double[] xs = {0.0, 0.0, 0.0, 0.0};
+        double[] ys = {0.0, 0.0, 0.0, 0.0};
+        Point[] points = Point.fromArrays(xs, ys);
+        Parameters parameters = new Parameters();
+        parameters.E_PTS = 1;
+        parameters.F_PTS = 1;
+        parameters.AREA1 = 1.0;
+        CMV cmv = new CMV(points, parameters);
+        assertFalse(cmv.lic10());
+    }
 
-		assertTrue(result);
-	}
+    @Test
+    void lic10Positive(){
+        double[] xs = {0.0, 0.0, 1.0, 0.0, 0.0};
+        double[] ys = {0.0, 0.0, 0.0, 0.0, 1.0};
+        Point[] points = Point.fromArrays(xs, ys);
+        Parameters parameters = new Parameters();
+        parameters.E_PTS = 1;
+        parameters.F_PTS = 1;
+        parameters.AREA1 = 0.4;
+        CMV cmv = new CMV(points, parameters);
+        assertTrue(cmv.lic10());
+    }
 
-	@Test
-	void lic11False() {
-		double[] xs = { 1.0, 0.0, 2.0, 0.0 };
-		double[] ys = { 1.0, 2.0, 2.0, 100.0 };
-		Point[] points = Point.fromArrays(xs, ys);
-		Parameters parameters = new Parameters();
-		parameters.G_PTS = 1;
-		CMV cmv = new CMV(points, parameters);
-		boolean result = cmv.lic11();
+    @Test
+    void lic10CollinearPoints(){
+        double[] xs = {0.0, 1.0, 2.0, 3.0, 4.0};
+        double[] ys = {0.0, 1.0, 2.0, 3.0, 4.0};
+        Point[] points = Point.fromArrays(xs, ys);
+        Parameters parameters = new Parameters();
+        parameters.E_PTS = 1;
+        parameters.F_PTS = 1;
+        parameters.AREA1 = 0.1;
+        CMV cmv = new CMV(points, parameters);
+        assertFalse(cmv.lic10());
+    }
 
-		assertFalse(result);
-	}
-	
-	@Test
-	void lic11SmallestG_PTS() {
-		double[] xs = { 3.0, 2.0, 1.0 };
-		double[] ys = { 0.0, 0.0, 0.0 };
-		Point[] points = Point.fromArrays(xs, ys);
-		Parameters parameters = new Parameters();
-		parameters.G_PTS = 1;
-		CMV cmv = new CMV(points, parameters);
-		boolean result = cmv.lic11();
+    @Test
+    void lic11True() {
+        double[] xs = { 24.0, 0.0, 2.0, 23.0 };
+        double[] ys = { 28.0, 1.0, 28.0, 0.0 };
+        Point[] points = Point.fromArrays(xs, ys);
+        Parameters parameters = new Parameters();
+        parameters.G_PTS = 2;
+        CMV cmv = new CMV(points, parameters);
+        boolean result = cmv.lic11();
 
-		assertTrue(result);
-	}
+        assertTrue(result);
+    }
+
+    @Test
+    void lic11False() {
+        double[] xs = { 1.0, 0.0, 2.0, 0.0 };
+        double[] ys = { 1.0, 2.0, 2.0, 100.0 };
+        Point[] points = Point.fromArrays(xs, ys);
+        Parameters parameters = new Parameters();
+        parameters.G_PTS = 1;
+        CMV cmv = new CMV(points, parameters);
+        boolean result = cmv.lic11();
+
+        assertFalse(result);
+    }
+    
+    @Test
+    void lic11SmallestG_PTS() {
+        double[] xs = { 3.0, 2.0, 1.0 };
+        double[] ys = { 0.0, 0.0, 0.0 };
+        Point[] points = Point.fromArrays(xs, ys);
+        Parameters parameters = new Parameters();
+        parameters.G_PTS = 1;
+        CMV cmv = new CMV(points, parameters);
+        boolean result = cmv.lic11();
+
+        assertTrue(result);
+    }
 
     @Test
     void lic13TooFewPoints() {
