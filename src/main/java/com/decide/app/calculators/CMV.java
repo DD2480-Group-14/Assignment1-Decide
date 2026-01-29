@@ -1,7 +1,5 @@
 package com.decide.app.calculators;
-
 import java.util.Arrays;
-
 import com.decide.app.model.DistanceMatrix;
 import com.decide.app.model.Parameters;
 import com.decide.app.model.Point;
@@ -276,6 +274,10 @@ public class CMV {
     }
 
     public boolean lic7() {
+        if (numpoints >= 3)
+            for (int i = 0; i + parameters.K_PTS + 1 < numpoints; i++)
+                if (distanceMatrix.distances[i][i + parameters.K_PTS + 1] > parameters.LENGTH1)
+                    return true;
         return false;
     }
 
