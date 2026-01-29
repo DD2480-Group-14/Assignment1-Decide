@@ -8,8 +8,14 @@ The program evaluates up to 100 planar data points, representing radar echoes, a
 ## Getting Started
 
 ### Dependencies
+* Apache Maven: 3.9.12
+* Java version: 25.0.2
 
 ### Installation
+
+```bash
+mvn clean install
+```
 
 ### Running the program
 
