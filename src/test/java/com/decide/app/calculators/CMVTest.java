@@ -22,6 +22,11 @@ public class CMVTest {
         assertTrue(true);
     }
 
+    /**
+     * Out of bounds.
+     * An exception should be thrown if CMV is
+     * instantiated with numpoints = 1
+     */
     @Test
     void tooFewPoints() {
         double[] xs = new double[1];
@@ -33,6 +38,11 @@ public class CMVTest {
         assertThrows(IllegalStateException.class, () -> new CMV(points, parameters));
     }
 
+    /**
+     * Out of bounds.
+     * An exception should be thrown if CMV is
+     * instantiated with numpoints = 101.
+     */
     @Test
     void tooManyPoints() {
         double[] xs = new double[101];
