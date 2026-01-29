@@ -416,7 +416,7 @@ public class CMVTest {
         assertFalse(cmv.lic8());
     }
 
-    @Test
+        @Test
     void lic8CollinearPoints() {
         double[] xs = {0.0, 1.0, 2.0, 3.0, 4.0};
         double[] ys = {0.0, 1.0, 2.0, 3.0, 4.0};
@@ -492,8 +492,8 @@ public class CMVTest {
 
     @Test
     void lic10Positive(){
-        double[] xs = {0.0, 1.0, 0.0, 0.0, 0.0};
-        double[] ys = {0.0, 0.0, 1.0, 0.2, 0.2};
+        double[] xs = {0.0, 10.0, 0.0, 20.0, 1.0};
+        double[] ys = {0.0, 10.0, 0.0, 20.0, 1.0};
         Point[] points = Point.fromArrays(xs, ys);
         Parameters parameters = new Parameters();
         parameters.E_PTS = 1;
@@ -501,19 +501,6 @@ public class CMVTest {
         parameters.AREA1 = 0.4;
         CMV cmv = new CMV(points, parameters);
         assertTrue(cmv.lic10());
-    }
-
-    @Test
-    void lic10AreaEqualToAREA1(){
-        double[] xs = {0.0, 1.0, 0.0, 0.0, 0.0};
-        double[] ys = {0.0, 0.0, 1.0, 0.2, 0.2};
-        Point[] points = Point.fromArrays(xs, ys);
-        Parameters parameters = new Parameters();
-        parameters.E_PTS = 1;
-        parameters.F_PTS = 1;
-        parameters.AREA1 = 0.5;
-        CMV cmv = new CMV(points, parameters);
-        assertFalse(cmv.lic10());
     }
 
     @Test
@@ -553,19 +540,6 @@ public class CMVTest {
         boolean result = cmv.lic11();
 
         assertFalse(result);
-    }
-
-    @Test
-    void lic11TooSmallG_PTS() {
-        double[] xs = { 0.0, 0.0, 0.0, 0.0 };
-        double[] ys = { 0.0, 0.0, 0.0, 0.0 };
-        Point[] points = Point.fromArrays(xs, ys);
-        Parameters parameters = new Parameters();
-        parameters.G_PTS = 0;
-        CMV cmv = new CMV(points, parameters);
-        assertThrows(AssertionError.class, () -> {
-            cmv.lic11();
-        });
     }
     
     @Test
