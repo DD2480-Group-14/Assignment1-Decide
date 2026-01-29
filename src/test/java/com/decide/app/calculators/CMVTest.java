@@ -479,8 +479,8 @@ public class CMVTest {
 
     @Test
     void lic10TooFewPoints() {
-        double[] xs = {0.0, 0.0, 0.0, 0.0, 0.0};
-        double[] ys = {0.0, 0.0, 0.0, 0.0, 0.0};
+        double[] xs = {0.0, 0.0, 0.0, 0.0};
+        double[] ys = {0.0, 0.0, 0.0, 0.0};
         Point[] points = Point.fromArrays(xs, ys);
         Parameters parameters = new Parameters();
         parameters.E_PTS = 1;
@@ -492,8 +492,8 @@ public class CMVTest {
 
     @Test
     void lic10Positive(){
-        double[] xs = {0.0, 10.0, 0.0, 20.0, 1.0};
-        double[] ys = {0.0, 10.0, 0.0, 20.0, 1.0};
+        double[] xs = {0.0, 0.0, 1.0, 0.0, 0.0};
+        double[] ys = {0.0, 0.0, 0.0, 0.0, 1.0};
         Point[] points = Point.fromArrays(xs, ys);
         Parameters parameters = new Parameters();
         parameters.E_PTS = 1;
