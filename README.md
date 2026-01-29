@@ -71,5 +71,10 @@ We would consider our way of working to be in the "in use" state. This is in par
 
 ## Contribution
 
+### Melker Trané
+- Implemented LIC5, LIC12, LIC14. 
+- Wrote our way of working. 
+- Reviewed around 1/2 of other team members PRs.
+
 ## License
 [MIT](LICENSE)
