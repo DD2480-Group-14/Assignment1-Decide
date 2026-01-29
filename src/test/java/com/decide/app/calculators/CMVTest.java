@@ -373,6 +373,49 @@ public class CMVTest {
 
         assertTrue(cmv.lic6());
     }
+  
+      void lic7TooFewPoints() {
+        Point[] points = new Point[] {new Point(0.0, 0.0), new Point(1.0, 1.0)};
+        Parameters parameters = new Parameters();
+        parameters.K_PTS = 1;
+        parameters.LENGTH1 = 0.5;
+        CMV cmv = new CMV(points, parameters);
+
+        assertFalse(cmv.lic7());
+    }
+
+    @Test
+    void lic7Positive() {
+        Point[] points = new Point[] {new Point(0.0, 0.0), new Point(1.0, 1.0), new Point(2.0, 2.0)};
+        Parameters parameters = new Parameters();
+        parameters.K_PTS = 1;
+        parameters.LENGTH1 = 2.0;
+        CMV cmv = new CMV(points, parameters);
+
+        assertTrue(cmv.lic7());
+    }
+
+    @Test
+    void lic7Negative() {
+        Point[] points = new Point[] {new Point(0.0, 0.0), new Point(0.5, 0.0), new Point(1.0, 0.0), new Point(1.5, 0.0)};
+        Parameters parameters = new Parameters();
+        parameters.K_PTS = 1;
+        parameters.LENGTH1 = 2.0;
+        CMV cmv = new CMV(points, parameters);
+
+        assertFalse(cmv.lic7());
+    }
+
+    @Test
+    void lic7DistanceIsLength1() {
+        Point[] points = new Point[] {new Point(0.0, 0.0), new Point(1.0, 0.0), new Point(2.0, 0.0)};
+        Parameters parameters = new Parameters();
+        parameters.K_PTS = 1;
+        parameters.LENGTH1 = 2.0;
+        CMV cmv = new CMV(points, parameters);
+
+        assertFalse(cmv.lic7());
+    }
 
     @Test
     void lic8TooFewPoints() {
