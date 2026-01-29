@@ -672,6 +672,10 @@ public class CMVTest {
     }
 
 
+    /**
+     * Out of bounds.
+     * If numpoints < 5, lic14 should return false
+     */
     @Test
     void lic14TooFewPoints() {
         double[] xs = {0.0, 0.0, 0.0, 0.0};
@@ -687,6 +691,12 @@ public class CMVTest {
         assertFalse(cmv.lic14());
     }
 
+    /**
+     * Positve case.
+     * lic14 should return true if there is a triangle
+     * with area greater than AREA1 and a triangle
+     * with area smaller than AREA2.
+     */
     @Test
     void lic14Positive() {
         double[] xs = {0.0, 0.0, 1.0, 0.0, 0.0};
@@ -701,7 +711,13 @@ public class CMVTest {
 
         assertTrue(cmv.lic14());
     }
-
+    
+    /**
+     * Negative case.
+     * lic14 should return false if theres is no triangle
+     * larger than AREA1, but there is a triangle smaller
+     * than AREA2.
+     */
     @Test
     void lic14Condition1FalseCondition2True() {
         double[] xs = {0.0, 0.0, 1.0, 0.0, 0.0};
@@ -717,8 +733,14 @@ public class CMVTest {
         assertFalse(cmv.lic14());
     }
 
+    /**
+     * Negative case.
+     * lic14 should return false if theres is a triangle
+     * larger than AREA1, but there is no triangle smaller
+     * than AREA2.
+     */
     @Test
-    void lic14Condition1TrueCondition1False() {
+    void lic14Condition1TrueCondition2False() {
         double[] xs = {0.0, 0.0, 1.0, 0.0, 0.0};
         double[] ys = {0.0, 0.0, 0.0, 0.0, 1.0};
         Point[] points = Point.fromArrays(xs, ys);
@@ -731,6 +753,7 @@ public class CMVTest {
 
         assertFalse(cmv.lic14());
     }
+
 
     /*
      * Tests for additional public methods in the CMV class.
