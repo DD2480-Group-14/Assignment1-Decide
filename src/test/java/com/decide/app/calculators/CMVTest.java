@@ -374,6 +374,62 @@ public class CMVTest {
         assertTrue(cmv.lic6());
     }
 
+    @Test
+    void lic8TooFewPoints() {
+        double[] xs = {0.0, 0.0, 0.0, 0.0};
+        double[] ys = {0.0, 0.0, 0.0, 0.0};
+        Point[] points = Point.fromArrays(xs, ys);
+        Parameters parameters = new Parameters();
+        parameters.A_PTS = 1;
+        parameters.B_PTS = 1;
+        parameters.RADIUS1 = 1.0;
+        CMV cmv = new CMV(points, parameters);
+
+        assertFalse(cmv.lic8());
+    }
+
+    @Test
+    void lic8Positive() {
+        double[] xs = {0.0, 10.0, 0.0, 1.0, 2.0};
+        double[] ys = {0.0, 0.0, 10.0, 1.0, 2.0};
+        Point[] points = Point.fromArrays(xs, ys);
+        Parameters parameters = new Parameters();
+        parameters.A_PTS = 1;
+        parameters.B_PTS = 1;
+        parameters.RADIUS1 = 3.0;
+        CMV cmv = new CMV(points, parameters);
+
+        assertTrue(cmv.lic8());
+    }
+
+    @Test
+    void lic8FalseAllTriplesFitInRadius() {
+        double[] xs = {0.0, 0.5, 1.0, 0.5, 0.2};
+        double[] ys = {0.0, 0.5, 0.0, 0.2, 0.1};
+        Point[] points = Point.fromArrays(xs, ys);
+        Parameters parameters = new Parameters();
+        parameters.A_PTS = 1;
+        parameters.B_PTS = 1;
+        parameters.RADIUS1 = 5.0;
+        CMV cmv = new CMV(points, parameters);
+
+        assertFalse(cmv.lic8());
+    }
+
+    @Test
+    void lic8CollinearPoints() {
+        double[] xs = {0.0, 1.0, 2.0, 3.0, 4.0};
+        double[] ys = {0.0, 1.0, 2.0, 3.0, 4.0};
+        Point[] points = Point.fromArrays(xs, ys);
+        Parameters parameters = new Parameters();
+        parameters.A_PTS = 1;
+        parameters.B_PTS = 1;
+        parameters.RADIUS1 = 5.0;
+        CMV cmv = new CMV(points, parameters);
+
+        assertFalse(cmv.lic8());
+    }
+
     @Test 
     void lic9Positive() {
         Point[] points = new Point[] {new Point(0.0, 0.0), new Point(1.0, 0.0), new Point(1.0, -5.0), new Point(1.0, 1.0), new Point(2.0, 0.0)};

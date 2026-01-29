@@ -280,7 +280,22 @@ public class CMV {
     }
 
     public boolean lic8() {
+        if (numpoints < 5)
+            return false;
+
+            for (int i = 0; i + parameters.A_PTS + parameters.B_PTS + 2 < numpoints; i++){
+                int i1 = i;
+                int i2 = i + parameters.A_PTS + 1;
+                int i3 = i + parameters.A_PTS + parameters.B_PTS + 2;
+
+                double radius = calculateSmallestRadiusThreePoints(i1, i2, i3);
+
+                if (radius > parameters.RADIUS1)
+                    return true;
+            }
+    
         return false;
+            
     }
 
     public boolean lic9() {
@@ -345,9 +360,10 @@ public class CMV {
 	 * not met when NUMPOINTS < 3.
 	 */
 	public boolean lic11() {
+        if(numpoints < 3) {
+            return false;
+        }
 		int G_PTS = parameters.G_PTS;
-		boolean parametersConstraints = 1 <= G_PTS && G_PTS <= numpoints - 2;
-		assert parametersConstraints;
 		for (int i = 0; i + G_PTS + 1 < numpoints; i++) {
 			int j = i + G_PTS + 1;
 			if (points[j].x - points[i].x < 0) {
