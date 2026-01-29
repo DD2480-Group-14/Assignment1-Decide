@@ -19,3 +19,4 @@ We would consider our way of working to be in the "in use" state. This is in par
 ## Contribution
 
 ## License
+[MIT](LICENSE)
