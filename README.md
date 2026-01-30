@@ -82,5 +82,10 @@ We would consider our way of working to be in the "in use" state. This is in par
 - Implemented DistanceMatrix.
 - Created Main.java and the decide method.
 
+### Vidar Nykvist
+- Implemented LIC0, LIC1 and LIC11.
+- Implemented calculation of FUV. 
+- Wrote "Getting Started"
+
 ## License
 [MIT](LICENSE)
