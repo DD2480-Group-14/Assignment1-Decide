@@ -1,5 +1,7 @@
 package com.decide.app;
 
+import java.util.Objects;
+
 import com.decide.app.calculators.*;
 import com.decide.app.model.*;
 
@@ -11,33 +13,18 @@ public class Main {
     private boolean[] puv;
 
     private void validateInput() {
-        if(points == null) {
-            throw new IllegalArgumentException("Points cannot be null");
-        }
-
-        if(parameters == null) {
-            throw new IllegalArgumentException("Parameters cannot be null");
-        }
-
-        if(lcm == null) {
-            throw new IllegalArgumentException("LCM cannot be null");
-        }
-
-        if(puv == null) {
-            throw new IllegalArgumentException("PUV cannot be null");
-        }
-
+        Objects.requireNonNull(points, "Points cannot be null");
+        Objects.requireNonNull(parameters, "Parameters cannot be null");
+        Objects.requireNonNull(lcm, "lcm cannot be null");
+        Objects.requireNonNull(puv, "puv cannot be null");
+        
         for(int i = 0; i < points.length; ++i) {
-            if(points[i] == null) {
-                throw new IllegalArgumentException("A point cannot be null");
-            }
+            Objects.requireNonNull(points[i], "points cannot contain a null pointer");
         }
 
         for(int i = 0; i < 15; ++i) {
             for(int j = 0; j < 15; ++j) {
-                if(lcm[i][j] == null) {
-                    throw new IllegalArgumentException("A connector cannot be null");
-                }
+                Objects.requireNonNull(lcm[i][j], "lcm cannot contain a null element");
             }
         }
     }
