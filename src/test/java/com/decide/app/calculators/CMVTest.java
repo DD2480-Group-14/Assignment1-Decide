@@ -811,7 +811,7 @@ public class CMVTest {
 
     /**
      * Negative case.
-     * lic12 should return true if:
+     * lic12 should return false if:
      * 1. There are no two points seperated by K_PTS which are 
      * seperated by a distance greater than LENGTH1,
      * 2. There are two points seperated by K_PTS which are 
