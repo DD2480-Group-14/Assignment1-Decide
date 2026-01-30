@@ -459,8 +459,14 @@ public class CMVTest {
 
         assertTrue(cmv.lic6());
     }
-  
-      void lic7TooFewPoints() {
+
+    /**
+     * Too few points case
+     * lic7 should return false if there are less than 3 points
+     * but distance is greater than LENGTH1
+     */
+    @Test
+    void lic7TooFewPoints() {
         Point[] points = new Point[] {new Point(0.0, 0.0), new Point(1.0, 1.0)};
         Parameters parameters = new Parameters();
         parameters.K_PTS = 1;
@@ -470,6 +476,11 @@ public class CMVTest {
         assertFalse(cmv.lic7());
     }
 
+    /**
+     * Positive case
+     * lic7 should return true if there are equal to and more than 3 points
+     * and distance is greater than LENGTH1.
+    */
     @Test
     void lic7Positive() {
         Point[] points = new Point[] {new Point(0.0, 0.0), new Point(1.0, 1.0), new Point(2.0, 2.0)};
@@ -481,6 +492,11 @@ public class CMVTest {
         assertTrue(cmv.lic7());
     }
 
+    /**
+     * Negative case
+     * lic7 should return false if there are equal to and more than 3 points
+     * but distance is lesser than LENGTH1.
+    */
     @Test
     void lic7Negative() {
         Point[] points = new Point[] {new Point(0.0, 0.0), new Point(0.5, 0.0), new Point(1.0, 0.0), new Point(1.5, 0.0)};
@@ -492,6 +508,11 @@ public class CMVTest {
         assertFalse(cmv.lic7());
     }
 
+     /**
+     * Distance is exactly LENGTH1 case
+     * lic7 should return false if there are equal to and more than 3 points
+     * but distance is equal to LENGTH1.
+    */   
     @Test
     void lic7DistanceIsLength1() {
         Point[] points = new Point[] {new Point(0.0, 0.0), new Point(1.0, 0.0), new Point(2.0, 0.0)};
@@ -503,6 +524,11 @@ public class CMVTest {
         assertFalse(cmv.lic7());
     }
 
+    /**
+     * Too few points case
+     * lic8 should return false if there are less than 5 points
+     * but radius is greater than RADIUS1
+     */
     @Test
     void lic8TooFewPoints() {
         double[] xs = {0.0, 0.0, 0.0, 0.0};
@@ -517,6 +543,11 @@ public class CMVTest {
         assertFalse(cmv.lic8());
     }
 
+    /**
+     * Positive case
+     * lic8 should return true if there are equal to and more than 5 points
+     * and radius is greater than RADIUS1.
+    */
     @Test
     void lic8Positive() {
         double[] xs = {0.0, 10.0, 0.0, 1.0, 2.0};
@@ -531,6 +562,11 @@ public class CMVTest {
         assertTrue(cmv.lic8());
     }
 
+    /**
+     * Triples case
+     * lic8 should return false if there are equal to and more than 5 points
+     * and all triples fit in RADIUS1.
+    */
     @Test
     void lic8FalseAllTriplesFitInRadius() {
         double[] xs = {0.0, 0.5, 1.0, 0.5, 0.2};
@@ -545,7 +581,12 @@ public class CMVTest {
         assertFalse(cmv.lic8());
     }
 
-        @Test
+    /**
+     * Collinear Points case
+     * lic8 should return false if there are equal to and more than 5 points
+     * and all points fit in RADIUS1.
+    */
+    @Test
     void lic8CollinearPoints() {
         double[] xs = {0.0, 1.0, 2.0, 3.0, 4.0};
         double[] ys = {0.0, 1.0, 2.0, 3.0, 4.0};
@@ -628,6 +669,11 @@ public class CMVTest {
         assertFalse(cmv.lic9());
     }
 
+    /**
+     * Too few points case
+     * lic10 should return false if there are less than 5 points
+     * but triangle area is greater than AREA1
+     */
     @Test
     void lic10TooFewPoints() {
         double[] xs = {0.0, 0.0, 0.0, 0.0};
@@ -641,6 +687,11 @@ public class CMVTest {
         assertFalse(cmv.lic10());
     }
 
+    /**
+     * Positive case
+     * lic10 should return true if there are equal to and more than 5 points
+     * and triangle area is greater than AREA1.
+    */
     @Test
     void lic10Positive(){
         double[] xs = {0.0, 0.0, 1.0, 0.0, 0.0};
@@ -654,6 +705,12 @@ public class CMVTest {
         assertTrue(cmv.lic10());
     }
 
+
+    /**
+     * Collinear Points case
+     * lic10 should return false if there are equal to and more than 5 points
+     * but triangle area is less than or equal to AREA1.
+    */
     @Test
     void lic10CollinearPoints(){
         double[] xs = {0.0, 1.0, 2.0, 3.0, 4.0};
