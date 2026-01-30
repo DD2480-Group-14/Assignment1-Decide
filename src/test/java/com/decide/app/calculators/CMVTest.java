@@ -607,15 +607,18 @@ public class CMVTest {
     }
 
     /**
-     * Out of bounds case.
+     * Out of bounds.
      * Should be false if numpoints < 3.
      */
     @Test
     void lic6TooFewPoints() {
-        Point[] points = new Point[] { new Point(0.0, 0.0), new Point(0.0, 1.0) };
+        double[] xs = {0.0, 0.0};
+        double[] ys = {0.0, 0.0};
+        Point[] points = Point.fromArrays(xs, ys);
         Parameters parameters = new Parameters();
-        parameters.DIST = 1.0;
-        assertThrows(IllegalStateException.class, () -> new CMV(points, parameters));
+        CMV cmv = new CMV(points, parameters);
+
+        assertFalse(cmv.lic6());
     }
 
     
