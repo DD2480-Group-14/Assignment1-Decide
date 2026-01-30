@@ -44,6 +44,10 @@ public class CMVTest {
         assertThrows(IllegalStateException.class, () -> new CMV(points, parameters));
     }
 
+    /**
+    * All consecutive points lie within distance LENGTH1. 
+    * Should return false.
+    */
     @Test
     void lic0False() {
         Point[] points = new Point[] { new Point(0.0, 0.0), new Point(1.0, 1.0), new Point(2.0, 2.0),
@@ -56,6 +60,10 @@ public class CMVTest {
         assertFalse(result);
     }
 
+    /**
+     * One set of two consecutive points with a distance greater than LENGTH1 apart. 
+     * Should return true.
+     */
     @Test
     void lic0True() {
         Point[] points = new Point[] { new Point(0.0, 0.0), new Point(1.0, 1.0), new Point(2.0, 2.0),
@@ -68,6 +76,10 @@ public class CMVTest {
         assertTrue(result);
     }
 
+    /**
+     * Consecutive points with exactly distance LENGTH1 apart. 
+     * Should return false.
+     */
     @Test
     void lic0BoundaryCase() {
         Point[] points = new Point[] { new Point(0.0, 0.0), new Point(0.0, 1.0) };
@@ -79,6 +91,11 @@ public class CMVTest {
         assertFalse(result);
     }
 
+    /**
+     * Three consecutive create acute triangle which 
+     * does not fit within a circle of radius RADIUS1. 
+     * Should return true.
+     */
 	@Test
 	void lic1AcuteTriangle() {
 		Point[] points = new Point[] { new Point(0.5, 1.0), new Point(0.0, 0.0), new Point(2.0, 0) };
@@ -90,6 +107,11 @@ public class CMVTest {
 		assertTrue(result);
 	}
 
+    /**
+     * Three consecutive points create obtuse triangle 
+     * which fit within a circle with RADIUS1. 
+     * Should return false.
+     */
 	@Test
 	void lic1ObtuseTriangle() {
 		Point[] points = new Point[] { new Point(0.0, 3.0), new Point(4.0, 0.0), new Point(9.0, 0.0) };
@@ -101,6 +123,10 @@ public class CMVTest {
 		assertFalse(result);
 	}
 
+    /**
+     * Three identical consecutive points and RADIUS1 is zero. 
+     * Should return false.
+     */
 	@Test
 	void lic1EqualPoints() {
 		Point[] points = new Point[] { new Point(1.0, 2.0), new Point(1.0, 2.0), new Point(1.0, 2.0) };
@@ -112,6 +138,10 @@ public class CMVTest {
 		assertFalse(result);
 	}
 
+    /**
+     * Fewer than three points are passed in. 
+     * Should return false.
+     */
 	@Test
 	void lic1FewerThanThreePoints() {
 		Point[] points = new Point[] { new Point(0.0, 0.0) , new Point(0.0, 0.0)};
@@ -121,6 +151,11 @@ public class CMVTest {
 		assertFalse(cmv.lic1());
 	}
 
+    /**
+     * Three consecutive points are on the same line 
+     * and cant be contained within radius RADIUS1. 
+     * Should return true.
+     */
 	@Test
 	void lic1PointsOnTheSameLine() {
 		Point[] points = new Point[] { new Point(1.0, 5.0), new Point(1.0, 42.0), new Point(1.0, 100.0) };
@@ -559,6 +594,11 @@ public class CMVTest {
         assertFalse(cmv.lic10());
     }
 
+   /**
+    * Two points separated by exactly G_PTS consecutive
+    * intervening points so X[j] - X[i] < 0. 
+    * Should return true.
+    */
     @Test
     void lic11True() {
         double[] xs = { 24.0, 0.0, 2.0, 23.0 };
@@ -572,6 +612,11 @@ public class CMVTest {
         assertTrue(result);
     }
 
+   /**
+    * Two points separated by exactly G_PTS 
+    * consecutive intervening points so X[j] - X[i] >= 0. 
+    * Should return false.
+    */
     @Test
     void lic11False() {
         double[] xs = { 1.0, 0.0, 2.0, 0.0 };
@@ -584,7 +629,12 @@ public class CMVTest {
 
         assertFalse(result);
     }
-    
+
+   /**
+    * Two points separated by the minimum 
+    * G_PTS so X[j] - X[i] < 0. 
+    * Should return true.
+    */
     @Test
     void lic11SmallestG_PTS() {
         double[] xs = { 3.0, 2.0, 1.0 };
