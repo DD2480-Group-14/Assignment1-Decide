@@ -1282,6 +1282,10 @@ public class CMVTest {
      * calculateAngle
      */
 
+    /*
+     * This triangle area with a right angle
+     * should return area = 0.5
+     */ 
     @Test
     void triangleAreaRightAngle() {
         double sideLengthA = 1.0;
@@ -1293,10 +1297,13 @@ public class CMVTest {
         double area = cmv.calculateTriangleArea(sideLengthA, sideLengthB, sideLengthC);
         double expectedArea = 0.5;
 
-        // Area should be B * H / 2 = 0.5
         assertEquals(expectedArea, area, 1e-3);
     }
 
+    /*
+     * This triangle were all sides are equally
+     * long should have area sqrt(0.75) * 0.5
+     */ 
     @Test
     void triangleAreaSameSides() {
         double sideLengthA = 1.0;
@@ -1313,6 +1320,10 @@ public class CMVTest {
         assertEquals(expectedArea, area, 1e-3);
     }
 
+    /*
+     * Triangle with one side length = 0
+     * should have area = 0
+     */
     @Test
     void triangleAreaZeroLength() {
         double sideLengthA = 1.0;
@@ -1327,6 +1338,10 @@ public class CMVTest {
         assertEquals(expectedArea, area, 1e-3);
     }
 
+    /*
+     * A right angle should have
+     * angle = Pi / 2
+     */ 
     @Test
     void calculateAngleRight() {
         double sideLengthA = 1.0;
@@ -1341,6 +1356,10 @@ public class CMVTest {
         assertEquals(expectedAngle, angle, 1e-3);
     }
 
+    /*
+     * calculateAngle should return
+     * angle = Pi, if the angle is Pi
+     */ 
     @Test
     void calculateAnglePi() {
         double sideLengthA = 1.0;
@@ -1355,6 +1374,10 @@ public class CMVTest {
         assertEquals(expectedAngle, angle, 1e-3);
     }
 
+    /*
+     * If one side length is
+     * zero, the angle should be zero
+     */ 
     @Test
     void calculateAngleZero() {
         double sideLengthA = 1.0;

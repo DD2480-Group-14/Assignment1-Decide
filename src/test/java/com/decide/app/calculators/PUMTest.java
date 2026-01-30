@@ -22,6 +22,9 @@ public class PUMTest {
     }
 
 
+    /*
+     * Expect exception when the LCM is not symmetric
+     */ 
     @Test
     void nonSymmetricLCM() {
         boolean[] cmv = new boolean[15]; // All default to false
