@@ -54,6 +54,14 @@ public class CMVTest {
         assertThrows(IllegalStateException.class, () -> new CMV(points, parameters));
     }
 
+
+
+
+
+    //---------------------------------------------------------
+    // LIC0
+    //---------------------------------------------------------
+
     /**
     * All consecutive points lie within distance LENGTH1. 
     * Should return false.
@@ -100,6 +108,26 @@ public class CMVTest {
 
         assertFalse(result);
     }
+
+    /**
+     * Out of bounds case.
+     * should throw an IllegalStateException if LENGTH1 < 0
+     */
+    @Test
+    void lic0OutOfBounds() {
+        Point[] points = new Point[] { new Point(0.0, 0.0), new Point(0.0, 1.0) };
+        Parameters parameters = new Parameters();
+        parameters.LENGTH1 = -1.0;
+        assertThrows(IllegalStateException.class, () -> new CMV(points, parameters));
+    }
+
+    
+
+
+    
+    //---------------------------------------------------------
+    // LIC1
+    //---------------------------------------------------------
 
     /**
      * Three consecutive create acute triangle which 
@@ -177,6 +205,25 @@ public class CMVTest {
 		assertTrue(result);
 	}
 
+    /**
+     * Out of bounds case.
+     * should throw an IllegalStateException if RADIUS1 < 0
+     */
+    @Test
+    void lic1OutOfBounds() {
+        Point[] points = new Point[] { new Point(0.0, 0.0), new Point(0.0, 1.0) };
+        Parameters parameters = new Parameters();
+        parameters.RADIUS1 = -1.0;
+        assertThrows(IllegalStateException.class, () -> new CMV(points, parameters));
+    }
+    
+
+
+    
+    //---------------------------------------------------------
+    // LIC2
+    //---------------------------------------------------------
+
     /*
      * Positive test
      * LIC2 should be false if all points coincide,
@@ -244,6 +291,14 @@ public class CMVTest {
         CMV cmv = new CMV(points, parameters);
         assertFalse(cmv.lic2());
     }
+
+    
+
+
+    
+    //---------------------------------------------------------
+    // LIC3
+    //---------------------------------------------------------
 
     /*
      * Negative test
@@ -333,6 +388,14 @@ public class CMVTest {
         assertTrue(cmv.lic3());
     }
 
+    
+
+
+    
+    //---------------------------------------------------------
+    // LIC4
+    //---------------------------------------------------------
+
     /**
      * Positive case.
      * Q_PTS = 3, QUADS = 2, and all three consecutive points lie in three different quadrants.
@@ -402,6 +465,26 @@ public class CMVTest {
     }
 
     /**
+     * Out of bounds case.
+     * should throw an IllegalStateException if Q_PTS < 2
+     */
+    @Test
+    void lic4OutOfBounds() {
+        Point[] points = new Point[] { new Point(0.0, 0.0), new Point(0.0, 1.0) };
+        Parameters parameters = new Parameters();
+        parameters.Q_PTS = 1;
+        assertThrows(IllegalStateException.class, () -> new CMV(points, parameters));
+    }
+
+    
+
+
+    
+    //---------------------------------------------------------
+    // LIC5
+    //---------------------------------------------------------
+
+    /**
      * Positive case.
      * lic5 should return true if there are two consecutive points
      * such that point1.x - point0.x < 0.
@@ -443,6 +526,15 @@ public class CMVTest {
 
         assertFalse(cmv.lic5());
     }
+
+
+    
+
+
+    
+    //---------------------------------------------------------
+    // LIC6
+    //---------------------------------------------------------
 
     /**
      * Positive case.
@@ -515,6 +607,29 @@ public class CMVTest {
     }
 
     /**
+     * Out of bounds.
+     * Should be false if numpoints < 3.
+     */
+    @Test
+    void lic6TooFewPoints() {
+        double[] xs = {0.0, 0.0};
+        double[] ys = {0.0, 0.0};
+        Point[] points = Point.fromArrays(xs, ys);
+        Parameters parameters = new Parameters();
+        CMV cmv = new CMV(points, parameters);
+
+        assertFalse(cmv.lic6());
+    }
+
+    
+
+
+    
+    //---------------------------------------------------------
+    // LIC7
+    //---------------------------------------------------------
+
+    /**
      * Too few points case
      * lic7 should return false if there are less than 3 points
      * but distance is greater than LENGTH1
@@ -577,6 +692,14 @@ public class CMVTest {
 
         assertFalse(cmv.lic7());
     }
+
+    
+
+
+    
+    //---------------------------------------------------------
+    // LIC8
+    //---------------------------------------------------------
 
     /**
      * Too few points case
@@ -654,6 +777,14 @@ public class CMVTest {
         assertFalse(cmv.lic8());
     }
 
+    
+
+
+    
+    //---------------------------------------------------------
+    // LIC9
+    //---------------------------------------------------------
+
     /*
      * Positive test
      * The angle between first, third and last point
@@ -723,6 +854,14 @@ public class CMVTest {
         assertFalse(cmv.lic9());
     }
 
+    
+
+
+    
+    //---------------------------------------------------------
+    // LIC10
+    //---------------------------------------------------------
+
     /**
      * Too few points case
      * lic10 should return false if there are less than 5 points
@@ -778,6 +917,14 @@ public class CMVTest {
         assertFalse(cmv.lic10());
     }
 
+    
+
+
+    
+    //---------------------------------------------------------
+    // LIC11
+    //---------------------------------------------------------
+
    /**
     * Two points separated by exactly G_PTS consecutive
     * intervening points so X[j] - X[i] < 0. 
@@ -831,6 +978,29 @@ public class CMVTest {
 
         assertTrue(result);
     }
+
+    /**
+     * Out of bounds case
+     * lic11 should return false if there are less than 3 points
+     */
+    @Test
+    void lic11TooFewPoints() {
+        double[] xs = {0.0, 0.0};
+        double[] ys = {0.0, 0.0};
+        Point[] points = Point.fromArrays(xs, ys);
+        Parameters parameters = new Parameters();
+        CMV cmv = new CMV(points, parameters);
+        assertFalse(cmv.lic11());
+    }
+
+
+    
+
+
+    
+    //---------------------------------------------------------
+    // LIC12
+    //---------------------------------------------------------
 
 
     /**
@@ -917,6 +1087,14 @@ public class CMVTest {
         assertFalse(cmv.lic12());
     }
 
+    
+
+
+    
+    //---------------------------------------------------------
+    // LIC13
+    //---------------------------------------------------------
+
     /*
      * Negative test
      * The LIC requires >= 5 points, whereas
@@ -997,6 +1175,14 @@ public class CMVTest {
         CMV cmv = new CMV(points, parameters);
         assertTrue(cmv.lic13());
     }
+
+    
+
+
+    
+    //---------------------------------------------------------
+    // LIC14
+    //---------------------------------------------------------
 
     /**
      * Out of bounds.
@@ -1079,6 +1265,14 @@ public class CMVTest {
 
         assertFalse(cmv.lic14());
     }
+
+    
+
+
+    
+    //---------------------------------------------------------
+    // OTHER
+    //---------------------------------------------------------
 
 
     /*
