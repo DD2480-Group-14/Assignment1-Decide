@@ -1,4 +1,4 @@
-# DECIDE: A Launch Intercepter Program
+# DECIDE: A Launch Interceptor Program
 
 A group implementation of the DECIDE() function which determines interceptor launch signals based on radar tracking data.
 
@@ -12,15 +12,21 @@ The program evaluates up to 100 planar data points, representing radar echoes, a
 * Java version: 25.0.2
 
 ### Installation
+1. Clone the repository using Git: 
+```bash
+git clone https://github.com/DD2480-Group-14/Assignment1-Decide.git
+cd Assignment1-Decide
+```
 
+2. Install dependencies:
 ```bash
 mvn clean install
 ```
 
-### Running the program
+### Usage
 
 #### Testing the package
-To run tests
+To run tests, execute the following command from the root directory of the repository:
 ```
 mvn test
 ```
@@ -70,6 +76,29 @@ public class ExampleUsage {
 We would consider our way of working to be in the "in use" state. This is in part supported by the fact that the practices and tools are being used to do real work and that they support communication and collaboration. However, a weakness with our current approach is that many of our practices have only been established verbally. This causes some practices to not always be followed, and sometimes it becomes unclear what practices should be followed when none have been made. To move forward, we should document our way of working so it becomes easier to follow. We should also establish practices where there are gaps to streamline our work.
 
 ## Contribution
+
+### Melker Trané
+- Implemented LIC5, LIC12, LIC14. 
+- Wrote our way of working. 
+- Reviewed around 1/2 of other team members PRs.
+
+### Edwin Nordås Jogensjö
+- Implemented LIC2, LIC3, LIC9 and LIC13.
+- Implemented the calculation of the PUM.
+- Implemented DistanceMatrix.
+- Created Main.java and the decide method.
+
+### Maria Pettersson
+- Implemented LIC4, LIC6, including associated helper method and unit tests.
+- Wrote project description.
+
+### Vidar Nykvist
+- Implemented LIC0, LIC1 and LIC11.
+- Implemented calculation of FUV. 
+- Wrote "Getting Started"
+
+### Chua Jia Yi, Clarabelle
+- Implemented LIC7, LIC8 and LIC10.
 
 ## License
 [MIT](LICENSE)

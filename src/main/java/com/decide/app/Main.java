@@ -9,7 +9,7 @@ public class Main {
     private Parameters parameters;
     private Connectors[][] lcm;
     private boolean[] puv;
-    
+
     public Main(int numpoints, Point[] points, Parameters parameters, Connectors[][] lcm, boolean[] puv) {
         this.numpoints = numpoints;
         this.points = points;
@@ -18,27 +18,27 @@ public class Main {
         this.puv = puv;
     }
 
-    public boolean getDecision() {
+    public Output getOutput() {
+
         boolean[] cmv = new CMV(points, parameters).calculateCMV();
         boolean[][] pum = new PUM(cmv, lcm).calculatePUM();
         boolean[] fuv = new FUV(puv, pum).calculateFUV();
 
         for(int i = 0; i < 15; ++i) {
             if(!fuv[i]) {
-                return false;
+                return new Output(cmv, pum, fuv, false);
             }
         }
 
-        return true;
+        return new Output(cmv, pum, fuv, true);
     }
 
     public void decide() {
-        boolean launch = getDecision();
-        if(launch) {
+        Output output = getOutput();
+        if(output.getDecision()) {
             System.out.println("YES");
         } else {
             System.out.println("NO");
         }
     }
-
 }
