@@ -91,5 +91,8 @@ We would consider our way of working to be in the "in use" state. This is in par
 - Implemented calculation of FUV. 
 - Wrote "Getting Started"
 
+### Chua Jia Yi, Clarabelle
+- Implemented LIC7, LIC8 and LIC10.
+
 ## License
 [MIT](LICENSE)
