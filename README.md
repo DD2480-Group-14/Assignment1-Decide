@@ -76,5 +76,11 @@ We would consider our way of working to be in the "in use" state. This is in par
 - Wrote our way of working. 
 - Reviewed around 1/2 of other team members PRs.
 
+### Edwin Nordås Jogensjö
+- Implemented LIC2, LIC3, LIC9 and LIC13.
+- Implemented the calculation of the PUM.
+- Implemented DistanceMatrix.
+- Created Main.java and the decide method.
+
 ## License
 [MIT](LICENSE)
