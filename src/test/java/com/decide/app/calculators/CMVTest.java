@@ -324,8 +324,10 @@ public class CMVTest {
     }
 
     /**
-     * Three consecutive points lie in more than QUADS quadrants.
-     * Should return true.
+     * Positive case.
+     * Q_PTS = 3, QUADS = 2, and all three consecutive points lie in three different quadrants.
+     * Since the number of quadrants visited is greater than QUADS,
+     * LIC4 should return true.
      */
     @Test
     void lic4MoreThanQUADS() {
@@ -344,8 +346,10 @@ public class CMVTest {
     }
 
     /**
-     * Three consecutive points lie in less than QUADS quadrants.
-     * Should return false.
+     * Negative case.
+     * Q_PTS = 3, QUADS = 2, and all three consecutive points lie in the same quadrant.
+     * Since the number of quadrants visited is not greater than QUADS,
+     * LIC4 should return false.
      */
     @Test
     void lic4QLessThanQUADS() {
@@ -364,8 +368,11 @@ public class CMVTest {
     }
 
     /**
-     * Two consecutive points lie in more than QUADS quadrants.
-     * Should return true.
+     * Positive case.
+     * Q_PTS = 2, QUADS = 1, and there exists a pair of consecutive 
+     * points that lie in two different quadrants.
+     * Since the number of quadrants visited is greater than QUADS,
+     * LIC4 should return true.
      */
     @Test
     void lic4CheckIfConsecutive() {
@@ -412,6 +419,14 @@ public class CMVTest {
         assertFalse(cmv.lic5());
     }
 
+    /**
+     * Positive case.
+     * N_PTS = 3, DIST = 3.0, and the first window of three consecutive points
+     * does not contain any point farther than DIST from the line.
+     * However, since a later window of three consecutive points contains a point whose
+     * distance to the line formed by the first and last points is greater than DIST,
+     * LIC6 should return true.
+     */
     @Test
     void lic6ConsecutiveInLaterWindow() {
         Point[] points = new Point[] { 
@@ -429,6 +444,13 @@ public class CMVTest {
         assertTrue(cmv.lic6());
     }
 
+    /**
+     * Negative case.
+     * N_PTS = 4, DIST = 1.0, and all points in the window lie at a distance less
+     * than or equal to DIST from the line formed by the first and last points.
+     * Since no points fulfill the distance requirement,
+     * LIC6 should return false.
+     */
     @Test
     void lic6AllPointsCloseToLine() {
         Point[] points = new Point[] { 
@@ -445,6 +467,13 @@ public class CMVTest {
         assertFalse(cmv.lic6());
     }
 
+    /**
+     * Positive case.
+     * N_PTS = 3, DIST = 2.0, and the first and last points of the window are equal.
+     * In this case, the distance is calculated from the midpoint to the first point in the formed line.
+     * Since the distance is greater than DIST,
+     * LIC6 should return true.
+     */
     @Test
     void lic6SameFirstAndLastPoint() {
         Point[] points = new Point[] { 
