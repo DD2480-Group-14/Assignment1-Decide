@@ -311,7 +311,7 @@ public class CMVTest {
     /**
      * Positive case.
      * lic5 should return true if there are two consecutive points
-     * such that point0.x - point1.x < 0.
+     * such that point1.x - point0.x < 0.
      */
     @Test
     void lic5Positive() {
@@ -325,7 +325,7 @@ public class CMVTest {
     /**
      * Negative case.
      * lic5 should return false if there are no two consecutive points
-     * such that point0.x - point1.x < 0.
+     * such that point1.x - point0.x < 0.
      */
     @Test
     void lic5Negative() {
@@ -339,12 +339,11 @@ public class CMVTest {
     /**
      * Negative case.
      * lic5 should return false if there are no two consecutive points
-     * such that point0.x - point1.x < 0 but there are two consecutive points
-     * such that point0.x - point1.x = 0.
+     * such that point1.x - point0.x < 0 but there are two consecutive points
+     * such that point1.x - point0.x = 0.
      */
     @Test
     void lic5FalseBoundryCase() {
-        // lic5 should be false if two concecutive points have the same x value.
         Point[] points = new Point[] { new Point(0.0, 0.0), new Point(0.0, 0.0) };
         Parameters parameters = new Parameters();
         CMV cmv = new CMV(points, parameters);
