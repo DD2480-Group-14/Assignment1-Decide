@@ -22,6 +22,11 @@ public class CMVTest {
         assertTrue(true);
     }
 
+    /**
+     * Out of bounds.
+     * An exception should be thrown if CMV is
+     * instantiated with numpoints = 1
+     */
     @Test
     void tooFewPoints() {
         double[] xs = new double[1];
@@ -33,6 +38,11 @@ public class CMVTest {
         assertThrows(IllegalStateException.class, () -> new CMV(points, parameters));
     }
 
+    /**
+     * Out of bounds.
+     * An exception should be thrown if CMV is
+     * instantiated with numpoints = 101.
+     */
     @Test
     void tooManyPoints() {
         double[] xs = new double[101];
@@ -324,8 +334,10 @@ public class CMVTest {
     }
 
     /**
-     * Three consecutive points lie in more than QUADS quadrants.
-     * Should return true.
+     * Positive case.
+     * Q_PTS = 3, QUADS = 2, and all three consecutive points lie in three different quadrants.
+     * Since the number of quadrants visited is greater than QUADS,
+     * LIC4 should return true.
      */
     @Test
     void lic4MoreThanQUADS() {
@@ -344,8 +356,10 @@ public class CMVTest {
     }
 
     /**
-     * Three consecutive points lie in less than QUADS quadrants.
-     * Should return false.
+     * Negative case.
+     * Q_PTS = 3, QUADS = 2, and all three consecutive points lie in the same quadrant.
+     * Since the number of quadrants visited is not greater than QUADS,
+     * LIC4 should return false.
      */
     @Test
     void lic4QLessThanQUADS() {
@@ -364,8 +378,11 @@ public class CMVTest {
     }
 
     /**
-     * Two consecutive points lie in more than QUADS quadrants.
-     * Should return true.
+     * Positive case.
+     * Q_PTS = 2, QUADS = 1, and there exists a pair of consecutive 
+     * points that lie in two different quadrants.
+     * Since the number of quadrants visited is greater than QUADS,
+     * LIC4 should return true.
      */
     @Test
     void lic4CheckIfConsecutive() {
@@ -384,6 +401,11 @@ public class CMVTest {
         assertTrue(cmv.lic4());
     }
 
+    /**
+     * Positive case.
+     * lic5 should return true if there are two consecutive points
+     * such that point1.x - point0.x < 0.
+     */
     @Test
     void lic5Positive() {
         Point[] points = new Point[] { new Point(1.0, 0.0), new Point(0.0, 0.0) };
@@ -393,6 +415,11 @@ public class CMVTest {
         assertTrue(cmv.lic5());
     }
 
+    /**
+     * Negative case.
+     * lic5 should return false if there are no two consecutive points
+     * such that point1.x - point0.x < 0.
+     */
     @Test
     void lic5Negative() {
         Point[] points = new Point[] { new Point(0.0, 0.0), new Point(1.0, 0.0), new Point(2.0, 0.0) };
@@ -402,9 +429,14 @@ public class CMVTest {
         assertFalse(cmv.lic5());
     }
 
+    /**
+     * Negative case.
+     * lic5 should return false if there are no two consecutive points
+     * such that point1.x - point0.x < 0 but there are two consecutive points
+     * such that point1.x - point0.x = 0.
+     */
     @Test
     void lic5FalseBoundryCase() {
-        // lic5 should be false if two concecutive points have the same x value.
         Point[] points = new Point[] { new Point(0.0, 0.0), new Point(0.0, 0.0) };
         Parameters parameters = new Parameters();
         CMV cmv = new CMV(points, parameters);
@@ -412,6 +444,14 @@ public class CMVTest {
         assertFalse(cmv.lic5());
     }
 
+    /**
+     * Positive case.
+     * N_PTS = 3, DIST = 3.0, and the first window of three consecutive points
+     * does not contain any point farther than DIST from the line.
+     * However, since a later window of three consecutive points contains a point whose
+     * distance to the line formed by the first and last points is greater than DIST,
+     * LIC6 should return true.
+     */
     @Test
     void lic6ConsecutiveInLaterWindow() {
         Point[] points = new Point[] { 
@@ -429,6 +469,13 @@ public class CMVTest {
         assertTrue(cmv.lic6());
     }
 
+    /**
+     * Negative case.
+     * N_PTS = 4, DIST = 1.0, and all points in the window lie at a distance less
+     * than or equal to DIST from the line formed by the first and last points.
+     * Since no points fulfill the distance requirement,
+     * LIC6 should return false.
+     */
     @Test
     void lic6AllPointsCloseToLine() {
         Point[] points = new Point[] { 
@@ -445,6 +492,13 @@ public class CMVTest {
         assertFalse(cmv.lic6());
     }
 
+    /**
+     * Positive case.
+     * N_PTS = 3, DIST = 2.0, and the first and last points of the window are equal.
+     * In this case, the distance is calculated from the midpoint to the first point in the formed line.
+     * Since the distance is greater than DIST,
+     * LIC6 should return true.
+     */
     @Test
     void lic6SameFirstAndLastPoint() {
         Point[] points = new Point[] { 
@@ -459,8 +513,14 @@ public class CMVTest {
 
         assertTrue(cmv.lic6());
     }
-  
-      void lic7TooFewPoints() {
+
+    /**
+     * Too few points case
+     * lic7 should return false if there are less than 3 points
+     * but distance is greater than LENGTH1
+     */
+    @Test
+    void lic7TooFewPoints() {
         Point[] points = new Point[] {new Point(0.0, 0.0), new Point(1.0, 1.0)};
         Parameters parameters = new Parameters();
         parameters.K_PTS = 1;
@@ -470,6 +530,11 @@ public class CMVTest {
         assertFalse(cmv.lic7());
     }
 
+    /**
+     * Positive case
+     * lic7 should return true if there are equal to and more than 3 points
+     * and distance is greater than LENGTH1.
+    */
     @Test
     void lic7Positive() {
         Point[] points = new Point[] {new Point(0.0, 0.0), new Point(1.0, 1.0), new Point(2.0, 2.0)};
@@ -481,6 +546,11 @@ public class CMVTest {
         assertTrue(cmv.lic7());
     }
 
+    /**
+     * Negative case
+     * lic7 should return false if there are equal to and more than 3 points
+     * but distance is lesser than LENGTH1.
+    */
     @Test
     void lic7Negative() {
         Point[] points = new Point[] {new Point(0.0, 0.0), new Point(0.5, 0.0), new Point(1.0, 0.0), new Point(1.5, 0.0)};
@@ -492,6 +562,11 @@ public class CMVTest {
         assertFalse(cmv.lic7());
     }
 
+     /**
+     * Distance is exactly LENGTH1 case
+     * lic7 should return false if there are equal to and more than 3 points
+     * but distance is equal to LENGTH1.
+    */   
     @Test
     void lic7DistanceIsLength1() {
         Point[] points = new Point[] {new Point(0.0, 0.0), new Point(1.0, 0.0), new Point(2.0, 0.0)};
@@ -503,6 +578,11 @@ public class CMVTest {
         assertFalse(cmv.lic7());
     }
 
+    /**
+     * Too few points case
+     * lic8 should return false if there are less than 5 points
+     * but radius is greater than RADIUS1
+     */
     @Test
     void lic8TooFewPoints() {
         double[] xs = {0.0, 0.0, 0.0, 0.0};
@@ -517,6 +597,11 @@ public class CMVTest {
         assertFalse(cmv.lic8());
     }
 
+    /**
+     * Positive case
+     * lic8 should return true if there are equal to and more than 5 points
+     * and radius is greater than RADIUS1.
+    */
     @Test
     void lic8Positive() {
         double[] xs = {0.0, 10.0, 0.0, 1.0, 2.0};
@@ -531,6 +616,11 @@ public class CMVTest {
         assertTrue(cmv.lic8());
     }
 
+    /**
+     * Triples case
+     * lic8 should return false if there are equal to and more than 5 points
+     * and all triples fit in RADIUS1.
+    */
     @Test
     void lic8FalseAllTriplesFitInRadius() {
         double[] xs = {0.0, 0.5, 1.0, 0.5, 0.2};
@@ -545,7 +635,12 @@ public class CMVTest {
         assertFalse(cmv.lic8());
     }
 
-        @Test
+    /**
+     * Collinear Points case
+     * lic8 should return false if there are equal to and more than 5 points
+     * and all points fit in RADIUS1.
+    */
+    @Test
     void lic8CollinearPoints() {
         double[] xs = {0.0, 1.0, 2.0, 3.0, 4.0};
         double[] ys = {0.0, 1.0, 2.0, 3.0, 4.0};
@@ -628,6 +723,11 @@ public class CMVTest {
         assertFalse(cmv.lic9());
     }
 
+    /**
+     * Too few points case
+     * lic10 should return false if there are less than 5 points
+     * but triangle area is greater than AREA1
+     */
     @Test
     void lic10TooFewPoints() {
         double[] xs = {0.0, 0.0, 0.0, 0.0};
@@ -641,6 +741,11 @@ public class CMVTest {
         assertFalse(cmv.lic10());
     }
 
+    /**
+     * Positive case
+     * lic10 should return true if there are equal to and more than 5 points
+     * and triangle area is greater than AREA1.
+    */
     @Test
     void lic10Positive(){
         double[] xs = {0.0, 0.0, 1.0, 0.0, 0.0};
@@ -654,6 +759,12 @@ public class CMVTest {
         assertTrue(cmv.lic10());
     }
 
+
+    /**
+     * Collinear Points case
+     * lic10 should return false if there are equal to and more than 5 points
+     * but triangle area is less than or equal to AREA1.
+    */
     @Test
     void lic10CollinearPoints(){
         double[] xs = {0.0, 1.0, 2.0, 3.0, 4.0};
@@ -722,7 +833,10 @@ public class CMVTest {
     }
 
 
-
+    /**
+     * Out of bounds.
+     * lic12 should return false if numpoints < 3
+     */
     @Test
     void lic12TooFewPoints() {
         double[] xs = {0.0, 0.0};
@@ -737,6 +851,14 @@ public class CMVTest {
         assertFalse(cmv.lic12());
     }
 
+    /**
+     * Positive case.
+     * lic12 should return true if:
+     * 1. There are two points seperated by K_PTS which are 
+     * seperated by a distance greater than LENGTH1,
+     * 2. There are two points seperated by K_PTS which are 
+     * seperated by a distance smaller than LENGTH2.
+     */
     @Test
     void lic12Positive() {
         double[] xs = {0.0, 0.0, 1.0};
@@ -751,6 +873,14 @@ public class CMVTest {
         assertTrue(cmv.lic12());
     }
 
+    /**
+     * Negative case.
+     * lic12 should return false if:
+     * 1. There are two points seperated by K_PTS which are 
+     * seperated by a distance greater than LENGTH1,
+     * 2. There are no two points seperated by K_PTS which are 
+     * seperated by a distance smaller than LENGTH2.
+     */
     @Test
     void lic12Condition1TrueCondition2False() {
         double[] xs = {0.0, 0.0, 1.0};
@@ -765,6 +895,14 @@ public class CMVTest {
         assertFalse(cmv.lic12());
     }
 
+    /**
+     * Negative case.
+     * lic12 should return false if:
+     * 1. There are no two points seperated by K_PTS which are 
+     * seperated by a distance greater than LENGTH1,
+     * 2. There are two points seperated by K_PTS which are 
+     * seperated by a distance smaller than LENGTH2.
+     */
     @Test
     void lic12Condition1FalseCondition2True() {
         double[] xs = {0.0, 0.0, 1.0};
@@ -860,6 +998,10 @@ public class CMVTest {
         assertTrue(cmv.lic13());
     }
 
+    /**
+     * Out of bounds.
+     * If numpoints < 5, lic14 should return false
+     */
     @Test
     void lic14TooFewPoints() {
         double[] xs = {0.0, 0.0, 0.0, 0.0};
@@ -875,6 +1017,12 @@ public class CMVTest {
         assertFalse(cmv.lic14());
     }
 
+    /**
+     * Positve case.
+     * lic14 should return true if there is a triangle
+     * with area greater than AREA1 and a triangle
+     * with area smaller than AREA2.
+     */
     @Test
     void lic14Positive() {
         double[] xs = {0.0, 0.0, 1.0, 0.0, 0.0};
@@ -889,7 +1037,13 @@ public class CMVTest {
 
         assertTrue(cmv.lic14());
     }
-
+    
+    /**
+     * Negative case.
+     * lic14 should return false if theres is no triangle
+     * larger than AREA1, but there is a triangle smaller
+     * than AREA2.
+     */
     @Test
     void lic14Condition1FalseCondition2True() {
         double[] xs = {0.0, 0.0, 1.0, 0.0, 0.0};
@@ -905,8 +1059,14 @@ public class CMVTest {
         assertFalse(cmv.lic14());
     }
 
+    /**
+     * Negative case.
+     * lic14 should return false if theres is a triangle
+     * larger than AREA1, but there is no triangle smaller
+     * than AREA2.
+     */
     @Test
-    void lic14Condition1TrueCondition1False() {
+    void lic14Condition1TrueCondition2False() {
         double[] xs = {0.0, 0.0, 1.0, 0.0, 0.0};
         double[] ys = {0.0, 0.0, 0.0, 0.0, 1.0};
         Point[] points = Point.fromArrays(xs, ys);
@@ -919,6 +1079,7 @@ public class CMVTest {
 
         assertFalse(cmv.lic14());
     }
+
 
     /*
      * Tests for additional public methods in the CMV class.

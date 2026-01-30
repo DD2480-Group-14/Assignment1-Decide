@@ -55,6 +55,12 @@ public class CMV {
         return area;
     }
 
+    /**
+     * Determines the quadrant of a given point.
+     * 
+     * @param p the point whose quadrant is to be determined
+     * @return an integer in the range [1...4] representing quadrant of point
+     */
     private int determineQuadrant(Point p){
         if(p.x >= 0 && p.y >= 0) {
             return 1; // Quadrant I
@@ -209,9 +215,11 @@ public class CMV {
         return false;
     }
 
-    /**
-     * Return true if there exists at least one set of Q_PTS consecutive data points that lie
-     * in more than QUADS quadrants.
+   /**
+    * Determines if there exists at least one set of Q_PTS consecutive data points that
+    * lie in more than QUADS quadrants.
+    * 
+    * @return true if such consecutive data points exists, otherwise false.
     */
     public boolean lic4() {
         for (int i = 0; i <= numpoints - parameters.Q_PTS; i++) {
@@ -248,9 +256,11 @@ public class CMV {
     }
 
     /**
-     * Returns true if there exists at least one set of N_PTS consecutive data points such that
-     * at least one of the points lies a distance greater than DIST from the line joining the first and
-     * last of these N_PTS points.
+     * Determines if there exists at least one set of N_PTS consecutive data points such that
+     * at least one of the points lies a distance greater than DIST from the line joining the 
+     * first and last of these N_PTS points. 
+     * 
+     * @return true if such consecutive data points exists, otherwise false.
      */
     public boolean lic6() {
         int N_PTS = parameters.N_PTS;
