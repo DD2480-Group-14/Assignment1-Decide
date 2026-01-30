@@ -87,14 +87,28 @@ public class AppTest {
         }
 
         Main main = new Main(11, points, parameters, lcm, puv);
-        boolean decision = main.getDecision();
+        Output output = main.getOutput();
 
-        assertTrue(decision);
+        assertTrue(output.getDecision());
 
         // Assert that every LIC is true
-        boolean[] cmv = main.getCMV();
+        boolean[] cmv = output.getCMV();
         for(int i = 0; i < 15; ++i) {
             assertTrue(cmv[i]);
+        }
+
+        // Assert the the PUM's content
+        boolean[][] pum = output.getPUM();
+        for(int i = 0; i < 15; ++i) {
+            for(int j = 0; j < 15; ++j) {
+                assertTrue(pum[i][j]);
+            }
+        }
+
+        // Assert the FUV's content
+        boolean[] fuv = output.getFUV();
+        for(int i = 0; i < 15; ++i) {
+            assertTrue(fuv[i]);
         }
     }
 
@@ -130,12 +144,27 @@ public class AppTest {
         }
 
         Main main = new Main(10, points, parameters, lcm, puv);
-        boolean decision = main.getDecision();
-        boolean[] cmv = main.getCMV();
-        assertFalse(decision);
+        Output output = main.getOutput();
+        assertFalse(output.getDecision());
         
+        // Assert the content of the CMV
+        boolean[] cmv = output.getCMV();
         for(int i = 0; i < 15; ++i) {
             assertFalse(cmv[i]);
+        }
+
+        // Assert the content of the PUM
+        boolean[][] pum = output.getPUM();
+        for(int i = 0; i < 15; ++i) {
+            for(int j = 0; j < 15; ++j) {
+                assertFalse(pum[i][j]);
+            }
+        }
+
+        // Assert the content of the FUV
+        boolean[] fuv = output.getFUV();
+        for(int i = 0; i < 15; ++i) {
+            assertFalse(fuv[i]);
         }
     }
 
@@ -168,6 +197,32 @@ public class AppTest {
         }
 
         Main main = new Main(10, points, parameters, lcm, puv);
-        assertTrue(main.getDecision());
+        Output output = main.getOutput();
+        assertTrue(output.getDecision());
+
+        // Assert the content of the CMV
+        boolean[] cmv = output.getCMV();
+        for(int i = 0; i < 15; ++i) {
+            if(i == 0) {
+                assertTrue(cmv[i]);
+            } else {
+                assertFalse(cmv[i]);
+            }
+        }
+
+        // Assert the content of the PUM
+        boolean[][] pum = output.getPUM();
+        for(int i = 0; i < 15; ++i) {
+            for(int j = 0; j < 15; ++j) {
+               assertTrue(pum[i][j]);
+            }
+        }
+
+        // Assert the content of the FUV
+        boolean[] fuv = output.getFUV();
+        for(int i = 0; i < 15; ++i) {
+            assertTrue(fuv[i]);
+        }
+
     }
 }
