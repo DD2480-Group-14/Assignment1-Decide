@@ -5,6 +5,10 @@ public class FUV {
 	private boolean[] puv;
 
 	private void validateInput() {
+        if(puv == null) {
+            throw new IllegalArgumentException("PUV cannot be null");
+        }
+
 		if (puv.length != 15) {
 			throw new IllegalArgumentException("PUV must contain exactly 15 elements.");
 		}

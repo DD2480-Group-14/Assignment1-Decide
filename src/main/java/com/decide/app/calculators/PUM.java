@@ -46,6 +46,10 @@ public class PUM {
     }
 
     private void validateInput() {
+        if(lcm == null) {
+            throw new IllegalArgumentException("LCM cannot be null");
+        }
+
         if (cmv.length != 15) {
             throw new IllegalArgumentException("cmv must contain excactly 15 elements.");
         }
@@ -62,6 +66,9 @@ public class PUM {
 
         for (int i = 0; i < 15; i++) {
             for (int j = i; j < 15; j++) {
+                if(lcm[i][j] == null) {
+                    throw new IllegalArgumentException("A connector cannot be null");
+                }
                 if (lcm[i][j] != lcm[j][i]) {
                     throw new IllegalArgumentException("lcm is not symmetric.");
                 }

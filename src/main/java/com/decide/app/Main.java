@@ -10,12 +10,45 @@ public class Main {
     private Connectors[][] lcm;
     private boolean[] puv;
 
+    private void validateInput() {
+        if(points == null) {
+            throw new IllegalArgumentException("Points cannot be null");
+        }
+
+        if(parameters == null) {
+            throw new IllegalArgumentException("Parameters cannot be null");
+        }
+
+        if(lcm == null) {
+            throw new IllegalArgumentException("LCM cannot be null");
+        }
+
+        if(puv == null) {
+            throw new IllegalArgumentException("PUV cannot be null");
+        }
+
+        for(int i = 0; i < points.length; ++i) {
+            if(points[i] == null) {
+                throw new IllegalArgumentException("A point cannot be null");
+            }
+        }
+
+        for(int i = 0; i < 15; ++i) {
+            for(int j = 0; j < 15; ++j) {
+                if(lcm[i][j] == null) {
+                    throw new IllegalArgumentException("A connector cannot be null");
+                }
+            }
+        }
+    }
+
     public Main(int numpoints, Point[] points, Parameters parameters, Connectors[][] lcm, boolean[] puv) {
         this.numpoints = numpoints;
         this.points = points;
         this.parameters = parameters;
         this.lcm = lcm;
         this.puv = puv;
+        validateInput();
     }
 
     public Output getOutput() {

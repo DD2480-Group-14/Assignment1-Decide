@@ -474,6 +474,20 @@ public class CMV {
     }
 
     private void validateParameters() {
+         if(points == null) {
+            throw new IllegalArgumentException("Points cannot be null");
+        }
+
+        if(parameters == null) {
+            throw new IllegalArgumentException("Parameters cannot be null");
+        }
+
+        for(int i = 0; i < points.length; ++i) {
+            if(points[i] == null) {
+                throw new IllegalArgumentException("A point cannot be null");
+            }
+        }
+
         if (numpoints < 2 || numpoints > 100) {
             throw new IllegalStateException("numpoints must be in the range [2, 100]");
         }
