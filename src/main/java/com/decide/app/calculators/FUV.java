@@ -1,10 +1,15 @@
 package com.decide.app.calculators;
 
+import java.util.Objects;
+
 public class FUV {
 	private boolean[][] pum;
 	private boolean[] puv;
 
 	private void validateInput() {
+        Objects.requireNonNull(puv, "puv cannot be null");
+        Objects.requireNonNull(pum, "pum cannot be null");
+
 		if (puv.length != 15) {
 			throw new IllegalArgumentException("PUV must contain exactly 15 elements.");
 		}

@@ -1,5 +1,7 @@
 package com.decide.app.calculators;
 
+import java.util.Objects;
+
 import com.decide.app.model.Connectors;
 
 public class PUM {
@@ -46,6 +48,9 @@ public class PUM {
     }
 
     private void validateInput() {
+        Objects.requireNonNull(lcm, "lcm cannot be null");
+        Objects.requireNonNull(cmv, "cmv cannot be null");
+        
         if (cmv.length != 15) {
             throw new IllegalArgumentException("cmv must contain excactly 15 elements.");
         }
@@ -62,6 +67,7 @@ public class PUM {
 
         for (int i = 0; i < 15; i++) {
             for (int j = i; j < 15; j++) {
+                Objects.requireNonNull(lcm[i][j], "lcm cannot contain a null element");
                 if (lcm[i][j] != lcm[j][i]) {
                     throw new IllegalArgumentException("lcm is not symmetric.");
                 }

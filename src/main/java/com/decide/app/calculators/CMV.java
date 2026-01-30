@@ -1,5 +1,6 @@
 package com.decide.app.calculators;
 import java.util.Arrays;
+import java.util.Objects;
 
 import com.decide.app.model.DistanceMatrix;
 import com.decide.app.model.Parameters;
@@ -485,6 +486,15 @@ public class CMV {
     }
 
     private void validateParameters() {
+        Objects.requireNonNull(points, "points cannot be null");
+        // We do not check if the attributes in parameters are
+        // null since they are primitives
+        Objects.requireNonNull(parameters, "parameters cannot be null");
+
+        for(int i = 0; i < points.length; ++i) {
+            Objects.requireNonNull(points[i], "points cannot contain a null pointer");
+        }
+
         if (numpoints < 2 || numpoints > 100) {
             throw new IllegalStateException("numpoints must be in the range [2, 100]");
         }
