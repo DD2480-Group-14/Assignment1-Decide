@@ -54,8 +54,10 @@ public class AppTest {
     }
 
     /**
-     * Test if the decide method returns true.
-     * Parameters are chosen to satisfy all LICs.
+     * Positive test
+     * Parameters are chosen to satisfy all LICs. See
+     * the specification for each LIC and the method
+     * "positiveTestParameters()" above.
      */
     @Test
     public void decidePositive() {
@@ -84,19 +86,25 @@ public class AppTest {
             puv[i] = true;
         }
 
-        // These LICs have not yet been implemented
-        puv[7] = false;
-        puv[8] = false;
-        puv[10] = false;
-
         Main main = new Main(11, points, parameters, lcm, puv);
-        assertTrue(main.getDecision());
+        boolean decision = main.getDecision();
+
+        assertTrue(decision);
+
+        // Assert that every LIC is true
+        boolean[] cmv = main.getCMV();
+        for(int i = 0; i < 15; ++i) {
+            assertTrue(cmv[i]);
+        }
     }
 
     /*
+     * Negative test
      * This test should result in all LICs being false.
      * All LICs are set to be used, and therefore, the FUV
-     * should also be all false.
+     * should also be all false. See the specification for 
+     * each LIC and the method "negativeTestParameters()"
+     * above.
      */
     @Test
     public void decideNegative() {
@@ -122,9 +130,21 @@ public class AppTest {
         }
 
         Main main = new Main(10, points, parameters, lcm, puv);
-        assertFalse(main.getDecision());
+        boolean decision = main.getDecision();
+        boolean[] cmv = main.getCMV();
+        assertFalse(decision);
+        
+        for(int i = 0; i < 15; ++i) {
+            assertFalse(cmv[i]);
+        }
     }
 
+    /**
+     * Positive test
+     * This test results sets all LCM elements
+     * to NOTUSED, except LCM[0][0], which 
+     * should result in the decision being true.
+     */
     @Test
     public void positiveOneLICTrueAllOtherFalse() {
         double[] xs = { 0.0, 1.0 };
