@@ -132,6 +132,11 @@ public class CMVTest {
 		assertTrue(result);
 	}
 
+    /*
+     * Positive test
+     * LIC2 should be false if all points coincide,
+     * which results in no possible angles.
+     */
     @Test
     void lic2CoincidingPoints() {
         int numPoints = 10;
@@ -146,6 +151,12 @@ public class CMVTest {
 
     }
 
+    /*
+     * Positive test
+     * LIC2 should be true, since numpoints = 4,
+     * and the first three points does not satisy
+     * the requirement, whereas the last three does.
+     */
     @Test
     void lic2OneFalseTriple() {
         Point[] points = new Point[] { new Point(0, 0), new Point(1, -1), new Point(2, 0), new Point(1.5, -1) };
@@ -155,6 +166,11 @@ public class CMVTest {
         assertTrue(cmv.lic2());
     }
 
+    /*
+     * Negative test
+     * LIC2 needs at least 3 points, but this test
+     * only provides 2.
+     */
     @Test
     void lic2TooFewPoints() {
         Point[] points = new Point[] { new Point(0, 0), new Point(1, 1) };
@@ -163,6 +179,13 @@ public class CMVTest {
         assertFalse(cmv.lic2());
     }
 
+    /*
+     * Negative test
+     * 100 points on the x-axis, but since epsilon = 0
+     * all angles are exactly Pi, which results in 
+     * no angle being greater than Pi + 0 or smaller than
+     * Pi - 0.
+     */
     @Test
     void lic2ManyPointsAllFalse() {
         int numPoints = 100;
@@ -177,6 +200,12 @@ public class CMVTest {
         assertFalse(cmv.lic2());
     }
 
+    /*
+     * Negative test
+     * Obtuse-angled triangle with area smaller than 1.0,
+     * since B * H / 2 = 1.0 * 0.1 / 2 = 0.05, and Parameters.area
+     * = 1. Therefore, LIC3 should be false.
+     */
     @Test
     void lic3ObtuseAngledTriangle() {
         Point[] points = new Point[] { new Point(0.0, 0.0), new Point(1.0, 0.0), new Point(0.5, 0.1) };
@@ -187,6 +216,11 @@ public class CMVTest {
         assertFalse(cmv.lic3());
     }
 
+    /*
+     * Negative test
+     * LIC3 needs 3 points, but this test
+     * only provides 2.
+     */ 
     @Test
     void lic3TooFewPoints() {
         Point[] points = new Point[] { new Point(0.0, 0.0), new Point(1.0, 1.0) };
@@ -196,6 +230,11 @@ public class CMVTest {
         assertFalse(cmv.lic3());
     }
 
+    /*
+     * Positive test
+     * Area of this triangle is 1.0 * 1.0 / 2 = 0.5, and 
+     * parameters.area = 0.1, therefore LIC3 should be true.
+     */ 
     @Test
     void lic3ValidTriangle() {
         Point[] points = new Point[] { new Point(0.0, 0.0), new Point(0.0, 1.0), new Point(1.0, 0.0) };
@@ -206,6 +245,12 @@ public class CMVTest {
         assertTrue(cmv.lic3());
     }
 
+    /*
+     * Negative test
+     * Many points, but all possible triangles have
+     * area = 0.5, and parameters.area = 1.0. Therefore
+     * LIC3 should be false.
+     */ 
     @Test
     void lic3ManySmallTriangles() {
         int numpoints = 100;
@@ -220,6 +265,12 @@ public class CMVTest {
         assertFalse(cmv.lic3());
     }
 
+    /*
+     * Positive test
+     * Many small triangles can be formed, but only 
+     * one large at the end of the array points. Therefore
+     * the LIC should be true.
+     */ 
     @Test
     void lic3OnlyOneValidTriangle() {
         int numpoints = 100;
@@ -473,6 +524,11 @@ public class CMVTest {
         assertFalse(cmv.lic8());
     }
 
+    /*
+     * Positive test
+     * The angle between first, third and last point
+     * is smaller than Pi - Pi / 2.
+     */ 
     @Test 
     void lic9Positive() {
         Point[] points = new Point[] {new Point(0.0, 0.0), new Point(1.0, 0.0), new Point(1.0, -5.0), new Point(1.0, 1.0), new Point(2.0, 0.0)};
@@ -485,6 +541,11 @@ public class CMVTest {
         assertTrue(cmv.lic9());
     }
 
+    /*
+     * Negative test
+     * No angle greater than Pi + 2 or smaller than
+     * Pi - 2 exist.
+     */ 
     @Test
     void lic9BadAngle() {
         Point[] points = new Point[] {new Point(0.0, 0.0), new Point(1.0, 0.0), new Point(1.0, -1.0), new Point(1.0, 1.0), new Point(2.0, 0.0)};
@@ -497,6 +558,12 @@ public class CMVTest {
         assertFalse(cmv.lic9());
     }
 
+    /*
+     * Negative test
+     * The LIC requires >= 5 points, whereas this
+     * test only provides 4. Therefore the LIC 
+     * should be false.
+     */ 
     @Test
     void lic9TooFewPoints() {
         double[] xs = {0.0, 0.0, 0.0, 0.0};
@@ -508,6 +575,12 @@ public class CMVTest {
         assertFalse(cmv.lic9());
     }
 
+    /*
+     * Negative test
+     * Coinciding points can not form an angle that
+     * fulfills the requirements, and since this test contains
+     * exactly 5 points, the LIC should be false.
+     */ 
     @Test
     void lic9Coinciding() {
         Point[] points = new Point[] {new Point(0.0, 0.0), new Point(1.0, 0.0), new Point(2.0, 0.0), new Point(1.0, 1.0), new Point(2.0, 0.0)};
@@ -598,60 +671,6 @@ public class CMVTest {
         assertTrue(result);
     }
 
-    @Test
-    void lic13TooFewPoints() {
-        double[] xs = {0.0, 1.0, 2.0, 3.0};
-        double[] ys = {0.0, 1.0, 2.0, 3.0};
-        Point[] points = Point.fromArrays(xs, ys);
-        Parameters parameters = new Parameters();
-        parameters.A_PTS = 1;
-        parameters.B_PTS = 1;
-        CMV cmv = new CMV(points, parameters);
-
-        assertFalse(cmv.lic13());
-    }
-
-    @Test
-    void lic13OnlyFirstConditionTrue() {
-        double[] xs = {0.0, 10.0, 1.0, 20.0, 2.0};
-        double[] ys = {0.0, 10.0, 1.0, 20.0, 0.0};
-        Point[] points = Point.fromArrays(xs, ys);
-        Parameters parameters = new Parameters();
-        parameters.RADIUS1 = 0.9;
-        parameters.RADIUS2 = 0.0;
-        parameters.A_PTS = 1;
-        parameters.B_PTS = 1;
-        CMV cmv = new CMV(points, parameters);
-        assertFalse(cmv.lic13());
-    }
-
-    @Test
-    void lic13OnlySecondConditionTrue() {
-        double[] xs = {0.0, 10.0, 1.0, 20.0, 2.0};
-        double[] ys = {0.0, 10.0, 1.0, 20.0, 0.0};
-        Point[] points = Point.fromArrays(xs, ys);
-        Parameters parameters = new Parameters();
-        parameters.RADIUS1 = 2.0;
-        parameters.RADIUS2 = 1.1;
-        parameters.A_PTS = 1;
-        parameters.B_PTS = 1;
-        CMV cmv = new CMV(points, parameters);
-        assertFalse(cmv.lic13());
-    }
-
-    @Test
-    void lic13Positive() {
-        double[] xs = {0.0, 10.0, 1.0, 20.0, 2.0};
-        double[] ys = {0.0, 10.0, 1.0, 20.0, 0.0};
-        Point[] points = Point.fromArrays(xs, ys);
-        Parameters parameters = new Parameters();
-        parameters.RADIUS1 = 0.9;
-        parameters.RADIUS2 = 1.1;
-        parameters.A_PTS = 1;
-        parameters.B_PTS = 1;
-        CMV cmv = new CMV(points, parameters);
-        assertTrue(cmv.lic13());
-    }
 
 
     @Test
@@ -710,6 +729,86 @@ public class CMVTest {
         assertFalse(cmv.lic12());
     }
 
+    /*
+     * Negative test
+     * The LIC requires >= 5 points, whereas
+     * this test only provides 4. Therefore
+     * the LIC should be false.
+     */ 
+    @Test
+    void lic13TooFewPoints() {
+        double[] xs = {0.0, 1.0, 2.0, 3.0};
+        double[] ys = {0.0, 1.0, 2.0, 3.0};
+        Point[] points = Point.fromArrays(xs, ys);
+        Parameters parameters = new Parameters();
+        parameters.A_PTS = 1;
+        parameters.B_PTS = 1;
+        CMV cmv = new CMV(points, parameters);
+
+        assertFalse(cmv.lic13());
+    }
+
+    /*
+     * Negative test
+     * A circle exists that cannot be contained within radius 0.9,
+     * but no circle with radius 0.0 can contain
+     * three of these points separated by A_PTS and B_PTS.
+     */ 
+    @Test
+    void lic13OnlyFirstConditionTrue() {
+        double[] xs = {0.0, 10.0, 1.0, 20.0, 2.0};
+        double[] ys = {0.0, 10.0, 1.0, 20.0, 0.0};
+        Point[] points = Point.fromArrays(xs, ys);
+        Parameters parameters = new Parameters();
+        parameters.RADIUS1 = 0.9;
+        parameters.RADIUS2 = 0.0;
+        parameters.A_PTS = 1;
+        parameters.B_PTS = 1;
+        CMV cmv = new CMV(points, parameters);
+        assertFalse(cmv.lic13());
+    }
+
+    /*
+     * Negative test
+     * There is a circle with radius 2.0 that can contain three
+     * of these points separated by A_PTS and B_PTS, respectively.
+     * Thus, condition 1 is false. However, a circle
+     * with radius 1.1 can also contain three of these points,
+     * thus condition 2 is true.
+     */ 
+    @Test
+    void lic13OnlySecondConditionTrue() {
+        double[] xs = {0.0, 10.0, 1.0, 20.0, 2.0};
+        double[] ys = {0.0, 10.0, 1.0, 20.0, 0.0};
+        Point[] points = Point.fromArrays(xs, ys);
+        Parameters parameters = new Parameters();
+        parameters.RADIUS1 = 2.0;
+        parameters.RADIUS2 = 1.1;
+        parameters.A_PTS = 1;
+        parameters.B_PTS = 1;
+        CMV cmv = new CMV(points, parameters);
+        assertFalse(cmv.lic13());
+    }
+
+    /*
+     * Positive test
+     * No circle with radius 0.9 can contain three of these 
+     * points, but a circle with radius 1.1 can, with regards
+     * to A_PTS and B_PTS separated points.
+     */
+    @Test
+    void lic13Positive() {
+        double[] xs = {0.0, 10.0, 1.0, 20.0, 2.0};
+        double[] ys = {0.0, 10.0, 1.0, 20.0, 0.0};
+        Point[] points = Point.fromArrays(xs, ys);
+        Parameters parameters = new Parameters();
+        parameters.RADIUS1 = 0.9;
+        parameters.RADIUS2 = 1.1;
+        parameters.A_PTS = 1;
+        parameters.B_PTS = 1;
+        CMV cmv = new CMV(points, parameters);
+        assertTrue(cmv.lic13());
+    }
 
     @Test
     void lic14TooFewPoints() {
