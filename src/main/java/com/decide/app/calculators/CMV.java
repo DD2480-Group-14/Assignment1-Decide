@@ -117,16 +117,6 @@ public class CMV {
         return numerator / denominator;
     }
 
-    public boolean lic0() {
-        for (int i = 0; i < points.length - 1; i++) {
-            double distanceBetweenPoints = distanceMatrix.distances[i][i + 1];
-            if (distanceBetweenPoints > parameters.LENGTH1) {
-                return true;
-            }
-        }
-        return false;
-    }
-	
 	private boolean triangleIsObtuse(double sideLengthA, double sideLengthB, double sideLengthC) {
 		double[] sideList = { sideLengthA, sideLengthB, sideLengthC };
 		Arrays.sort(sideList);
@@ -153,6 +143,21 @@ public class CMV {
 
 	}
 
+    /**
+     * Returns true if there exist at least on set of of two consecutive data points
+     * that are a distance greater than LENGTH1 apart.
+     */
+    public boolean lic0() {
+        for (int i = 0; i < points.length - 1; i++) {
+            double distanceBetweenPoints = distanceMatrix.distances[i][i + 1];
+            if (distanceBetweenPoints > parameters.LENGTH1) {
+                return true;
+            }
+        }
+        return false;
+    }
+	
+
 	/**
 	 * Returns true if there exists at least one set of three consecutive data
 	 * points that cannot all be contained within or on a circle of radius RADIUS1.
@@ -170,6 +175,10 @@ public class CMV {
 		return false;
 	}
 
+    /**
+     * Returns true if there exists three consecutive points chich form an angle
+     * smaller than PI - EPSILON or greater than PI + EPSILON.
+     */
     public boolean lic2() {
         if (points.length < 3) {
             return false;
@@ -285,6 +294,10 @@ public class CMV {
         return false;
     }
 
+    /**
+     * Returns true if there exists two points seperated by K_PTS points that are a distance
+     * greater then LENGTH1 apart.
+     */
     public boolean lic7() {
         if (numpoints >= 3)
             for (int i = 0; i + parameters.K_PTS + 1 < numpoints; i++)
@@ -293,6 +306,10 @@ public class CMV {
         return false;
     }
 
+    /**
+     * Returns true if there exists three points seperated by A_PTS and B_PTS points 
+     * that cannot be contained on or within a circle with radius RADIUS1.
+     */
     public boolean lic8() {
         if (numpoints < 5)
             return false;
@@ -312,6 +329,12 @@ public class CMV {
             
     }
 
+    /**
+     * Returns true if here exists three points seperated by C_PTS and D_PTS points
+     * that form an angle that is either
+     * 1. smaller than PI - EPSILON
+     * 2. or, greater than PI + EPSILON.
+     */
     public boolean lic9() {
         if(numpoints < 5) {
             return false;
@@ -387,6 +410,13 @@ public class CMV {
 		return false;
 	}
 
+    /**
+     * Returns true if both of the following conditions are true:
+     * 1. There exists two points seperated by K_PTS points
+     * that a distance greater than LEGNTH1 apart.
+     * 2. There exists two points seperated by K_PTS points
+     * that a distance smaller than LEGNTH2 apart.
+     */
     public boolean lic12() {
         if (numpoints < 3) {
             return false;
@@ -417,6 +447,13 @@ public class CMV {
         return false;
     }
 
+    /**
+     * Returns true if both of the following conditions are true:
+     * 1. There exists three points seperated by A_PTS and B_PTS points
+     * that cannot be contained on or within a circle with radius RADIUS1.
+     * 2. There exists three points seperated by A_PTS and B_PTS points
+     * that can be contained on or within a circle with radius RADIUS2.
+     */
     public boolean lic13() {
         if(numpoints < 5) {
             return false;
@@ -449,6 +486,13 @@ public class CMV {
         return false;
     }
 
+    /**
+     * Returns true if both of the following conditions are true:
+     * 1. There exists three points seperated by E_PTS and F_PTS points
+     * that form a triangle with area greater than AREA1.
+     * 2. There exists three points seperated by E_PTS and F_PTS points
+     * that form a triangle with area smaller than AREA2.
+     */
     public boolean lic14() {
         if (numpoints < 5) {
             return false;
