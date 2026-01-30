@@ -14,6 +14,8 @@ public class Main {
 
     private void validateInput() {
         Objects.requireNonNull(points, "Points cannot be null");
+        // We do not check if the attributes of parameters are
+        // null since they are primitives
         Objects.requireNonNull(parameters, "Parameters cannot be null");
         Objects.requireNonNull(lcm, "lcm cannot be null");
         Objects.requireNonNull(puv, "puv cannot be null");
