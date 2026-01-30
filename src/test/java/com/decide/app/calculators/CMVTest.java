@@ -1283,7 +1283,6 @@ public class CMVTest {
      */
 
     /*
-     * Positive case
      * This triangle area with a right angle
      * should return area = 0.5
      */ 
@@ -1302,7 +1301,6 @@ public class CMVTest {
     }
 
     /*
-     * Positive case
      * This triangle were all sides are equally
      * long should have area sqrt(0.75) * 0.5
      */ 
@@ -1323,7 +1321,6 @@ public class CMVTest {
     }
 
     /*
-     * Negative case
      * Triangle with one side length = 0
      * should have area = 0
      */
@@ -1342,7 +1339,6 @@ public class CMVTest {
     }
 
     /*
-     * Positive case
      * A right angle should have
      * angle = Pi / 2
      */ 
@@ -1361,7 +1357,6 @@ public class CMVTest {
     }
 
     /*
-     * Positive case
      * calculateAngle should return
      * angle = Pi, if the angle is Pi
      */ 
@@ -1380,7 +1375,6 @@ public class CMVTest {
     }
 
     /*
-     * Negative case
      * If one side length is
      * zero, the angle should be zero
      */ 
