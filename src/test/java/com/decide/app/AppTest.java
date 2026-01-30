@@ -40,6 +40,12 @@ public class AppTest {
         return parameters;
     }
 
+    /*
+     * Set up the parameters for the negative test for decide.
+     * The parameters not explicityl set in this
+     * method are used as their default value 
+     * ase seen in Parameters.java
+     */ 
     public Parameters negativeTestParameters() {
         Parameters parameters = new Parameters();
         parameters.EPSILON = 0.5;
@@ -58,6 +64,11 @@ public class AppTest {
      * Parameters are chosen to satisfy all LICs. See
      * the specification for each LIC and the method
      * "positiveTestParameters()" above.
+     *
+     * All LICs are true, and all LCM elements are ORR
+     *  -> The entire PUM should be true 
+     *  -> The entire FUV should be true
+     *  -> The decision should be true
      */
     @Test
     public void decidePositive() {
@@ -89,7 +100,6 @@ public class AppTest {
         Main main = new Main(11, points, parameters, lcm, puv);
         Output output = main.getOutput();
 
-        assertTrue(output.getDecision());
 
         // Assert that every LIC is true
         boolean[] cmv = output.getCMV();
@@ -110,15 +120,22 @@ public class AppTest {
         for(int i = 0; i < 15; ++i) {
             assertTrue(fuv[i]);
         }
+
+        // Assert the decision is true
+        assertTrue(output.getDecision());
     }
 
     /*
      * Negative test
      * This test should result in all LICs being false.
-     * All LICs are set to be used, and therefore, the FUV
-     * should also be all false. See the specification for 
+     * See the specification for 
      * each LIC and the method "negativeTestParameters()"
      * above.
+     * 
+     * All LICs are set to be used
+     *  -> The entire PUM should be false
+     *  -> The entire FUV should be false
+     *  -> The decision should be false
      */
     @Test
     public void decideNegative() {
@@ -145,7 +162,6 @@ public class AppTest {
 
         Main main = new Main(10, points, parameters, lcm, puv);
         Output output = main.getOutput();
-        assertFalse(output.getDecision());
         
         // Assert the content of the CMV
         boolean[] cmv = output.getCMV();
@@ -166,13 +182,22 @@ public class AppTest {
         for(int i = 0; i < 15; ++i) {
             assertFalse(fuv[i]);
         }
+
+        // Assert the decision is false
+        assertFalse(output.getDecision());
     }
 
     /**
      * Positive test
-     * This test results sets all LCM elements
-     * to NOTUSED, except LCM[0][0], which 
-     * should result in the decision being true.
+     *
+     * This test sets all LCM elements to NOTUSED,
+     * except LCM[0][0], which is set to ORR.
+     *
+     * Only the first LIC should be true.
+     *  -> The entire PUM should be true since
+     *  all LICs are either not used or true
+     *  -> The entire FUV should be true
+     *  -> The decision should be true
      */
     @Test
     public void positiveOneLICTrueAllOtherFalse() {
@@ -198,7 +223,6 @@ public class AppTest {
 
         Main main = new Main(10, points, parameters, lcm, puv);
         Output output = main.getOutput();
-        assertTrue(output.getDecision());
 
         // Assert the content of the CMV
         boolean[] cmv = output.getCMV();
@@ -224,5 +248,7 @@ public class AppTest {
             assertTrue(fuv[i]);
         }
 
+        // Assert the decision is true
+        assertTrue(output.getDecision());
     }
 }
