@@ -1,4 +1,4 @@
-# DECIDE: A Launch Intercepter Program
+# DECIDE: A Launch Interceptor Program
 
 A group implementation of the DECIDE() function which determines interceptor launch signals based on radar tracking data.
 
@@ -12,15 +12,21 @@ The program evaluates up to 100 planar data points, representing radar echoes, a
 * Java version: 25.0.2
 
 ### Installation
+1. Clone the repository using Git: 
+```bash
+git clone https://github.com/DD2480-Group-14/Assignment1-Decide.git
+cd Assignment1-Decide
+```
 
+2. Install dependencies:
 ```bash
 mvn clean install
 ```
 
-### Running the program
+### Usage
 
 #### Testing the package
-To run tests
+To run tests, execute the following command from the root directory of the repository:
 ```
 mvn test
 ```
